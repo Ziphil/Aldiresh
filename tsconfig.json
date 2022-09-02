@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "paths": {
+      "/source*": ["source*"],
+    },
+    "module": "commonjs",
+    "target": "es6",
+    "lib": ["es2015", "esnext", "dom"],
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "downlevelIteration": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "removeComments": true,
+    "resolveJsonModule": true
+  },
+  "include": [
+    "source/**/*"
+  ]
+}

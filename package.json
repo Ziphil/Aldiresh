@@ -1,0 +1,42 @@
+{
+  "name": "aldiresh",
+  "version": "0.0.0",
+  "author": "Ziphil",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "develop": "webpack-dev-server --mode development --config webpack-config.ts --hot",
+    "build": "webpack --mode production --config webpack-config.ts",
+    "lint": "eslint source/**/*.ts",
+    "lint:fix": "eslint --fix source/**/*.ts"
+  },
+  "eslintConfig": {
+    "extends": "ziphil",
+    "ignorePatterns": "webpack-*.ts"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.27.1",
+    "@typescript-eslint/eslint-plugin-tslint": "^5.27.1",
+    "@typescript-eslint/parser": "^5.27.1",
+    "copy-webpack-plugin": "^10.2.4",
+    "eslint": "^8.17.0",
+    "eslint-config-ziphil": "^1.6.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsdoc": "^39.3.2",
+    "eslint-plugin-react": "^7.30.0",
+    "eslint-plugin-react-hooks": "^4.5.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "html-webpack-plugin": "^5.5.0",
+    "source-map-loader": "^3.0.1",
+    "ts-loader": "^9.3.0",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.3",
+    "webpack": "^5.68.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
+  },
+  "dependencies": {
+    "@excaliburjs/dev-tools": "^0.27.1",
+    "excalibur": "^0.27.0"
+  }
+}
