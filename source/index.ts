@@ -14,7 +14,7 @@ import {
 } from "/source/constant";
 import {
   MainScene
-} from "./stage/main-scene";
+} from "/source/scene/main-scene";
 
 
 export class MyEngine extends Engine {

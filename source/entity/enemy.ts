@@ -6,7 +6,7 @@ import {
 } from "excalibur";
 import {
   Ship
-} from "./ship";
+} from "/source/entity/ship";
 
 
 export const ENEMY_BASE_COLOR = Color.fromHSL(0.85, 0.8, 0.5);

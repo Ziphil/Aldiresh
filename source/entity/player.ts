@@ -13,7 +13,7 @@ import {
 import {
   SHIP_SIZE,
   Ship
-} from "./ship";
+} from "/source/entity/ship";
 
 
 export const PLAYER_ACC = 0.288;
