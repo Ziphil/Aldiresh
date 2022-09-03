@@ -82,14 +82,17 @@ export class RotatingSquareSystem extends System<RotatingSquareComponent | Graph
         } else {
           context.drawRectangle(vec(-outerSize / 2, -outerSize / 2), outerSize, outerSize, outerColor);
         }
+        context.rotate(-outerAngle);
         if (innerSize !== undefined && innerColor !== undefined) {
-          context.rotate(-outerAngle + innerAngle);
+          context.rotate(innerAngle);
           if (framed) {
             context.drawRectangle(vec(-innerSize / 2, -innerSize / 2), innerSize, innerSize, Color["Transparent"], outerColor, 1);
           } else {
             context.drawRectangle(vec(-innerSize / 2, -innerSize / 2), innerSize, innerSize, innerColor);
           }
+          context.rotate(-innerAngle);
         }
+        context.drawRectangle(vec(0, 0), 1, 1, outerColor);
         context.restore();
       };
       component.graphicsConfiged = true;
