@@ -85,6 +85,7 @@ export class Player extends Actor {
     const target = this.target;
     const direction = target.pos.sub(this.pos).toAngle();
     const bullet = new Bullet({x: this.pos.x, y: this.pos.y, direction, owner: "player"});
+    bullet.setStatus(this.status);
     engine.currentScene.add(bullet);
     this.status.shoot();
   }

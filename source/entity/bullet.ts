@@ -10,6 +10,12 @@ import {
 import {
   RotatingSquareComponent
 } from "/source/component/rotating-square";
+import {
+  FIELD_PROPS
+} from "/source/core/constant";
+import {
+  Status
+} from "/source/entity/status";
 
 
 export const BULLET_PROPS = {
@@ -33,6 +39,7 @@ export type BulletConfigs = {
 
 export class Bullet extends Actor {
 
+  private status!: Status;
   public readonly owner: "player" | "enemy";
 
   public constructor({x, y, ...configs}: BulletConfigs) {
@@ -46,6 +53,23 @@ export class Bullet extends Actor {
       ...BULLET_PROPS.square,
       outerColor: (this.owner === "player") ? BULLET_PROPS.square.playerOuterColor : BULLET_PROPS.square.enemyOuterColor
     }));
+  }
+
+  public override onPreUpdate(engine: Engine, delta: number): void {
+    this.killWhenOutside();
+  }
+
+  private killWhenOutside(): void {
+    if (this.pos.x < -BULLET_PROPS.size || this.pos.x > FIELD_PROPS.width + BULLET_PROPS.size || this.pos.y < -BULLET_PROPS.size || this.pos.y > FIELD_PROPS.height + BULLET_PROPS.size) {
+      this.kill();
+      if (this.owner === "player") {
+        this.status.miss();
+      }
+    }
+  }
+
+  public setStatus(status: Status): void {
+    this.status = status;
   }
 
 }

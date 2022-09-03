@@ -16,6 +16,9 @@ import {
   TimerComponent
 } from "/source/component/timer";
 import {
+  FIELD_PROPS
+} from "/source/core/constant";
+import {
   Bullet
 } from "/source/entity/bullet";
 import {
@@ -69,6 +72,7 @@ export class Enemy extends Actor {
 
   public override onPreUpdate(engine: Engine, delta: number): void {
     this.activate(delta);
+    this.killWhenOutside();
   }
 
   private activate(delta: number): void {
@@ -86,11 +90,25 @@ export class Enemy extends Actor {
     }
   }
 
+  private killWhenOutside(): void {
+    if (this.pos.x < -ENEMY_PROPS.size || this.pos.x > FIELD_PROPS.width + ENEMY_PROPS.size || this.pos.y < -ENEMY_PROPS.size || this.pos.y > FIELD_PROPS.height + ENEMY_PROPS.size) {
+      this.kill();
+    }
+  }
+
   private shoot(engine: Engine): number {
     const direction = this.random.floating(-Math.PI, Math.PI);
     const bullet = new Bullet({x: this.pos.x, y: this.pos.y, direction, owner: "enemy"});
     const timeout = randomize(this.random, this.status.averageShootTimeout);
+    bullet.setStatus(this.status);
     engine.currentScene.add(bullet);
+    return timeout;
+  }
+
+  private changeDirection(): number {
+    const direction = this.random.floating(-Math.PI, Math.PI);
+    const timeout = randomize(this.random, 2000);
+    this.vel = Vector.fromAngle(direction).scale(ENEMY_PROPS.vel);
     return timeout;
   }
 
@@ -108,13 +126,6 @@ export class Enemy extends Actor {
       }
     }
   };
-
-  private changeDirection(): number {
-    const direction = this.random.floating(-Math.PI, Math.PI);
-    const timeout = randomize(this.random, 2000);
-    this.vel = Vector.fromAngle(direction).scale(ENEMY_PROPS.vel);
-    return timeout;
-  }
 
   public setStatus(status: Status): void {
     this.status = status;

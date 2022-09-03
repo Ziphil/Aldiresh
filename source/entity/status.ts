@@ -20,8 +20,8 @@ export class Status extends Entity {
   public levelTime: number = 0;
   public life: number = 15;
   public score: number = 0;
-  public missCount: number = 0;
   public shootCount: number = 0;
+  public missCount: number = 0;
   public hitCount: number = 0;
   public killCount: number = 0;
   public combo: number = 0;
@@ -45,6 +45,10 @@ export class Status extends Entity {
 
   public shoot(): void {
     this.shootCount ++;
+  }
+
+  public miss(): void {
+    this.missCount ++;
   }
 
   public hitEnemy(dead: boolean): void {
