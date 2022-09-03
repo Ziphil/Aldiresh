@@ -19,7 +19,7 @@ export const BULLET_PROPS = {
     outerSize: 9,
     outerRotationVel: 0.0042,
     playerOuterColor: Color.fromHSL(0.5, 0.8, 0.5, 0.8),
-    enemyOuterColor: Color.fromHSL(0.5, 0.8, 0.5, 0.8)
+    enemyOuterColor: Color.fromHSL(0.85, 0.8, 0.5, 0.8)
   }
 };
 
