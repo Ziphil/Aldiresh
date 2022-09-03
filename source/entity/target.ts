@@ -14,12 +14,13 @@ export const POINTER_COLOR = Color.fromHSL(0.5, 0.8, 0.5, 0.8);
 export const POINTER_ROTATION_VEL = 0.003;
 
 
-export class Pointer extends Actor {
+export class Target extends Actor {
 
   private angle: number;
 
   public constructor(x: number, y: number) {
     super({pos: vec(x, y)});
+    this.z = 15;
     this.angle = 0;
     this.graphics.onPostDraw = this.onGraphicsPostDraw.bind(this);
   }

@@ -4,7 +4,8 @@ import {
   CollisionType,
   Color,
   Engine,
-  Random
+  Random,
+  Vector
 } from "excalibur";
 import {
   Ship
@@ -45,8 +46,7 @@ export class Enemy extends Ship {
 
   private changeDirection(): void {
     const direction = this.random.floating(-Math.PI, Math.PI);
-    this.vel.x = Math.cos(direction) * ENEMY_VEL;
-    this.vel.y = Math.sin(direction) * ENEMY_VEL;
+    this.vel = Vector.fromAngle(direction).scale(ENEMY_VEL);
   }
 
 }

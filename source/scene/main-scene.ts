@@ -15,11 +15,11 @@ import {
   Player
 } from "/source/entity/player";
 import {
-  Pointer
-} from "/source/entity/pointer";
-import {
   Status
 } from "/source/entity/status";
+import {
+  Target
+} from "../entity/target";
 
 
 export class MainScene extends Scene {
@@ -31,12 +31,14 @@ export class MainScene extends Scene {
   public override onInitialize(engine: Engine): void {
     const player = new Player(FIELD_WIDTH / 2, FIELD_HEIGHT / 2);
     const enemySpawner = new EnemySpawner();
-    const pointer = new Pointer(FIELD_WIDTH / 2, FIELD_HEIGHT / 2);
+    const target = new Target(FIELD_WIDTH / 2, FIELD_HEIGHT / 2);
     const status = new Status();
+    player.setTarget(target);
+    player.setStatus(status);
     enemySpawner.setStatus(status);
     this.add(player);
     this.add(enemySpawner);
-    this.add(pointer);
+    this.add(target);
     this.add(status);
   }
 

@@ -11,9 +11,18 @@ import {
   FIELD_WIDTH
 } from "/source/constant";
 import {
+  Bullet
+} from "/source/entity/bullet";
+import {
   SHIP_SIZE,
   Ship
 } from "/source/entity/ship";
+import {
+  Status
+} from "/source/entity/status";
+import {
+  Target
+} from "/source/entity/target";
 
 
 export const PLAYER_ACC = 0.288;
@@ -24,9 +33,18 @@ export const PLAYER_BASE_COLOR = Color.fromHSL(0.5, 0.8, 0.5);
 
 export class Player extends Ship {
 
+  private status!: Status;
+  private target!: Target;
+
   public constructor(x: number, y: number) {
     super(x, y, PLAYER_BASE_COLOR, {collisionType: CollisionType["Active"]});
     this.z = 10;
+  }
+
+  public override onInitialize(engine: Engine): void {
+    engine.input.pointers.primary.on("down", (event) => {
+      this.shoot(engine);
+    });
   }
 
   public override onPreUpdate(engine: Engine, delta: number): void {
@@ -55,6 +73,13 @@ export class Player extends Ship {
     this.vel.y -= Math.min(Math.abs(this.vel.y), PLAYER_FRICTION * delta) * Math.sign(this.vel.y);
   }
 
+  private shoot(engine: Engine): void {
+    const target = this.target;
+    const direction = target.pos.sub(this.pos).toAngle();
+    const bullet = new Bullet(this.pos.x, this.pos.y, direction);
+    engine.currentScene.add(bullet);
+  }
+
   private bounceWall(): void {
     if (this.pos.x < SHIP_SIZE) {
       this.pos.x = SHIP_SIZE;
@@ -72,6 +97,14 @@ export class Player extends Ship {
       this.pos.y = FIELD_HEIGHT - SHIP_SIZE;
       this.vel.y = -this.vel.y;
     }
+  }
+
+  public setTarget(target: Target): void {
+    this.target = target;
+  }
+
+  public setStatus(status: Status): void {
+    this.status = status;
   }
 
 }
