@@ -5,53 +5,49 @@ import {
   ActorArgs,
   Color,
   Engine,
-  Graphic,
-  Rectangle,
+  ExcaliburGraphicsContext,
   vec
 } from "excalibur";
+import {
+  tap
+} from "/source/util/misc";
 
 
 export const SHIP_SIZE = 21;
 export const SHIP_OUTER_SIZE = 21;
 export const SHIP_INNER_SIZE = 15;
 export const SHIP_OUTER_ROTATION_VEL = 0.0018;
-export const SHIP_INNER_ROTATION_VEL = 0.0030;
+export const SHIP_INNER_ROTATION_VEL = -0.0024;
 
 
 export class Ship extends Actor {
 
-  protected readonly outerGraphic: Graphic;
-  protected readonly innerGraphic: Graphic;
+  private readonly outerColor: Color;
+  private readonly innerColor: Color;
+  private outerAngle: number;
+  private innerAngle: number;
 
   public constructor(x: number, y: number, baseColor: Color, configs: ActorArgs) {
     super({pos: vec(x, y), radius: SHIP_SIZE / 2, ...configs});
-    this.outerGraphic = this.createOuterRect(baseColor);
-    this.innerGraphic = this.createInnerRect(baseColor);
-    this.setupGraphics();
+    this.outerColor = tap(baseColor.clone(), (color) => color.a = 0.8);
+    this.innerColor = tap(baseColor.clone(), (color) => color.a = 0.4);
+    this.outerAngle = 0;
+    this.innerAngle = 0;
+    this.graphics.onPostDraw = this.onGraphicsPostDraw.bind(this);
   }
 
-  private createOuterRect(baseColor: Color): Graphic {
-    const color = baseColor.clone();
-    color.a = 0.8;
-    const rectangle = new Rectangle({width: SHIP_OUTER_SIZE, height: SHIP_OUTER_SIZE, color});
-    return rectangle;
-  }
-
-  private createInnerRect(baseColor: Color): Graphic {
-    const color = baseColor.clone();
-    color.a = 0.4;
-    const rect = new Rectangle({width: SHIP_INNER_SIZE, height: SHIP_INNER_SIZE, color});
-    return rect;
-  }
-
-  private setupGraphics(): void {
-    this.graphics.add(this.outerGraphic);
-    this.graphics.add(this.innerGraphic);
+  private onGraphicsPostDraw(context: ExcaliburGraphicsContext): void {
+    context.save();
+    context.rotate(this.outerAngle);
+    context.drawRectangle(vec(-SHIP_OUTER_SIZE / 2, -SHIP_OUTER_SIZE / 2), SHIP_OUTER_SIZE, SHIP_OUTER_SIZE, this.outerColor);
+    context.rotate(-this.outerAngle + this.innerAngle);
+    context.drawRectangle(vec(-SHIP_INNER_SIZE / 2, -SHIP_INNER_SIZE / 2), SHIP_INNER_SIZE, SHIP_INNER_SIZE, this.innerColor);
+    context.restore();
   }
 
   public override onPreUpdate(engine: Engine, delta: number): void {
-    this.outerGraphic.rotation += SHIP_OUTER_ROTATION_VEL * delta;
-    this.innerGraphic.rotation -= SHIP_INNER_ROTATION_VEL * delta;
+    this.outerAngle += SHIP_OUTER_ROTATION_VEL * delta;
+    this.innerAngle += SHIP_INNER_ROTATION_VEL * delta;
   }
 
 }
