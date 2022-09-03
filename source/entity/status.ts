@@ -35,7 +35,7 @@ export class Status extends Entity {
     this.levelTime += delta;
     if (this.level < MAX_LEVEL && this.levelTime >= LEVEL_INTERVAL) {
       this.level ++;
-      this.levelTime %= LEVEL_INTERVAL;
+      this.levelTime -= LEVEL_INTERVAL;
     }
   }
 
