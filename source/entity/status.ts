@@ -60,20 +60,20 @@ export class Status extends Entity {
     this.comboTime = STATUS_PROPS.comboDuration;
   }
 
-  public get levelBonusRatio(): number {
-    return this.level / 5 + 1;
-  }
-
   public get hitRate(): number {
     return (this.shootCount === 0) ? 1 : 1 - this.missCount / this.shootCount;
   }
 
-  public get hitBonusRatio(): number {
-    return this.hitRate * 4 + 1;
-  }
-
   public get comboRate(): number {
     return this.combo / STATUS_PROPS.maxCombo;
+  }
+
+  public get levelBonusRatio(): number {
+    return this.level / 5 + 1;
+  }
+
+  public get hitBonusRatio(): number {
+    return this.hitRate * 4 + 1;
   }
 
   public get comboBonusRatio(): number {

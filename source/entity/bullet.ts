@@ -44,7 +44,7 @@ export class Bullet extends Actor {
   public override onInitialize(engine: Engine): void {
     this.addComponent(new RotatedSquareComponent({
       ...BULLET_PROPS.square,
-      outerColor: this.owner === "player" ? BULLET_PROPS.square.playerOuterColor : BULLET_PROPS.square.enemyOuterColor
+      outerColor: (this.owner === "player") ? BULLET_PROPS.square.playerOuterColor : BULLET_PROPS.square.enemyOuterColor
     }));
   }
 

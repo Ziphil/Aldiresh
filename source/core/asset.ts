@@ -9,6 +9,7 @@ import {
 
 export const ASSETS = {
   number: new ImageSource("/asset/image/number.png"),
+  statusName: new ImageSource("/asset/image/status-name.png"),
   statusBackground: new ImageSource("/asset/image/status-background.png"),
   statusFrame: new ImageSource("/asset/image/status-frame.png")
 };
@@ -32,6 +33,10 @@ export const SPRITE_SHEETS = {
       {x: 132, y: 0, width: 11, height: 10},
       {x: 143, y: 0, width: 4, height: 10}
     ]
+  }),
+  statusName: SpriteSheet.fromImageSource({
+    image: ASSETS.statusName,
+    grid: {rows: 12, columns: 1, spriteWidth: 39, spriteHeight: 13}
   })
 };
 
