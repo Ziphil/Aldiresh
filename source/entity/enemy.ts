@@ -7,7 +7,8 @@ import {
   Engine,
   PreCollisionEvent,
   Random,
-  Vector
+  Vector,
+  vec
 } from "excalibur";
 import {
   RotatingSquareComponent
@@ -43,17 +44,25 @@ export const ENEMY_PROPS = {
   }
 };
 
+type EnemyState = "activate" | "move";
+
 
 export class Enemy extends Actor {
 
   private readonly random: Random;
   private status!: Status;
-  private state: "activate" | "move";
+  private state: EnemyState;
   private life: number;
   private activationTimer: number = 0;
 
   public constructor({x, y}: {x: number, y: number}) {
-    super({x, y, z: -210, radius: ENEMY_PROPS.size / 2, collisionType: CollisionType["Passive"]});
+    super({
+      pos: vec(x, y),
+      z: -210,
+      radius: ENEMY_PROPS.size / 2,
+      collisionType: CollisionType["Passive"],
+      color: Color["Transparent"]
+    });
     this.random = new Random();
     this.state = "activate";
     this.life = 3;

@@ -5,7 +5,8 @@ import {
   CollisionType,
   Color,
   Engine,
-  Input
+  Input,
+  vec
 } from "excalibur";
 import {
   RotatingSquareComponent
@@ -46,14 +47,17 @@ export class Player extends Actor {
   private target!: Target;
 
   public constructor({x, y}: {x: number, y: number}) {
-    super({x, y, z: -200, radius: PLAYER_PROPS.size / 2, collisionType: CollisionType["Passive"]});
-    this.addComponent(new RotatingSquareComponent(PLAYER_PROPS.square));
+    super({
+      pos: vec(x, y),
+      z: -200,
+      radius: PLAYER_PROPS.size / 2,
+      collisionType: CollisionType["Passive"]
+    });
   }
 
   public override onInitialize(engine: Engine): void {
-    engine.input.pointers.primary.on("down", (event) => {
-      this.shoot(engine);
-    });
+    this.addComponent(new RotatingSquareComponent(PLAYER_PROPS.square));
+    engine.input.pointers.primary.on("down", () => this.shoot(engine));
   }
 
   public override onPreUpdate(engine: Engine, delta: number): void {
