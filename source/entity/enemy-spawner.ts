@@ -40,7 +40,7 @@ export class EnemySpawner extends Entity {
   private spawn(engine: Engine): number {
     const x = this.random.integer(ENEMY_CONFIGS.size, FIELD_CONFIGS.width - ENEMY_CONFIGS.size);
     const y = this.random.integer(ENEMY_CONFIGS.size, FIELD_CONFIGS.height - ENEMY_CONFIGS.size);
-    const enemy = new Enemy(x, y);
+    const enemy = new Enemy({x, y});
     const averageTimeout = this.status.averageSpawnTimeout;
     const timeout = this.random.integer(averageTimeout / 2, averageTimeout * 3 / 2);
     enemy.setStatus(this.status);

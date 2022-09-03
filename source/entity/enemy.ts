@@ -43,7 +43,7 @@ export class Enemy extends Actor {
   private life: number;
   private activationTimer: number = 0;
 
-  public constructor(x: number, y: number) {
+  public constructor({x, y}: {x: number, y: number}) {
     super({x, y, z: -210, radius: ENEMY_CONFIGS.size / 2, collisionType: CollisionType["Passive"]});
     this.addComponent(new RotatedSquareComponent(ENEMY_CONFIGS.square));
     this.random = new Random();

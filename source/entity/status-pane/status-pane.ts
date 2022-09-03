@@ -26,7 +26,7 @@ export class StatusPane extends ScreenElement {
   }
 
   public override onInitialize(engine: Engine): void {
-    const scoreStatusItem = new StatusItem(0, 10);
+    const scoreStatusItem = new StatusItem({x: 0, y: 10});
     this.scoreStatusItem = scoreStatusItem;
     this.graphics.use(ASSETS.statusBackground.toSprite());
     this.addChild(scoreStatusItem);

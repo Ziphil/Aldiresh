@@ -21,16 +21,23 @@ export const BULLET_CONFIGS = {
   }
 };
 
+export type BulletConfigs = {
+  x: number,
+  y: number,
+  direction: number,
+  owner: "player" | "enemy"
+};
+
 
 export class Bullet extends Actor {
 
   public readonly owner: "player" | "enemy";
 
-  public constructor(x: number, y: number, direction: number, owner: "player" | "enemy") {
+  public constructor({x, y, ...configs}: BulletConfigs) {
     super({x, y, z: -220, radius: BULLET_CONFIGS.size / 2, collisionType: CollisionType["Passive"]});
     this.addComponent(new RotatedSquareComponent(BULLET_CONFIGS.square));
-    this.owner = owner;
-    this.vel = Vector.fromAngle(direction).scale(BULLET_CONFIGS.vel);
+    this.owner = configs.owner;
+    this.vel = Vector.fromAngle(configs.direction).scale(BULLET_CONFIGS.vel);
   }
 
 }

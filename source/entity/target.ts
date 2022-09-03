@@ -22,7 +22,7 @@ export const TARGET_CONFIGS = {
 
 export class Target extends Actor {
 
-  public constructor(x: number, y: number) {
+  public constructor({x, y}: {x: number, y: number}) {
     super({x, y, z: -190});
     this.addComponent(new RotatedSquareComponent({...TARGET_CONFIGS.square, framed: true}));
   }
