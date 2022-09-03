@@ -2,10 +2,10 @@
 
 import {
   Actor,
-  CollisionStartEvent,
   CollisionType,
   Color,
   Engine,
+  PreCollisionEvent,
   Random,
   Vector
 } from "excalibur";
@@ -49,7 +49,7 @@ export class Enemy extends Actor {
     this.random = new Random();
     this.state = "activate";
     this.life = 3;
-    this.on("collisionstart", this.onCollisionStart.bind(this));
+    this.on("precollision", this.onPreCollision.bind(this));
   }
 
   public override onPreUpdate(engine: Engine, delta: number): void {
@@ -69,7 +69,7 @@ export class Enemy extends Actor {
     }
   }
 
-  private onCollisionStart(event: CollisionStartEvent<Actor>): void {
+  private onPreCollision(event: PreCollisionEvent<Actor>): void {
     const other = event.other;
     if (other instanceof Bullet && other.owner === "player") {
       if (this.state === "move") {
