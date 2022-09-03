@@ -6,15 +6,12 @@ import {
   Random
 } from "excalibur";
 import {
-  FIELD_HEIGHT,
-  FIELD_WIDTH
+  FIELD_CONFIGS
 } from "/source/constant";
 import {
+  ENEMY_CONFIGS,
   Enemy
 } from "/source/entity/enemy";
-import {
-  SHIP_SIZE
-} from "/source/entity/ship";
 import {
   Status
 } from "/source/entity/status";
@@ -41,8 +38,8 @@ export class EnemySpawner extends Entity {
   }
 
   private spawn(engine: Engine): number {
-    const x = this.random.integer(SHIP_SIZE, FIELD_WIDTH - SHIP_SIZE);
-    const y = this.random.integer(SHIP_SIZE, FIELD_HEIGHT - SHIP_SIZE);
+    const x = this.random.integer(ENEMY_CONFIGS.size, FIELD_CONFIGS.width - ENEMY_CONFIGS.size);
+    const y = this.random.integer(ENEMY_CONFIGS.size, FIELD_CONFIGS.height - ENEMY_CONFIGS.size);
     const enemy = new Enemy(x, y);
     const averageTimeout = this.status.averageSpawnTimeout;
     const timeout = this.random.integer(averageTimeout / 2, averageTimeout * 3 / 2);

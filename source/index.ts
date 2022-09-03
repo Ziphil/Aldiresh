@@ -9,8 +9,7 @@ import {
   Engine
 } from "excalibur";
 import {
-  SCREEN_HEIGHT,
-  SCREEN_WIDTH
+  SCREEN_CONFIGS
 } from "/source/constant";
 import {
   MainScene
@@ -21,8 +20,8 @@ export class MyEngine extends Engine {
 
   public constructor() {
     super({
-      width: SCREEN_WIDTH,
-      height: SCREEN_HEIGHT,
+      width: SCREEN_CONFIGS.width,
+      height: SCREEN_CONFIGS.height,
       displayMode: DisplayMode["FitScreen"],
       canvasElementId: "screen",
       backgroundColor: Color.fromHex("#000000"),

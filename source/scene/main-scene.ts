@@ -5,8 +5,10 @@ import {
   Scene
 } from "excalibur";
 import {
-  FIELD_HEIGHT,
-  FIELD_WIDTH
+  RotatedSquareSystem
+} from "/source/component/rotated-square";
+import {
+  FIELD_CONFIGS
 } from "/source/constant";
 import {
   EnemySpawner
@@ -19,7 +21,7 @@ import {
 } from "/source/entity/status";
 import {
   Target
-} from "../entity/target";
+} from "/source/entity/target";
 
 
 export class MainScene extends Scene {
@@ -29,9 +31,18 @@ export class MainScene extends Scene {
   }
 
   public override onInitialize(engine: Engine): void {
-    const player = new Player(FIELD_WIDTH / 2, FIELD_HEIGHT / 2);
+    this.initializeSystems();
+    this.initializeEntities();
+  }
+
+  private initializeSystems(): void {
+    this.world.add(new RotatedSquareSystem());
+  }
+
+  private initializeEntities(): void {
+    const player = new Player(FIELD_CONFIGS.width / 2, FIELD_CONFIGS.height / 2);
     const enemySpawner = new EnemySpawner();
-    const target = new Target(FIELD_WIDTH / 2, FIELD_HEIGHT / 2);
+    const target = new Target(FIELD_CONFIGS.width / 2, FIELD_CONFIGS.height / 2);
     const status = new Status();
     player.setTarget(target);
     player.setStatus(status);
