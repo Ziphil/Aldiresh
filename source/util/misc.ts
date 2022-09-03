@@ -1,7 +1,7 @@
 //
 
 import {
-  Engine
+  Random
 } from "excalibur";
 
 
@@ -10,9 +10,6 @@ export function tap<T>(self: T, callback: (value: T) => void): T {
   return self;
 }
 
-export function reschedule(engine: Engine, callback: () => number, timeout: number): void {
-  engine.clock.schedule(() => {
-    const nextTimeout = callback();
-    reschedule(engine, callback, nextTimeout);
-  }, timeout);
+export function randomize(random: Random, value: number): number {
+  return random.integer(value / 2, value * 3 / 2);
 }

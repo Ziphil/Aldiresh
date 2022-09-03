@@ -8,6 +8,9 @@ import {
   RotatedSquareSystem
 } from "/source/component/rotated-square";
 import {
+  TimerSystem
+} from "/source/component/timer";
+import {
   FIELD_CONFIGS
 } from "/source/core/constant";
 import {
@@ -40,6 +43,7 @@ export class MainScene extends Scene {
 
   private initializeSystems(): void {
     this.world.add(new RotatedSquareSystem());
+    this.world.add(new TimerSystem());
   }
 
   private initializeEntities(): void {

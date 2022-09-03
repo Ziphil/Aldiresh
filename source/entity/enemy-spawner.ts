@@ -6,6 +6,9 @@ import {
   Random
 } from "excalibur";
 import {
+  TimerComponent
+} from "/source/component/timer";
+import {
   FIELD_CONFIGS
 } from "/source/core/constant";
 import {
@@ -16,7 +19,7 @@ import {
   Status
 } from "/source/entity/status";
 import {
-  reschedule
+  randomize
 } from "/source/util/misc";
 
 
@@ -31,7 +34,9 @@ export class EnemySpawner extends Entity {
   }
 
   public override onInitialize(engine: Engine): void {
-    reschedule(engine, () => this.spawn(engine), 0);
+    this.addComponent(new TimerComponent());
+    const component = this.get(TimerComponent)!;
+    component.setOperation("spawn", () => this.spawn(engine), this.status.averageSpawnTimeout);
   }
 
   public override onPreUpdate(engine: Engine, delta: number): void {
@@ -41,8 +46,7 @@ export class EnemySpawner extends Entity {
     const x = this.random.integer(ENEMY_CONFIGS.size, FIELD_CONFIGS.width - ENEMY_CONFIGS.size);
     const y = this.random.integer(ENEMY_CONFIGS.size, FIELD_CONFIGS.height - ENEMY_CONFIGS.size);
     const enemy = new Enemy({x, y});
-    const averageTimeout = this.status.averageSpawnTimeout;
-    const timeout = this.random.integer(averageTimeout / 2, averageTimeout * 3 / 2);
+    const timeout = randomize(this.random, this.status.averageSpawnTimeout);
     enemy.setStatus(this.status);
     engine.currentScene.add(enemy);
     return timeout;
