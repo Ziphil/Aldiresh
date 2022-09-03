@@ -61,7 +61,9 @@ export class Enemy extends Actor {
     this.addComponent(new TimerComponent());
     const component = this.get(TimerComponent)!;
     component.setOperation("shoot", () => this.shoot(engine), this.status.averageShootTimeout);
+    component.setOperation("changeDirection", () => this.changeDirection(), 2000);
     component.deactivate("shoot");
+    component.deactivate("changeDirection");
     this.on("precollision", this.onPreCollision.bind(this));
   }
 
@@ -79,6 +81,7 @@ export class Enemy extends Actor {
         this.state = "move";
         this.changeDirection();
         component.activate("shoot");
+        component.activate("changeDirection");
       }
     }
   }
@@ -106,9 +109,11 @@ export class Enemy extends Actor {
     }
   };
 
-  private changeDirection(): void {
+  private changeDirection(): number {
     const direction = this.random.floating(-Math.PI, Math.PI);
+    const timeout = randomize(this.random, 2000);
     this.vel = Vector.fromAngle(direction).scale(ENEMY_PROPS.vel);
+    return timeout;
   }
 
   public setStatus(status: Status): void {
