@@ -46,7 +46,7 @@ export class Player extends Actor {
   private target!: Target;
 
   public constructor(x: number, y: number) {
-    super({x, y, z: 10, radius: PLAYER_CONFIGS.size / 2, collisionType: CollisionType["Passive"]});
+    super({x, y, z: -200, radius: PLAYER_CONFIGS.size / 2, collisionType: CollisionType["Passive"]});
     this.addComponent(new RotatedSquareComponent(PLAYER_CONFIGS.square));
   }
 
@@ -86,6 +86,7 @@ export class Player extends Actor {
     const direction = target.pos.sub(this.pos).toAngle();
     const bullet = new Bullet(this.pos.x, this.pos.y, direction, "player");
     engine.currentScene.add(bullet);
+    this.status.shoot();
   }
 
   private bounceWall(): void {

@@ -43,9 +43,13 @@ export class Status extends Entity {
     }
   }
 
+  public shoot(): void {
+    this.shootCount ++;
+  }
+
   public hitEnemy(dead: boolean): void {
     const gainedScore = 15 * this.wholeBonusRatio * ((dead) ? 3 : 1);
-    this.score = gainedScore;
+    this.score += gainedScore;
     this.hitCount ++;
     if (dead) {
       this.killCount ++;
