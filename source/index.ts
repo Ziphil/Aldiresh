@@ -37,7 +37,9 @@ export class MyEngine extends Engine {
   }
 
   private setupDevTool(): void {
-    const devtool = new DevTool(this);
+    if (document.location.hash === "#debug") {
+      const devtool = new DevTool(this);
+    }
   }
 
   public run(): void {
