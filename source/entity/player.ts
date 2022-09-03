@@ -12,7 +12,7 @@ import {
 } from "/source/component/rotated-square";
 import {
   FIELD_CONFIGS
-} from "/source/constant";
+} from "/source/core/constant";
 import {
   Bullet
 } from "/source/entity/bullet";

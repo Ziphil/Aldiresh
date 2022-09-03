@@ -7,7 +7,7 @@ import {
 } from "excalibur";
 import {
   FIELD_CONFIGS
-} from "/source/constant";
+} from "/source/core/constant";
 import {
   ENEMY_CONFIGS,
   Enemy

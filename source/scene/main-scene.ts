@@ -9,7 +9,7 @@ import {
 } from "/source/component/rotated-square";
 import {
   FIELD_CONFIGS
-} from "/source/constant";
+} from "/source/core/constant";
 import {
   EnemySpawner
 } from "/source/entity/enemy-spawner";
