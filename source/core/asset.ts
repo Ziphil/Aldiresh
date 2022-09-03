@@ -13,9 +13,31 @@ export const ASSETS = {
   statusFrame: new ImageSource("/asset/image/status-frame.png")
 };
 
+export const SPRITE_SHEETS = {
+  number: SpriteSheet.fromImageSourceWithSourceViews({
+    image: ASSETS.number,
+    sourceViews: [
+      {x: 0, y: 0, width: 11, height: 10},
+      {x: 11, y: 0, width: 11, height: 10},
+      {x: 22, y: 0, width: 11, height: 10},
+      {x: 33, y: 0, width: 11, height: 10},
+      {x: 44, y: 0, width: 11, height: 10},
+      {x: 55, y: 0, width: 11, height: 10},
+      {x: 66, y: 0, width: 11, height: 10},
+      {x: 77, y: 0, width: 11, height: 10},
+      {x: 88, y: 0, width: 11, height: 10},
+      {x: 99, y: 0, width: 11, height: 10},
+      {x: 110, y: 0, width: 11, height: 10},
+      {x: 121, y: 0, width: 11, height: 10},
+      {x: 132, y: 0, width: 11, height: 10},
+      {x: 143, y: 0, width: 4, height: 10}
+    ]
+  })
+};
+
 export const SPRITE_FONTS = {
   number: new SpriteFont({
-    spriteSheet: SpriteSheet.fromImageSource({image: ASSETS.number, grid: {rows: 1, columns: 14, spriteWidth: 11, spriteHeight: 10}}),
+    spriteSheet: SPRITE_SHEETS.number,
     alphabet: "0123456789+-±.",
     spacing: 2
   })
