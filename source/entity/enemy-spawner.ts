@@ -9,10 +9,10 @@ import {
   TimerComponent
 } from "/source/component/timer";
 import {
-  FIELD_CONFIGS
+  FIELD_PROPS
 } from "/source/core/constant";
 import {
-  ENEMY_CONFIGS,
+  ENEMY_PROPS,
   Enemy
 } from "/source/entity/enemy";
 import {
@@ -43,8 +43,8 @@ export class EnemySpawner extends Entity {
   }
 
   private spawn(engine: Engine): number {
-    const x = this.random.integer(ENEMY_CONFIGS.size, FIELD_CONFIGS.width - ENEMY_CONFIGS.size);
-    const y = this.random.integer(ENEMY_CONFIGS.size, FIELD_CONFIGS.height - ENEMY_CONFIGS.size);
+    const x = this.random.integer(ENEMY_PROPS.size, FIELD_PROPS.width - ENEMY_PROPS.size);
+    const y = this.random.integer(ENEMY_PROPS.size, FIELD_PROPS.height - ENEMY_PROPS.size);
     const enemy = new Enemy({x, y});
     const timeout = randomize(this.random, this.status.averageSpawnTimeout);
     enemy.setStatus(this.status);

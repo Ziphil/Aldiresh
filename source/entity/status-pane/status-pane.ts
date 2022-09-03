@@ -6,7 +6,7 @@ import {
   ASSETS
 } from "/source/core/asset";
 import {
-  FIELD_CONFIGS
+  FIELD_PROPS
 } from "/source/core/constant";
 import {
   Status
@@ -21,7 +21,7 @@ export class StatusPane extends ScreenElement {
   private status!: Status;
 
   public constructor() {
-    super({x: FIELD_CONFIGS.width, y: 0, z: -100});
+    super({x: FIELD_PROPS.width, y: 0, z: -100});
   }
 
   public override onInitialize(engine: Engine): void {

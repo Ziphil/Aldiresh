@@ -6,7 +6,7 @@ import {
 } from "excalibur";
 
 
-const STATUS_CONFIGS = {
+const STATUS_PROPS = {
   levelInterval: 25000,
   maxLevel: 50,
   comboDuration: 200,
@@ -37,9 +37,9 @@ export class Status extends Entity {
 
   private updateLevel(delta: number): void {
     this.levelTime += delta;
-    if (this.level < STATUS_CONFIGS.maxLevel && this.levelTime >= STATUS_CONFIGS.levelInterval) {
+    if (this.level < STATUS_PROPS.maxLevel && this.levelTime >= STATUS_PROPS.levelInterval) {
       this.level ++;
-      this.levelTime -= STATUS_CONFIGS.levelInterval;
+      this.levelTime -= STATUS_PROPS.levelInterval;
     }
   }
 
@@ -54,10 +54,10 @@ export class Status extends Entity {
     if (dead) {
       this.killCount ++;
     }
-    if (this.combo < STATUS_CONFIGS.maxCombo) {
+    if (this.combo < STATUS_PROPS.maxCombo) {
       this.combo ++;
     }
-    this.comboTime = STATUS_CONFIGS.comboDuration;
+    this.comboTime = STATUS_PROPS.comboDuration;
   }
 
   public get levelBonusRatio(): number {
@@ -73,7 +73,7 @@ export class Status extends Entity {
   }
 
   public get comboRate(): number {
-    return this.combo / STATUS_CONFIGS.maxCombo;
+    return this.combo / STATUS_PROPS.maxCombo;
   }
 
   public get comboBonusRatio(): number {

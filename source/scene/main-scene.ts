@@ -11,7 +11,7 @@ import {
   TimerSystem
 } from "/source/component/timer";
 import {
-  FIELD_CONFIGS
+  FIELD_PROPS
 } from "/source/core/constant";
 import {
   EnemySpawner
@@ -47,9 +47,9 @@ export class MainScene extends Scene {
   }
 
   private initializeEntities(): void {
-    const player = new Player({x: FIELD_CONFIGS.width / 2, y: FIELD_CONFIGS.height / 2});
+    const player = new Player({x: FIELD_PROPS.width / 2, y: FIELD_PROPS.height / 2});
     const enemySpawner = new EnemySpawner();
-    const target = new Target({x: FIELD_CONFIGS.width / 2, y: FIELD_CONFIGS.height / 2});
+    const target = new Target({x: FIELD_PROPS.width / 2, y: FIELD_PROPS.height / 2});
     const statusPane = new StatusPane();
     const status = new Status();
     player.setTarget(target);

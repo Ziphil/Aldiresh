@@ -20,7 +20,7 @@ import {
 } from "/source/entity/status";
 
 
-export const ENEMY_CONFIGS = {
+export const ENEMY_PROPS = {
   size: 21,
   vel: 60,
   activationDuration: 2000,
@@ -44,8 +44,8 @@ export class Enemy extends Actor {
   private activationTimer: number = 0;
 
   public constructor({x, y}: {x: number, y: number}) {
-    super({x, y, z: -210, radius: ENEMY_CONFIGS.size / 2, collisionType: CollisionType["Passive"]});
-    this.addComponent(new RotatedSquareComponent(ENEMY_CONFIGS.square));
+    super({x, y, z: -210, radius: ENEMY_PROPS.size / 2, collisionType: CollisionType["Passive"]});
+    this.addComponent(new RotatedSquareComponent(ENEMY_PROPS.square));
     this.random = new Random();
     this.state = "activate";
     this.life = 3;
@@ -60,8 +60,8 @@ export class Enemy extends Actor {
   private activate(delta: number): void {
     if (this.state === "activate") {
       this.activationTimer += delta;
-      this.graphics.opacity = this.activationTimer / ENEMY_CONFIGS.activationDuration;
-      if (this.activationTimer >= ENEMY_CONFIGS.activationDuration) {
+      this.graphics.opacity = this.activationTimer / ENEMY_PROPS.activationDuration;
+      if (this.activationTimer >= ENEMY_PROPS.activationDuration) {
         this.graphics.opacity = 1;
         this.state = "move";
         this.changeDirection();
@@ -86,7 +86,7 @@ export class Enemy extends Actor {
 
   private changeDirection(): void {
     const direction = this.random.floating(-Math.PI, Math.PI);
-    this.vel = Vector.fromAngle(direction).scale(ENEMY_CONFIGS.vel);
+    this.vel = Vector.fromAngle(direction).scale(ENEMY_PROPS.vel);
   }
 
   public setStatus(status: Status): void {

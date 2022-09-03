@@ -8,8 +8,8 @@ import {
   SPRITE_FONTS
 } from "/source/core/asset";
 import {
-  FIELD_CONFIGS,
-  SCREEN_CONFIGS
+  FIELD_PROPS,
+  SCREEN_PROPS
 } from "/source/core/constant";
 import {
   NumberLabel
@@ -35,7 +35,7 @@ export class StatusItem extends Actor {
   }
 
   public override onInitialize(engine: Engine): void {
-    const numberLabel = new NumberLabel({x: SCREEN_CONFIGS.width - FIELD_CONFIGS.width - 22, y: 9, font: SPRITE_FONTS.number, align: "right"});
+    const numberLabel = new NumberLabel({x: SCREEN_PROPS.width - FIELD_PROPS.width - 22, y: 9, font: SPRITE_FONTS.number, align: "right"});
     this.numberLabel = numberLabel;
     this.graphics.use(ASSETS.statusFrame.toSprite());
     this.addChild(numberLabel);

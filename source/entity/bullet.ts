@@ -11,7 +11,7 @@ import {
 } from "/source/component/rotated-square";
 
 
-export const BULLET_CONFIGS = {
+export const BULLET_PROPS = {
   size: 9,
   vel: 90,
   square: {
@@ -34,10 +34,10 @@ export class Bullet extends Actor {
   public readonly owner: "player" | "enemy";
 
   public constructor({x, y, ...configs}: BulletConfigs) {
-    super({x, y, z: -220, radius: BULLET_CONFIGS.size / 2, collisionType: CollisionType["Passive"]});
-    this.addComponent(new RotatedSquareComponent(BULLET_CONFIGS.square));
+    super({x, y, z: -220, radius: BULLET_PROPS.size / 2, collisionType: CollisionType["Passive"]});
+    this.addComponent(new RotatedSquareComponent(BULLET_PROPS.square));
     this.owner = configs.owner;
-    this.vel = Vector.fromAngle(configs.direction).scale(BULLET_CONFIGS.vel);
+    this.vel = Vector.fromAngle(configs.direction).scale(BULLET_PROPS.vel);
   }
 
 }

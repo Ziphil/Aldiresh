@@ -11,7 +11,7 @@ import {
   RotatedSquareComponent
 } from "/source/component/rotated-square";
 import {
-  FIELD_CONFIGS
+  FIELD_PROPS
 } from "/source/core/constant";
 import {
   Bullet
@@ -24,7 +24,7 @@ import {
 } from "/source/entity/target";
 
 
-export const PLAYER_CONFIGS = {
+export const PLAYER_PROPS = {
   size: 21,
   acc: 0.288,
   friction: 0.108,
@@ -46,8 +46,8 @@ export class Player extends Actor {
   private target!: Target;
 
   public constructor({x, y}: {x: number, y: number}) {
-    super({x, y, z: -200, radius: PLAYER_CONFIGS.size / 2, collisionType: CollisionType["Passive"]});
-    this.addComponent(new RotatedSquareComponent(PLAYER_CONFIGS.square));
+    super({x, y, z: -200, radius: PLAYER_PROPS.size / 2, collisionType: CollisionType["Passive"]});
+    this.addComponent(new RotatedSquareComponent(PLAYER_PROPS.square));
   }
 
   public override onInitialize(engine: Engine): void {
@@ -64,21 +64,21 @@ export class Player extends Actor {
   private move(engine: Engine, delta: number): void {
     const keyboard = engine.input.keyboard;
     if (keyboard.isHeld(Input["Keys"]["ArrowLeft"])) {
-      this.vel.x -= PLAYER_CONFIGS.acc * delta;
+      this.vel.x -= PLAYER_PROPS.acc * delta;
     }
     if (keyboard.isHeld(Input["Keys"]["ArrowRight"])) {
-      this.vel.x += PLAYER_CONFIGS.acc * delta;
+      this.vel.x += PLAYER_PROPS.acc * delta;
     }
     if (keyboard.isHeld(Input["Keys"]["ArrowUp"])) {
-      this.vel.y -= PLAYER_CONFIGS.acc * delta;
+      this.vel.y -= PLAYER_PROPS.acc * delta;
     }
     if (keyboard.isHeld(Input["Keys"]["ArrowDown"])) {
-      this.vel.y += PLAYER_CONFIGS.acc * delta;
+      this.vel.y += PLAYER_PROPS.acc * delta;
     }
-    this.vel.x = Math.max(Math.min(this.vel.x, PLAYER_CONFIGS.maxVel), -PLAYER_CONFIGS.maxVel);
-    this.vel.y = Math.max(Math.min(this.vel.y, PLAYER_CONFIGS.maxVel), -PLAYER_CONFIGS.maxVel);
-    this.vel.x -= Math.min(Math.abs(this.vel.x), PLAYER_CONFIGS.friction * delta) * Math.sign(this.vel.x);
-    this.vel.y -= Math.min(Math.abs(this.vel.y), PLAYER_CONFIGS.friction * delta) * Math.sign(this.vel.y);
+    this.vel.x = Math.max(Math.min(this.vel.x, PLAYER_PROPS.maxVel), -PLAYER_PROPS.maxVel);
+    this.vel.y = Math.max(Math.min(this.vel.y, PLAYER_PROPS.maxVel), -PLAYER_PROPS.maxVel);
+    this.vel.x -= Math.min(Math.abs(this.vel.x), PLAYER_PROPS.friction * delta) * Math.sign(this.vel.x);
+    this.vel.y -= Math.min(Math.abs(this.vel.y), PLAYER_PROPS.friction * delta) * Math.sign(this.vel.y);
   }
 
   private shoot(engine: Engine): void {
@@ -90,20 +90,20 @@ export class Player extends Actor {
   }
 
   private bounceWall(): void {
-    if (this.pos.x < PLAYER_CONFIGS.size) {
-      this.pos.x = PLAYER_CONFIGS.size;
+    if (this.pos.x < PLAYER_PROPS.size) {
+      this.pos.x = PLAYER_PROPS.size;
       this.vel.x = -this.vel.x;
     }
-    if (this.pos.x > FIELD_CONFIGS.width - PLAYER_CONFIGS.size) {
-      this.pos.x = FIELD_CONFIGS.width - PLAYER_CONFIGS.size;
+    if (this.pos.x > FIELD_PROPS.width - PLAYER_PROPS.size) {
+      this.pos.x = FIELD_PROPS.width - PLAYER_PROPS.size;
       this.vel.x = -this.vel.x;
     }
-    if (this.pos.y < PLAYER_CONFIGS.size) {
-      this.pos.y = PLAYER_CONFIGS.size;
+    if (this.pos.y < PLAYER_PROPS.size) {
+      this.pos.y = PLAYER_PROPS.size;
       this.vel.y = -this.vel.y;
     }
-    if (this.pos.y > FIELD_CONFIGS.height - PLAYER_CONFIGS.size) {
-      this.pos.y = FIELD_CONFIGS.height - PLAYER_CONFIGS.size;
+    if (this.pos.y > FIELD_PROPS.height - PLAYER_PROPS.size) {
+      this.pos.y = FIELD_PROPS.height - PLAYER_PROPS.size;
       this.vel.y = -this.vel.y;
     }
   }

@@ -13,7 +13,7 @@ import {
   ASSETS
 } from "/source/core/asset";
 import {
-  SCREEN_CONFIGS
+  SCREEN_PROPS
 } from "/source/core/constant";
 import {
   MainScene
@@ -24,7 +24,7 @@ export class AldireshEngine extends Engine {
 
   public constructor() {
     super({
-      resolution: {width: SCREEN_CONFIGS.width, height: SCREEN_CONFIGS.height},
+      resolution: {width: SCREEN_PROPS.width, height: SCREEN_PROPS.height},
       displayMode: DisplayMode["FitScreen"],
       canvasElementId: "screen",
       backgroundColor: Color.fromHex("#000000"),

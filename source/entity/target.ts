@@ -10,7 +10,7 @@ import {
 } from "/source/component/rotated-square";
 
 
-export const TARGET_CONFIGS = {
+export const TARGET_PROPS = {
   size: 31,
   square: {
     outerSize: 31,
@@ -24,7 +24,7 @@ export class Target extends Actor {
 
   public constructor({x, y}: {x: number, y: number}) {
     super({x, y, z: -190});
-    this.addComponent(new RotatedSquareComponent({...TARGET_CONFIGS.square, framed: true}));
+    this.addComponent(new RotatedSquareComponent({...TARGET_PROPS.square, framed: true}));
   }
 
   public override onPreUpdate(engine: Engine, delta: number): void {
