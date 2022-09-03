@@ -52,7 +52,3 @@ export class AldireshEngine extends Engine {
   }
 
 }
-
-
-const engine = new AldireshEngine();
-engine.run();
