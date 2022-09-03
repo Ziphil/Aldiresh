@@ -55,5 +55,4 @@ export class StatusItem extends Actor {
     this.numberLabel.setNumber(this.getNumber());
   }
 
-
 }

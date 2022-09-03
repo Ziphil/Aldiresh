@@ -13,11 +13,17 @@ import {
   RotatingSquareComponent
 } from "/source/component/rotating-square";
 import {
+  TimerComponent
+} from "/source/component/timer";
+import {
   Bullet
 } from "/source/entity/bullet";
 import {
   Status
 } from "/source/entity/status";
+import {
+  randomize
+} from "/source/util/misc";
 
 
 export const ENEMY_PROPS = {
@@ -45,15 +51,21 @@ export class Enemy extends Actor {
 
   public constructor({x, y}: {x: number, y: number}) {
     super({x, y, z: -210, radius: ENEMY_PROPS.size / 2, collisionType: CollisionType["Passive"]});
-    this.addComponent(new RotatingSquareComponent(ENEMY_PROPS.square));
     this.random = new Random();
     this.state = "activate";
     this.life = 3;
+  }
+
+  public override onInitialize(engine: Engine): void {
+    this.addComponent(new RotatingSquareComponent(ENEMY_PROPS.square));
+    this.addComponent(new TimerComponent());
+    const component = this.get(TimerComponent)!;
+    component.setOperation("shoot", () => this.shoot(engine), this.status.averageShootTimeout);
+    component.deactivate("shoot");
     this.on("precollision", this.onPreCollision.bind(this));
   }
 
   public override onPreUpdate(engine: Engine, delta: number): void {
-    super.onPreUpdate(engine, delta);
     this.activate(delta);
   }
 
@@ -62,11 +74,21 @@ export class Enemy extends Actor {
       this.activationTimer += delta;
       this.graphics.opacity = this.activationTimer / ENEMY_PROPS.activationDuration;
       if (this.activationTimer >= ENEMY_PROPS.activationDuration) {
+        const component = this.get(TimerComponent)!;
         this.graphics.opacity = 1;
         this.state = "move";
         this.changeDirection();
+        component.activate("shoot");
       }
     }
+  }
+
+  private shoot(engine: Engine): number {
+    const direction = this.random.floating(-Math.PI, Math.PI);
+    const bullet = new Bullet({x: this.pos.x, y: this.pos.y, direction, owner: "enemy"});
+    const timeout = randomize(this.random, this.status.averageShootTimeout);
+    engine.currentScene.add(bullet);
+    return timeout;
   }
 
   private onPreCollision(event: PreCollisionEvent<Actor>): void {

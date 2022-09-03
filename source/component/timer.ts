@@ -29,6 +29,14 @@ export class TimerComponent extends Component<typeof TIMER_COMPONENT_TYPE> {
     this.actives.set(name, true);
   }
 
+  public activate(name: string): void {
+    this.actives.set(name, true);
+  }
+
+  public deactivate(name: string): void {
+    this.actives.set(name, false);
+  }
+
 }
 
 

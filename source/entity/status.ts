@@ -88,4 +88,8 @@ export class Status extends Entity {
     return 3000 - this.level * 60;
   }
 
+  public get averageShootTimeout(): number {
+    return 3500 - this.level * 85;
+  }
+
 }
