@@ -24,12 +24,12 @@ export class AldireshEngine extends Engine {
 
   public constructor() {
     super({
-      width: SCREEN_CONFIGS.width,
-      height: SCREEN_CONFIGS.height,
+      resolution: {width: SCREEN_CONFIGS.width, height: SCREEN_CONFIGS.height},
       displayMode: DisplayMode["FitScreen"],
       canvasElementId: "screen",
       backgroundColor: Color.fromHex("#000000"),
-      antialiasing: false
+      antialiasing: false,
+      suppressHiDPIScaling: true
     });
     this.setupScenes();
     this.setupDevTool();
@@ -43,7 +43,6 @@ export class AldireshEngine extends Engine {
   private setupDevTool(): void {
     if (document.location.hash === "#debug") {
       const devtool = new DevTool(this);
-      this.showDebug(true);
     }
   }
 

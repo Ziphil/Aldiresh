@@ -23,9 +23,8 @@ export const TARGET_CONFIGS = {
 export class Target extends Actor {
 
   public constructor(x: number, y: number) {
-    super({x, y});
+    super({x, y, z: -190});
     this.addComponent(new RotatedSquareComponent({...TARGET_CONFIGS.square, framed: true}));
-    this.z = 15;
   }
 
   public override onPreUpdate(engine: Engine, delta: number): void {

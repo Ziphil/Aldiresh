@@ -27,7 +27,7 @@ export class Bullet extends Actor {
   public readonly owner: "player" | "enemy";
 
   public constructor(x: number, y: number, direction: number, owner: "player" | "enemy") {
-    super({x, y, z: 2, radius: BULLET_CONFIGS.size / 2, collisionType: CollisionType["Passive"]});
+    super({x, y, z: -220, radius: BULLET_CONFIGS.size / 2, collisionType: CollisionType["Passive"]});
     this.addComponent(new RotatedSquareComponent(BULLET_CONFIGS.square));
     this.owner = owner;
     this.vel = Vector.fromAngle(direction).scale(BULLET_CONFIGS.vel);
