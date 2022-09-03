@@ -8,8 +8,8 @@ import {
   Input
 } from "excalibur";
 import {
-  RotatedSquareComponent
-} from "/source/component/rotated-square";
+  RotatingSquareComponent
+} from "/source/component/rotating-square";
 import {
   FIELD_PROPS
 } from "/source/core/constant";
@@ -47,7 +47,7 @@ export class Player extends Actor {
 
   public constructor({x, y}: {x: number, y: number}) {
     super({x, y, z: -200, radius: PLAYER_PROPS.size / 2, collisionType: CollisionType["Passive"]});
-    this.addComponent(new RotatedSquareComponent(PLAYER_PROPS.square));
+    this.addComponent(new RotatingSquareComponent(PLAYER_PROPS.square));
   }
 
   public override onInitialize(engine: Engine): void {

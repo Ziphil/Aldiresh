@@ -5,8 +5,8 @@ import {
   Scene
 } from "excalibur";
 import {
-  RotatedSquareSystem
-} from "/source/component/rotated-square";
+  RotatingSquareSystem
+} from "/source/component/rotating-square";
 import {
   TimerSystem
 } from "/source/component/timer";
@@ -42,7 +42,7 @@ export class MainScene extends Scene {
   }
 
   private initializeSystems(): void {
-    this.world.add(new RotatedSquareSystem());
+    this.world.add(new RotatingSquareSystem());
     this.world.add(new TimerSystem());
   }
 

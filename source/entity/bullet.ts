@@ -8,8 +8,8 @@ import {
   Vector
 } from "excalibur";
 import {
-  RotatedSquareComponent
-} from "/source/component/rotated-square";
+  RotatingSquareComponent
+} from "/source/component/rotating-square";
 
 
 export const BULLET_PROPS = {
@@ -42,7 +42,7 @@ export class Bullet extends Actor {
   }
 
   public override onInitialize(engine: Engine): void {
-    this.addComponent(new RotatedSquareComponent({
+    this.addComponent(new RotatingSquareComponent({
       ...BULLET_PROPS.square,
       outerColor: (this.owner === "player") ? BULLET_PROPS.square.playerOuterColor : BULLET_PROPS.square.enemyOuterColor
     }));

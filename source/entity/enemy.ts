@@ -10,8 +10,8 @@ import {
   Vector
 } from "excalibur";
 import {
-  RotatedSquareComponent
-} from "/source/component/rotated-square";
+  RotatingSquareComponent
+} from "/source/component/rotating-square";
 import {
   Bullet
 } from "/source/entity/bullet";
@@ -45,7 +45,7 @@ export class Enemy extends Actor {
 
   public constructor({x, y}: {x: number, y: number}) {
     super({x, y, z: -210, radius: ENEMY_PROPS.size / 2, collisionType: CollisionType["Passive"]});
-    this.addComponent(new RotatedSquareComponent(ENEMY_PROPS.square));
+    this.addComponent(new RotatingSquareComponent(ENEMY_PROPS.square));
     this.random = new Random();
     this.state = "activate";
     this.life = 3;

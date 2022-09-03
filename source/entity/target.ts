@@ -6,8 +6,8 @@ import {
   Engine
 } from "excalibur";
 import {
-  RotatedSquareComponent
-} from "/source/component/rotated-square";
+  RotatingSquareComponent
+} from "/source/component/rotating-square";
 
 
 export const TARGET_PROPS = {
@@ -24,7 +24,7 @@ export class Target extends Actor {
 
   public constructor({x, y}: {x: number, y: number}) {
     super({x, y, z: -190});
-    this.addComponent(new RotatedSquareComponent({...TARGET_PROPS.square, framed: true}));
+    this.addComponent(new RotatingSquareComponent({...TARGET_PROPS.square, framed: true}));
   }
 
   public override onPreUpdate(engine: Engine, delta: number): void {

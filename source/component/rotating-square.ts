@@ -12,23 +12,23 @@ import {
 } from "excalibur";
 
 
-const ROTATED_SQUARE_COMPONENT_TYPE = "zp.rotatedSquare" as const;
-const ROTATED_SQUARE_SYSTEM_TYPES = ["ex.graphics", "zp.rotatedSquare"] as const;
+const ROTATING_SQUARE_COMPONENT_TYPE = "zp.rotatingSquare" as const;
+const ROTATING_SQUARE_SYSTEM_TYPES = ["ex.graphics", "zp.rotatingSquare"] as const;
 
-type RotatedSquareComponentConfigs = {
-  outerSize: RotatedSquareComponent["outerSize"],
-  innerSize?: RotatedSquareComponent["innerSize"],
-  outerRotationVel: RotatedSquareComponent["outerRotationVel"],
-  innerRotationVel?: RotatedSquareComponent["innerRotationVel"],
-  outerColor: RotatedSquareComponent["outerColor"],
-  innerColor?: RotatedSquareComponent["innerColor"],
-  framed?: RotatedSquareComponent["framed"]
+type RotatingSquareComponentConfigs = {
+  outerSize: RotatingSquareComponent["outerSize"],
+  innerSize?: RotatingSquareComponent["innerSize"],
+  outerRotationVel: RotatingSquareComponent["outerRotationVel"],
+  innerRotationVel?: RotatingSquareComponent["innerRotationVel"],
+  outerColor: RotatingSquareComponent["outerColor"],
+  innerColor?: RotatingSquareComponent["innerColor"],
+  framed?: RotatingSquareComponent["framed"]
 };
 
 
-export class RotatedSquareComponent extends Component<typeof ROTATED_SQUARE_COMPONENT_TYPE> {
+export class RotatingSquareComponent extends Component<typeof ROTATING_SQUARE_COMPONENT_TYPE> {
 
-  public readonly type: any = ROTATED_SQUARE_COMPONENT_TYPE;
+  public readonly type: any = ROTATING_SQUARE_COMPONENT_TYPE;
   public readonly outerSize: number;
   public readonly innerSize?: number;
   public readonly outerRotationVel: number;
@@ -40,7 +40,7 @@ export class RotatedSquareComponent extends Component<typeof ROTATED_SQUARE_COMP
   public innerAngle: number;
   public graphicsConfiged: boolean;
 
-  public constructor(configs: RotatedSquareComponentConfigs) {
+  public constructor(configs: RotatingSquareComponentConfigs) {
     super();
     this.outerSize = configs.outerSize;
     this.innerSize = configs.innerSize;
@@ -57,9 +57,9 @@ export class RotatedSquareComponent extends Component<typeof ROTATED_SQUARE_COMP
 }
 
 
-export class RotatedSquareSystem extends System<RotatedSquareComponent | GraphicsComponent> {
+export class RotatingSquareSystem extends System<RotatingSquareComponent | GraphicsComponent> {
 
-  public readonly types: any = ROTATED_SQUARE_SYSTEM_TYPES;
+  public readonly types: any = ROTATING_SQUARE_SYSTEM_TYPES;
   public readonly systemType: SystemType = SystemType["Update"];
 
   public override update(entities: Array<Entity>, delta: number): void {
@@ -70,7 +70,7 @@ export class RotatedSquareSystem extends System<RotatedSquareComponent | Graphic
   }
 
   private setupGraphics(entity: Entity): void {
-    const component = entity.get(RotatedSquareComponent)!;
+    const component = entity.get(RotatingSquareComponent)!;
     const graphicsComponent = entity.get(GraphicsComponent)!;
     if (!component.graphicsConfiged) {
       graphicsComponent.onPostDraw = function (context: ExcaliburGraphicsContext): void {
@@ -97,7 +97,7 @@ export class RotatedSquareSystem extends System<RotatedSquareComponent | Graphic
   }
 
   private updateAngles(entity: Entity, delta: number): void {
-    const component = entity.get(RotatedSquareComponent)!;
+    const component = entity.get(RotatingSquareComponent)!;
     component.outerAngle += component.outerRotationVel * delta;
     if (component.innerRotationVel !== undefined) {
       component.innerAngle += component.innerRotationVel * delta;
