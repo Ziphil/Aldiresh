@@ -3,8 +3,7 @@
 import {
   Actor,
   Color,
-  Engine,
-  vec
+  Engine
 } from "excalibur";
 import {
   RotatedSquareComponent
@@ -24,7 +23,7 @@ export const TARGET_CONFIGS = {
 export class Target extends Actor {
 
   public constructor(x: number, y: number) {
-    super({pos: vec(x, y)});
+    super({x, y});
     this.addComponent(new RotatedSquareComponent({...TARGET_CONFIGS.square, framed: true}));
     this.z = 15;
   }

@@ -2,22 +2,28 @@
 
 import {
   Actor,
+  CollisionStartEvent,
   CollisionType,
   Color,
   Engine,
   Random,
-  Vector,
-  vec
+  Vector
 } from "excalibur";
 import {
   RotatedSquareComponent
 } from "/source/component/rotated-square";
+import {
+  Bullet
+} from "/source/entity/bullet";
+import {
+  Status
+} from "/source/entity/status";
 
 
 export const ENEMY_CONFIGS = {
   size: 21,
   vel: 60,
-  activationTime: 2000,
+  activationDuration: 2000,
   square: {
     outerSize: 21,
     innerSize: 15,
@@ -32,13 +38,18 @@ export const ENEMY_CONFIGS = {
 export class Enemy extends Actor {
 
   private readonly random: Random;
+  private status!: Status;
+  private state: "activate" | "move";
+  private life: number;
   private activationTimer: number = 0;
 
   public constructor(x: number, y: number) {
-    super({pos: vec(x, y), radius: ENEMY_CONFIGS.size / 2, collisionType: CollisionType["Passive"]});
+    super({x, y, z: 5, radius: ENEMY_CONFIGS.size / 2, collisionType: CollisionType["Passive"]});
     this.addComponent(new RotatedSquareComponent(ENEMY_CONFIGS.square));
-    this.z = 5;
     this.random = new Random();
+    this.state = "activate";
+    this.life = 3;
+    this.on("collisionstart", this.onCollisionStart.bind(this));
   }
 
   public override onPreUpdate(engine: Engine, delta: number): void {
@@ -47,19 +58,39 @@ export class Enemy extends Actor {
   }
 
   private activate(delta: number): void {
-    if (this.activationTimer < ENEMY_CONFIGS.activationTime) {
+    if (this.state === "activate") {
       this.activationTimer += delta;
-      this.graphics.opacity = this.activationTimer / ENEMY_CONFIGS.activationTime;
-      if (this.activationTimer >= ENEMY_CONFIGS.activationTime) {
+      this.graphics.opacity = this.activationTimer / ENEMY_CONFIGS.activationDuration;
+      if (this.activationTimer >= ENEMY_CONFIGS.activationDuration) {
         this.graphics.opacity = 1;
+        this.state = "move";
         this.changeDirection();
       }
     }
   }
 
+  private onCollisionStart(event: CollisionStartEvent<Actor>): void {
+    const other = event.other;
+    if (other instanceof Bullet && other.owner === "player") {
+      if (this.state === "move") {
+        this.life --;
+        const dead = this.life <= 0;
+        this.status.hitEnemy(dead);
+        if (dead) {
+          this.kill();
+        }
+        other.kill();
+      }
+    }
+  };
+
   private changeDirection(): void {
     const direction = this.random.floating(-Math.PI, Math.PI);
     this.vel = Vector.fromAngle(direction).scale(ENEMY_CONFIGS.vel);
+  }
+
+  public setStatus(status: Status): void {
+    this.status = status;
   }
 
 }

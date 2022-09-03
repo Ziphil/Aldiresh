@@ -4,8 +4,7 @@ import {
   Actor,
   CollisionType,
   Color,
-  Vector,
-  vec
+  Vector
 } from "excalibur";
 import {
   RotatedSquareComponent
@@ -25,10 +24,12 @@ export const BULLET_CONFIGS = {
 
 export class Bullet extends Actor {
 
-  public constructor(x: number, y: number, direction: number) {
-    super({pos: vec(x, y), collisionType: CollisionType["Passive"]});
+  public readonly owner: "player" | "enemy";
+
+  public constructor(x: number, y: number, direction: number, owner: "player" | "enemy") {
+    super({x, y, z: 2, radius: BULLET_CONFIGS.size / 2, collisionType: CollisionType["Passive"]});
     this.addComponent(new RotatedSquareComponent(BULLET_CONFIGS.square));
-    this.z = 2;
+    this.owner = owner;
     this.vel = Vector.fromAngle(direction).scale(BULLET_CONFIGS.vel);
   }
 

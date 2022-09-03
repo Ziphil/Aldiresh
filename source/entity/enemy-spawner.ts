@@ -43,6 +43,7 @@ export class EnemySpawner extends Entity {
     const enemy = new Enemy(x, y);
     const averageTimeout = this.status.averageSpawnTimeout;
     const timeout = this.random.integer(averageTimeout / 2, averageTimeout * 3 / 2);
+    enemy.setStatus(this.status);
     engine.currentScene.add(enemy);
     return timeout;
   }
