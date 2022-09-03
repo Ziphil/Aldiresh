@@ -16,12 +16,21 @@ import {
 } from "/source/entity/number-label";
 
 
+export type StatausItemConfigs = {
+  x: number,
+  y: number,
+  getNumber: () => number
+};
+
+
 export class StatusItem extends Actor {
 
+  private readonly getNumber: () => number;
   private numberLabel!: NumberLabel;
 
-  public constructor({x, y}: {x: number, y: number}) {
+  public constructor({x, y, ...configs}: StatausItemConfigs) {
     super({x, y, z: -90});
+    this.getNumber = configs.getNumber;
     this.anchor = vec(0, 0);
   }
 
@@ -32,8 +41,9 @@ export class StatusItem extends Actor {
     this.addChild(numberLabel);
   }
 
-  public setNumber(number: number): void {
-    this.numberLabel.setNumber(number);
+  public override onPostUpdate(engine: Engine, delta: number): void {
+    this.numberLabel.setNumber(this.getNumber());
   }
+
 
 }
