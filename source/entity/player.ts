@@ -26,6 +26,7 @@ export class Player extends Ship {
 
   public constructor(x: number, y: number) {
     super(x, y, PLAYER_BASE_COLOR, {collisionType: CollisionType["Active"]});
+    this.z = 10;
   }
 
   public override onPreUpdate(engine: Engine, delta: number): void {
