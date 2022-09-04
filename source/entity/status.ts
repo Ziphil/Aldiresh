@@ -161,7 +161,7 @@ export class Status extends Entity {
   }
 
   public calcItemScore(): number {
-    const score = this.level * 100;
+    const score = (this.level + 1) * 100;
     return Math.floor(score);
   }
 
@@ -174,7 +174,7 @@ export class Status extends Entity {
   }
 
   public calcItemProbability(): number {
-    return Math.min(this.level * 0.015, 0.5);
+    return Math.min(this.level * 0.02, 0.3);
   }
 
 }
