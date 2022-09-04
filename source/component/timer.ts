@@ -1,7 +1,10 @@
 //
 
 import {
-  Component, Entity, System, SystemType
+  Component,
+  Entity,
+  System,
+  SystemType
 } from "excalibur";
 
 

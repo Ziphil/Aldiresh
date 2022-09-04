@@ -8,12 +8,12 @@ import {
   Vector,
   vec
 } from "excalibur";
+import {AutoKillComponent} from "/source/component/auto-kill";
 import {
   RotatingSquareComponent
 } from "/source/component/rotating-square";
 import {
-  DEPTHS,
-  FIELD_PROPS
+  DEPTHS
 } from "/source/core/constant";
 import {
   Status
@@ -57,22 +57,23 @@ export class Bullet extends Actor {
   }
 
   public override onInitialize(engine: Engine): void {
-    this.addComponent(new RotatingSquareComponent({
+    this.initializeComponents();
+    this.on("autokill", () => this.miss());
+  }
+
+  private initializeComponents(): void {
+    const squareComponent = new RotatingSquareComponent({
       ...BULLET_PROPS.square,
       outerColor: (this.owner === "player") ? BULLET_PROPS.square.playerOuterColor : BULLET_PROPS.square.enemyOuterColor
-    }));
+    });
+    const autoKillComponent = new AutoKillComponent(BULLET_PROPS.size);
+    this.addComponent(squareComponent);
+    this.addComponent(autoKillComponent);
   }
 
-  public override onPreUpdate(engine: Engine, delta: number): void {
-    this.killWhenOutside();
-  }
-
-  private killWhenOutside(): void {
-    if (this.pos.x < -BULLET_PROPS.size || this.pos.x > FIELD_PROPS.width + BULLET_PROPS.size || this.pos.y < -BULLET_PROPS.size || this.pos.y > FIELD_PROPS.height + BULLET_PROPS.size) {
-      this.kill();
-      if (this.owner === "player") {
-        this.status.miss();
-      }
+  private miss(): void {
+    if (this.owner === "player") {
+      this.status.miss();
     }
   }
 

@@ -10,6 +10,7 @@ import {
   Vector,
   vec
 } from "excalibur";
+import {AutoKillComponent} from "/source/component/auto-kill";
 import {
   RotatingSquareComponent
 } from "/source/component/rotating-square";
@@ -17,8 +18,7 @@ import {
   TimerComponent
 } from "/source/component/timer";
 import {
-  DEPTHS,
-  FIELD_PROPS
+  DEPTHS
 } from "/source/core/constant";
 import {
   Bullet
@@ -76,24 +76,29 @@ export class Enemy extends Actor {
   }
 
   public override onInitialize(engine: Engine): void {
+    this.initializeComponents(engine);
+    this.on("precollision", (event) => this.onPreCollision(engine, event));
+  }
+
+  public override onPreUpdate(engine: Engine, delta: number): void {
+    this.activate(delta);
+  }
+
+  public onPreCollision(engine: Engine, event: PreCollisionEvent<Actor>): void {
+    this.collideWithBullet(engine, event.other);
+  }
+
+  private initializeComponents(engine: Engine): void {
     const squareComponent = new RotatingSquareComponent(ENEMY_PROPS.square);
     const timerComponent = new TimerComponent();
+    const autoKillComponent = new AutoKillComponent(ENEMY_PROPS.size);
     timerComponent.setOperation("shoot", () => this.shoot(engine), this.status.calcAverageShootTimeout());
     timerComponent.setOperation("changeDirection", () => this.changeDirection(), 2000);
     timerComponent.deactivate("shoot");
     timerComponent.deactivate("changeDirection");
     this.addComponent(squareComponent);
     this.addComponent(timerComponent);
-    this.on("precollision", (event) => this.onPreCollision(engine, event));
-  }
-
-  public override onPreUpdate(engine: Engine, delta: number): void {
-    this.activate(delta);
-    this.killWhenOutside();
-  }
-
-  public onPreCollision(engine: Engine, event: PreCollisionEvent<Actor>): void {
-    this.collideWithBullet(engine, event.other);
+    this.addComponent(autoKillComponent);
   }
 
   private activate(delta: number): void {
@@ -108,12 +113,6 @@ export class Enemy extends Actor {
         component.activate("shoot");
         component.activate("changeDirection");
       }
-    }
-  }
-
-  private killWhenOutside(): void {
-    if (this.pos.x < -ENEMY_PROPS.size || this.pos.x > FIELD_PROPS.width + ENEMY_PROPS.size || this.pos.y < -ENEMY_PROPS.size || this.pos.y > FIELD_PROPS.height + ENEMY_PROPS.size) {
-      this.kill();
     }
   }
 

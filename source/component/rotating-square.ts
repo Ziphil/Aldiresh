@@ -13,7 +13,7 @@ import {
 
 
 const ROTATING_SQUARE_COMPONENT_TYPE = "zp.rotatingSquare" as const;
-const ROTATING_SQUARE_SYSTEM_TYPES = ["ex.graphics", "zp.rotatingSquare"] as const;
+const ROTATING_SQUARE_SYSTEM_TYPES = ["zp.rotatingSquare", "ex.graphics"] as const;
 
 type RotatingSquareComponentConfigs = {
   outerSize: RotatingSquareComponent["outerSize"],

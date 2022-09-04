@@ -9,11 +9,13 @@ import {
   vec
 } from "excalibur";
 import {
+  AutoKillComponent
+} from "/source/component/auto-kill";
+import {
   RotatingSquareComponent
 } from "/source/component/rotating-square";
 import {
-  DEPTHS,
-  FIELD_PROPS
+  DEPTHS
 } from "/source/core/constant";
 import {
   Status
@@ -56,17 +58,14 @@ export class Item extends Actor {
   }
 
   public override onInitialize(engine: Engine): void {
-    this.addComponent(new RotatingSquareComponent(ITEM_PROPS.square));
+    this.initializeComponents();
   }
 
-  public override onPreUpdate(engine: Engine, delta: number): void {
-    this.killWhenOutside();
-  }
-
-  private killWhenOutside(): void {
-    if (this.pos.x < -ITEM_PROPS.size || this.pos.x > FIELD_PROPS.width + ITEM_PROPS.size || this.pos.y < -ITEM_PROPS.size || this.pos.y > FIELD_PROPS.height + ITEM_PROPS.size) {
-      this.kill();
-    }
+  private initializeComponents(): void {
+    const squareComponent = new RotatingSquareComponent(ITEM_PROPS.square);
+    const autoKillComponent = new AutoKillComponent(ITEM_PROPS.size);
+    this.addComponent(squareComponent);
+    this.addComponent(autoKillComponent);
   }
 
   public setStatus(status: Status): void {
