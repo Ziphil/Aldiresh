@@ -10,7 +10,9 @@ import {
   Vector,
   vec
 } from "excalibur";
-import {AutoKillComponent} from "/source/component/auto-kill";
+import {
+  AutoKillComponent
+} from "/source/component/auto-kill";
 import {
   RotatingSquareComponent
 } from "/source/component/rotating-square";
@@ -60,7 +62,7 @@ export class Enemy extends Actor {
   private status!: Status;
   private state: EnemyState;
   private life: number;
-  private activationTimer: number = 0;
+  private activationTimer: number;
 
   public constructor({x, y}: {x: number, y: number}) {
     super({
@@ -73,6 +75,7 @@ export class Enemy extends Actor {
     this.random = new Random();
     this.state = "activate";
     this.life = 3;
+    this.activationTimer = 0;
   }
 
   public override onInitialize(engine: Engine): void {

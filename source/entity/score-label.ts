@@ -34,12 +34,12 @@ export class ScoreLabel extends Actor {
   public constructor({x, y, ...configs}: ScoreLabelConfigs) {
     super({
       pos: vec(x, y),
+      anchor: vec(0.5, 1),
       z: DEPTHS.scoreLabel
     });
     this.score = configs.score;
     this.timer = 0;
     this.vel.y = -SCORE_LABEL_PROPS.vel;
-    this.anchor = vec(0.5, 1);
   }
 
   public override onInitialize(engine: Engine): void {

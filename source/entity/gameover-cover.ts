@@ -20,12 +20,12 @@ export class GameoverCover extends Actor {
   public constructor() {
     super({
       pos: vec(0, 0),
+      anchor: vec(0, 0),
       z: DEPTHS.gameoverCover,
       width: FIELD_PROPS.width,
       height: FIELD_PROPS.height,
       color: Color.fromHSL(0, 0, 0, 0.5)
     });
-    this.anchor = vec(0, 0);
   }
 
   public override onInitialize(engine: Engine): void {
