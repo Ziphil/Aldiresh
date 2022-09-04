@@ -1,8 +1,9 @@
 //
 
 import {
+  Actor,
   Engine,
-  ScreenElement
+  vec
 } from "excalibur";
 import {
   ASSETS
@@ -18,12 +19,13 @@ import {
 } from "/source/entity/status-pane/status-item";
 
 
-export class StatusPane extends ScreenElement {
+export class StatusPane extends Actor {
 
   private status!: Status;
 
   public constructor() {
     super({x: FIELD_PROPS.width, y: 0, z: -100});
+    this.anchor = vec(0, 0);
   }
 
   public override onInitialize(engine: Engine): void {
