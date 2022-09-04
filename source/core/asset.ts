@@ -20,7 +20,7 @@ export const SPRITE_SHEETS = {
   number: SpriteSheet.fromImageSourceWithSourceViews({
     image: ASSETS.number,
     sourceViews: [
-      ...Array.from({length: 12}).map((dummy, index) => ({x: index * 11, y: 0, width: 11, height: 10})),
+      ...Array.from({length: 13}).map((dummy, index) => ({x: index * 11, y: 0, width: 11, height: 10})),
       {x: 143, y: 0, width: 4, height: 10}
     ]
   }),
