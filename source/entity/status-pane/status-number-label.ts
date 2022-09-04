@@ -11,7 +11,7 @@ import {
 } from "/source/core/asset";
 
 
-export type NumberLabelConfigs = {
+export type StatusNumberLabelConfigs = {
   x: number,
   y: number,
   decimalLength?: number
@@ -23,7 +23,7 @@ export class StatusNumberLabel extends Actor {
   private decimalLength: number;
   private text!: Text;
 
-  public constructor({x, y, ...configs}: NumberLabelConfigs) {
+  public constructor({x, y, ...configs}: StatusNumberLabelConfigs) {
     super({x, y, z: -90});
     this.decimalLength = configs.decimalLength ?? 0;
     this.anchor = vec(1, 0.5);

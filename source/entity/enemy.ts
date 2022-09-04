@@ -131,7 +131,7 @@ export class Enemy extends Actor {
       if (this.state === "move") {
         this.life --;
         const dead = this.life <= 0;
-        this.status.hitEnemy(dead);
+        this.status.hitEnemy(this.pos.x, this.pos.y, dead);
         if (dead) {
           this.kill();
         }

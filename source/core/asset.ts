@@ -9,6 +9,7 @@ import {
 
 export const ASSETS = {
   number: new ImageSource("/asset/image/number.png"),
+  smallNumber: new ImageSource("/asset/image/small-number.png"),
   statusName: new ImageSource("/asset/image/status-name.png"),
   statusBackground: new ImageSource("/asset/image/status-background.png"),
   statusFrame: new ImageSource("/asset/image/status-frame.png")
@@ -18,20 +19,15 @@ export const SPRITE_SHEETS = {
   number: SpriteSheet.fromImageSourceWithSourceViews({
     image: ASSETS.number,
     sourceViews: [
-      {x: 0, y: 0, width: 11, height: 10},
-      {x: 11, y: 0, width: 11, height: 10},
-      {x: 22, y: 0, width: 11, height: 10},
-      {x: 33, y: 0, width: 11, height: 10},
-      {x: 44, y: 0, width: 11, height: 10},
-      {x: 55, y: 0, width: 11, height: 10},
-      {x: 66, y: 0, width: 11, height: 10},
-      {x: 77, y: 0, width: 11, height: 10},
-      {x: 88, y: 0, width: 11, height: 10},
-      {x: 99, y: 0, width: 11, height: 10},
-      {x: 110, y: 0, width: 11, height: 10},
-      {x: 121, y: 0, width: 11, height: 10},
-      {x: 132, y: 0, width: 11, height: 10},
+      ...Array.from({length: 12}).map((dummy, index) => ({x: index * 11, y: 0, width: 11, height: 10})),
       {x: 143, y: 0, width: 4, height: 10}
+    ]
+  }),
+  smallNumber: SpriteSheet.fromImageSourceWithSourceViews({
+    image: ASSETS.smallNumber,
+    sourceViews: [
+      ...Array.from({length: 10}).map((dummy, index) => ({x: index * 7, y: 0, width: 7, height: 6})),
+      {x: 70, y: 0, width: 2, height: 6}
     ]
   }),
   statusName: SpriteSheet.fromImageSource({
@@ -45,5 +41,10 @@ export const SPRITE_FONTS = {
     spriteSheet: SPRITE_SHEETS.number,
     alphabet: "0123456789+-±.",
     spacing: 2
+  }),
+  smallNumber: new SpriteFont({
+    spriteSheet: SPRITE_SHEETS.smallNumber,
+    alphabet: "0123456789.",
+    spacing: 1
   })
 };

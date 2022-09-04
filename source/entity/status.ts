@@ -4,6 +4,7 @@ import {
   Engine,
   Entity
 } from "excalibur";
+import {ScoreLabel} from "/source/entity/score-label";
 
 
 const STATUS_PROPS = {
@@ -26,6 +27,7 @@ export class Status extends Entity {
   public killCount: number = 0;
   public combo: number = 0;
   public comboTime: number = 0;
+  private labels: Array<ScoreLabel> = [];
 
   public constructor() {
     super();
@@ -34,6 +36,7 @@ export class Status extends Entity {
   public override onPreUpdate(engine: Engine, delta: number): void {
     this.updateLevel(delta);
     this.updateCombo(delta);
+    this.addLabels(engine);
   }
 
   private updateLevel(delta: number): void {
@@ -53,6 +56,13 @@ export class Status extends Entity {
     }
   }
 
+  private addLabels(engine: Engine): void {
+    for (const label of this.labels) {
+      engine.add(label);
+    };
+    this.labels = [];
+  }
+
   public shoot(): void {
     this.shootCount ++;
   }
@@ -61,8 +71,8 @@ export class Status extends Entity {
     this.missCount ++;
   }
 
-  public hitEnemy(dead: boolean): void {
-    const gainedScore = 15 * this.wholeBonusRatio * ((dead) ? 3 : 1);
+  public hitEnemy(x: number, y: number, dead: boolean): void {
+    const gainedScore = Math.floor(15 * this.wholeBonusRatio * ((dead) ? 3 : 1));
     this.score += gainedScore;
     this.hitCount ++;
     this.comboTime = 0;
@@ -72,6 +82,8 @@ export class Status extends Entity {
     if (this.combo < STATUS_PROPS.maxCombo) {
       this.combo ++;
     }
+    const label = new ScoreLabel({x, y, score: gainedScore});
+    this.labels.push(label);
   }
 
   public damage(): void {

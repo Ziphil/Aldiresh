@@ -23,7 +23,7 @@ export const TARGET_PROPS = {
 export class Target extends Actor {
 
   public constructor({x, y}: {x: number, y: number}) {
-    super({x, y, z: -190});
+    super({x, y, z: -180});
     this.addComponent(new RotatingSquareComponent({...TARGET_PROPS.square, framed: true}));
   }
 
