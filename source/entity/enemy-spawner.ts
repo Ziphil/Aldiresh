@@ -34,12 +34,9 @@ export class EnemySpawner extends Entity {
   }
 
   public override onInitialize(engine: Engine): void {
-    this.addComponent(new TimerComponent());
-    const component = this.get(TimerComponent)!;
-    component.setOperation("spawn", () => this.spawn(engine), this.status.averageSpawnTimeout);
-  }
-
-  public override onPreUpdate(engine: Engine, delta: number): void {
+    const timerComponent = new TimerComponent();
+    timerComponent.setOperation("spawn", () => this.spawn(engine), this.status.averageSpawnTimeout);
+    this.addComponent(timerComponent);
   }
 
   private spawn(engine: Engine): number {
