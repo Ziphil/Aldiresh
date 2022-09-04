@@ -27,7 +27,7 @@ export class AldireshEngine extends Engine {
   public constructor() {
     super({
       resolution: {width: SCREEN_PROPS.width, height: SCREEN_PROPS.height},
-      displayMode: DisplayMode["FitScreen"],
+      displayMode: DisplayMode["FitContainer"],
       canvasElementId: "screen",
       backgroundColor: Color.fromHex("#000000"),
       antialiasing: false,

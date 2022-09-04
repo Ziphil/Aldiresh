@@ -11,7 +11,39 @@
   <body>
 
     <main id="main">
-      <canvas id="screen">
+      <main id="screen-container">
+        <canvas id="screen">
+      </main>
+      <div id="instruction">
+        <div class="column">
+          <div class="heading">操作方法</div>
+          <div class="table">
+            <div><span class="key">W</span>, <span class="key">A</span>, <span class="key">S</span>, <span class="key">D</span></div>
+            <div>プレイヤーの移動</div>
+            <div><span class="key">↑</span>, <span class="key">←</span>, <span class="key">↓</span>, <span class="key">→</span></div>
+            <div>プレイヤーの移動</div>
+            <div>マウス</div>
+            <div>照準の移動</div>
+            <div>クリック</div>
+            <div>弾の発射</div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="heading">ゲームの説明</div>
+          <div class="explanation">
+            <div class="paragraph">
+              <p>水色のオブジェクトがプレイヤーで、桃色のオブジェクトが敵です。</p>
+              <p>敵に弾を 3 回当てることで敵を倒すことができます。</p>
+              <p>逆に敵から撃たれた弾に当たるとライフが減り、ライフが 0 になるとゲームオーバーになります。</p>
+              <p>黄色のオブジェクトはアイテムで、触ることでライフを回復することができます。</p>
+            </div>
+            <div class="paragraph">
+              <p>命中率が高いほどスコアが高くなります。</p>
+              <p>短時間に連続で的に弾を当てると、コンボボーナスが発生してスコアが高くなります。</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
   </body>
