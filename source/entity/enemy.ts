@@ -26,6 +26,9 @@ import {
   Fragment
 } from "/source/entity/fragment";
 import {
+  Item
+} from "/source/entity/item";
+import {
   Status
 } from "/source/entity/status";
 import {
@@ -137,6 +140,7 @@ export class Enemy extends Actor {
         this.status.hitEnemy(this.pos.x, this.pos.y, dead);
         if (dead) {
           this.emitFragments(engine);
+          this.emitItem(engine);
           this.kill();
         }
         other.kill();
@@ -151,6 +155,14 @@ export class Enemy extends Actor {
       const direction = this.random.floating((0.4 * i - 1) * Math.PI, (0.4 * i - 0.6) * Math.PI);
       const fragment = new Fragment({x, y, direction, owner: "enemy"});
       engine.add(fragment);
+    }
+  }
+
+  private emitItem(engine: Engine): void {
+    if (this.random.next() <= this.status.itemProbability) {
+      const direction = this.random.floating(-Math.PI, Math.PI);
+      const item = new Item({x: this.pos.x, y: this.pos.y, direction, type: "recover"});
+      engine.add(item);
     }
   }
 

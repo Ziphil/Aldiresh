@@ -11,7 +11,7 @@ import {
 
 export const STATUS_PROPS = {
   levelInterval: 15000,
-  maxLevel: 99,
+  maxLevel: 49,
   initialLife: 5,
   comboDuration: 3000,
   maxCombo: 30
@@ -114,6 +114,12 @@ export class Status extends Entity {
     }
   }
 
+  public recover(): void {
+    if (this.life > 0) {
+      this.life ++;
+    }
+  }
+
   private emitScoreLabel(x: number, y: number, score: number): void {
     const label = new ScoreLabel({x, y, score});
     this.labels.push(label);
@@ -149,6 +155,10 @@ export class Status extends Entity {
 
   public get averageShootTimeout(): number {
     return 150 * 900 / (this.level * 12 + 150) + 100;
+  }
+
+  public get itemProbability(): number {
+    return this.level * 0.01;
   }
 
 }

@@ -46,7 +46,7 @@ export class Bullet extends Actor {
   public constructor({x, y, ...configs}: BulletConfigs) {
     super({
       pos: vec(x, y),
-      z: -220,
+      z: -230,
       radius: BULLET_PROPS.size / 2,
       collisionType: CollisionType["Passive"],
       color: Color["Transparent"]

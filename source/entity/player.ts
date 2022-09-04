@@ -25,6 +25,7 @@ import {
 import {
   GameoverCover
 } from "/source/entity/gameover-cover";
+import {Item} from "/source/entity/item";
 import {
   Status
 } from "/source/entity/status";
@@ -79,6 +80,7 @@ export class Player extends Actor {
 
   public onPreCollision(engine: Engine, event: PreCollisionEvent<Actor>): void {
     this.collideWithBullet(engine, event.other);
+    this.collideWithItem(engine, event.other);
   }
 
   private move(engine: Engine, delta: number): void {
@@ -139,6 +141,13 @@ export class Player extends Actor {
         this.showGameoverCover(engine);
         this.kill();
       }
+      other.kill();
+    }
+  }
+
+  private collideWithItem(engine: Engine, other: Actor): void {
+    if (other instanceof Item) {
+      this.status.recover();
       other.kill();
     }
   }
