@@ -174,7 +174,7 @@ export class Status extends Entity {
   }
 
   public calcItemProbability(): number {
-    return this.level * 0.01;
+    return Math.min(this.level * 0.015, 0.5);
   }
 
 }
