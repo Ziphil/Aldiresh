@@ -11,7 +11,7 @@ import {
 
 const STATUS_PROPS = {
   levelInterval: 15000,
-  maxLevel: 50,
+  maxLevel: 99,
   initialLife: 15,
   comboDuration: 2000,
   maxCombo: 40
