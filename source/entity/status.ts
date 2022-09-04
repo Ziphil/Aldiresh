@@ -12,9 +12,9 @@ import {
 export const STATUS_PROPS = {
   levelInterval: 15000,
   maxLevel: 99,
-  initialLife: 15,
-  comboDuration: 2000,
-  maxCombo: 40
+  initialLife: 5,
+  comboDuration: 3000,
+  maxCombo: 30
 };
 
 
@@ -43,7 +43,7 @@ export class Status extends Entity {
     this.hitCount = 0;
     this.killCount = 0;
     this.combo = 0;
-    this.comboTimer = 0;
+    this.comboTimer = STATUS_PROPS.comboDuration;
     this.labels = [];
   }
 
@@ -54,10 +54,12 @@ export class Status extends Entity {
   }
 
   private updateLevel(delta: number): void {
-    this.levelTimer += delta;
-    if (this.level < STATUS_PROPS.maxLevel && this.levelTimer >= STATUS_PROPS.levelInterval) {
-      this.level ++;
-      this.levelTimer -= STATUS_PROPS.levelInterval;
+    if (this.life >= 0) {
+      this.levelTimer += delta;
+      if (this.level < STATUS_PROPS.maxLevel && this.levelTimer >= STATUS_PROPS.levelInterval) {
+        this.level ++;
+        this.levelTimer -= STATUS_PROPS.levelInterval;
+      }
     }
   }
 
@@ -92,7 +94,7 @@ export class Status extends Entity {
 
   public hitEnemy(x: number, y: number, dead: boolean): void {
     if (this.life >= 0) {
-      const gainedScore = Math.floor(15 * this.wholeBonusRatio * ((dead) ? 3 : 1));
+      const gainedScore = Math.floor(50 * this.wholeBonusRatio * ((dead) ? 3 : 1));
       this.score += gainedScore;
       this.hitCount ++;
       this.comboTimer = 0;
@@ -130,11 +132,11 @@ export class Status extends Entity {
   }
 
   public get hitBonusRatio(): number {
-    return this.hitRate * 4 + 1;
+    return this.hitRate + 1;
   }
 
   public get comboBonusRatio(): number {
-    return this.comboRate * 4 + 1;
+    return this.comboRate + 1;
   }
 
   public get wholeBonusRatio(): number {
@@ -142,11 +144,11 @@ export class Status extends Entity {
   }
 
   public get averageSpawnTimeout(): number {
-    return 3000 - this.level * 60;
+    return 150 * 2700 / (this.level * 15 + 150) + 300;
   }
 
   public get averageShootTimeout(): number {
-    return 3500 - this.level * 85;
+    return 150 * 900 / (this.level * 12 + 150) + 100;
   }
 
 }
