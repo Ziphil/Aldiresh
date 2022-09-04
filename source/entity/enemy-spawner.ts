@@ -43,9 +43,9 @@ export class EnemySpawner extends Entity {
     const x = this.random.floating(ENEMY_PROPS.size, FIELD_PROPS.width - ENEMY_PROPS.size);
     const y = this.random.floating(ENEMY_PROPS.size, FIELD_PROPS.height - ENEMY_PROPS.size);
     const enemy = new Enemy({x, y});
-    const timeout = randomize(this.random, this.status.averageSpawnTimeout);
     enemy.setStatus(this.status);
     engine.currentScene.add(enemy);
+    const timeout = randomize(this.random, this.status.calcAverageSpawnTimeout());
     return timeout;
   }
 

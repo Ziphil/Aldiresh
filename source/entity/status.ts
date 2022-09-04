@@ -92,9 +92,9 @@ export class Status extends Entity {
     }
   }
 
-  public hitEnemy(x: number, y: number, dead: boolean): void {
+  public hit(x: number, y: number, dead: boolean): void {
     if (this.life > 0) {
-      const gainedScore = Math.floor(50 * this.wholeBonusRatio * ((dead) ? 3 : 1));
+      const gainedScore = this.calcHitScore(dead);
       this.score += gainedScore;
       this.hitCount ++;
       this.comboTimer = 0;
@@ -114,9 +114,12 @@ export class Status extends Entity {
     }
   }
 
-  public recover(): void {
+  public recover(x: number, y: number): void {
     if (this.life > 0) {
+      const gainedScore = this.calcItemScore();
+      this.score += gainedScore;
       this.life ++;
+      this.emitScoreLabel(x, y, gainedScore);
     }
   }
 
@@ -149,15 +152,28 @@ export class Status extends Entity {
     return this.levelBonusRatio * this.hitBonusRatio * this.comboBonusRatio;
   }
 
-  public get averageSpawnTimeout(): number {
+  public calcHitScore(dead: boolean): number {
+    let score = this.wholeBonusRatio * 50;
+    if (dead) {
+      score *= 3;
+    }
+    return Math.floor(score);
+  }
+
+  public calcItemScore(): number {
+    const score = this.level * 100;
+    return Math.floor(score);
+  }
+
+  public calcAverageSpawnTimeout(): number {
     return 150 * 2700 / (this.level * 15 + 150) + 300;
   }
 
-  public get averageShootTimeout(): number {
+  public calcAverageShootTimeout(): number {
     return 150 * 900 / (this.level * 12 + 150) + 100;
   }
 
-  public get itemProbability(): number {
+  public calcItemProbability(): number {
     return this.level * 0.01;
   }
 

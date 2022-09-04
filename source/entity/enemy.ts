@@ -77,7 +77,7 @@ export class Enemy extends Actor {
   public override onInitialize(engine: Engine): void {
     const squareComponent = new RotatingSquareComponent(ENEMY_PROPS.square);
     const timerComponent = new TimerComponent();
-    timerComponent.setOperation("shoot", () => this.shoot(engine), this.status.averageShootTimeout);
+    timerComponent.setOperation("shoot", () => this.shoot(engine), this.status.calcAverageShootTimeout());
     timerComponent.setOperation("changeDirection", () => this.changeDirection(), 2000);
     timerComponent.deactivate("shoot");
     timerComponent.deactivate("changeDirection");
@@ -119,16 +119,16 @@ export class Enemy extends Actor {
   private shoot(engine: Engine): number {
     const direction = this.random.floating(-Math.PI, Math.PI);
     const bullet = new Bullet({x: this.pos.x, y: this.pos.y, direction, owner: "enemy"});
-    const timeout = randomize(this.random, this.status.averageShootTimeout);
     bullet.setStatus(this.status);
     engine.currentScene.add(bullet);
+    const timeout = randomize(this.random, this.status.calcAverageShootTimeout());
     return timeout;
   }
 
   private changeDirection(): number {
     const direction = this.random.floating(-Math.PI, Math.PI);
-    const timeout = randomize(this.random, 2000);
     this.vel = Vector.fromAngle(direction).scale(ENEMY_PROPS.vel);
+    const timeout = randomize(this.random, 2000);
     return timeout;
   }
 
@@ -137,7 +137,7 @@ export class Enemy extends Actor {
       if (this.state === "move") {
         this.life --;
         const dead = this.life <= 0;
-        this.status.hitEnemy(this.pos.x, this.pos.y, dead);
+        this.status.hit(this.pos.x, this.pos.y, dead);
         if (dead) {
           this.emitFragments(engine);
           this.emitItem(engine);
@@ -159,7 +159,7 @@ export class Enemy extends Actor {
   }
 
   private emitItem(engine: Engine): void {
-    if (this.random.next() <= this.status.itemProbability) {
+    if (this.random.next() <= this.status.calcItemProbability()) {
       const direction = this.random.floating(-Math.PI, Math.PI);
       const item = new Item({x: this.pos.x, y: this.pos.y, direction, type: "recover"});
       engine.add(item);

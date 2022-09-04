@@ -147,7 +147,7 @@ export class Player extends Actor {
 
   private collideWithItem(engine: Engine, other: Actor): void {
     if (other instanceof Item) {
-      this.status.recover();
+      this.status.recover(this.pos.x, this.pos.y);
       other.kill();
     }
   }
