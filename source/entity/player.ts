@@ -6,6 +6,7 @@ import {
   Color,
   Engine,
   Input,
+  PreCollisionEvent,
   vec
 } from "excalibur";
 import {
@@ -56,13 +57,19 @@ export class Player extends Actor {
   }
 
   public override onInitialize(engine: Engine): void {
-    this.addComponent(new RotatingSquareComponent(PLAYER_PROPS.square));
+    const squareComponent = new RotatingSquareComponent(PLAYER_PROPS.square);
+    this.addComponent(squareComponent);
+    this.on("precollision", this.onPreCollision.bind(this));
     engine.input.pointers.primary.on("down", () => this.shoot(engine));
   }
 
   public override onPreUpdate(engine: Engine, delta: number): void {
     this.move(engine, delta);
     this.bounceWall();
+  }
+
+  public onPreCollision(event: PreCollisionEvent<Actor>): void {
+    this.collideWithBullet(event.other);
   }
 
   private move(engine: Engine, delta: number): void {
@@ -110,6 +117,13 @@ export class Player extends Actor {
     if (this.pos.y > FIELD_PROPS.height - PLAYER_PROPS.size) {
       this.pos.y = FIELD_PROPS.height - PLAYER_PROPS.size;
       this.vel.y = -this.vel.y;
+    }
+  }
+
+  private collideWithBullet(other: Actor): void {
+    if (other instanceof Bullet && other.owner === "enemy") {
+      this.status.damage();
+      other.kill();
     }
   }
 

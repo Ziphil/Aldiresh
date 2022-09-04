@@ -85,6 +85,10 @@ export class Enemy extends Actor {
     this.killWhenOutside();
   }
 
+  public onPreCollision(event: PreCollisionEvent<Actor>): void {
+    this.collideWithBullet(event.other);
+  }
+
   private activate(delta: number): void {
     if (this.state === "activate") {
       this.activationTimer += delta;
@@ -122,8 +126,7 @@ export class Enemy extends Actor {
     return timeout;
   }
 
-  private onPreCollision(event: PreCollisionEvent<Actor>): void {
-    const other = event.other;
+  private collideWithBullet(other: Actor): void {
     if (other instanceof Bullet && other.owner === "player") {
       if (this.state === "move") {
         this.life --;
@@ -135,7 +138,7 @@ export class Enemy extends Actor {
         other.kill();
       }
     }
-  };
+  }
 
   public setStatus(status: Status): void {
     this.status = status;
