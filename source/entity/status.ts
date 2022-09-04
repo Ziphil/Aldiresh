@@ -33,6 +33,7 @@ export class Status extends Entity {
 
   public override onPreUpdate(engine: Engine, delta: number): void {
     this.updateLevel(delta);
+    this.updateCombo(delta);
   }
 
   private updateLevel(delta: number): void {
@@ -40,6 +41,15 @@ export class Status extends Entity {
     if (this.level < STATUS_PROPS.maxLevel && this.levelTime >= STATUS_PROPS.levelInterval) {
       this.level ++;
       this.levelTime -= STATUS_PROPS.levelInterval;
+    }
+  }
+
+  private updateCombo(delta: number): void {
+    if (this.comboTime < STATUS_PROPS.comboDuration) {
+      this.comboTime += delta;
+      if (this.comboTime >= STATUS_PROPS.comboDuration) {
+        this.combo = 0;
+      }
     }
   }
 
@@ -55,13 +65,13 @@ export class Status extends Entity {
     const gainedScore = 15 * this.wholeBonusRatio * ((dead) ? 3 : 1);
     this.score += gainedScore;
     this.hitCount ++;
+    this.comboTime = 0;
     if (dead) {
       this.killCount ++;
     }
     if (this.combo < STATUS_PROPS.maxCombo) {
       this.combo ++;
     }
-    this.comboTime = STATUS_PROPS.comboDuration;
   }
 
   public damage(): void {
