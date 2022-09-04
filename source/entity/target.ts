@@ -33,10 +33,19 @@ export class Target extends Actor {
   }
 
   public override onInitialize(engine: Engine): void {
-    this.addComponent(new RotatingSquareComponent({...TARGET_PROPS.square, framed: true}));
+    this.initializeComponents();
   }
 
   public override onPreUpdate(engine: Engine, delta: number): void {
+    this.followPointer(engine);
+  }
+
+  private initializeComponents(): void {
+    const squareComponent = new RotatingSquareComponent({...TARGET_PROPS.square, framed: true});
+    this.addComponent(squareComponent);
+  }
+
+  private followPointer(engine: Engine): void {
     this.pos = engine.input.pointers.primary.lastScreenPos.clone();
   }
 

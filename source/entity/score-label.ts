@@ -43,12 +43,20 @@ export class ScoreLabel extends Actor {
   }
 
   public override onInitialize(engine: Engine): void {
+    this.initializeGraphics();
+  }
+
+  public override onPreUpdate(engine: Engine, delta: number): void {
+    this.updateOpacity(delta);
+  }
+
+  private initializeGraphics(): void {
     const string = this.score.toFixed(0);
     const text = new Text({text: string, font: SPRITE_FONTS.smallNumber});
     this.graphics.use(text);
   }
 
-  public override onPreUpdate(engine: Engine, delta: number): void {
+  private updateOpacity(delta: number): void {
     this.timer += delta;
     if (this.timer < SCORE_LABEL_PROPS.existenceDuration) {
       this.graphics.opacity = 1 - this.timer / SCORE_LABEL_PROPS.existenceDuration;

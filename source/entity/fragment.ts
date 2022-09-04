@@ -50,13 +50,22 @@ export class Fragment extends Actor {
   }
 
   public override onInitialize(engine: Engine): void {
-    this.addComponent(new RotatingSquareComponent({
-      ...FRAGMENT_PROPS.square,
-      outerColor: (this.owner === "player") ? FRAGMENT_PROPS.square.playerOuterColor : FRAGMENT_PROPS.square.enemyOuterColor
-    }));
+    this.initializeComponents();
   }
 
   public override onPreUpdate(engine: Engine, delta: number): void {
+    this.updateOpacity(delta);
+  }
+
+  private initializeComponents(): void {
+    const squareComponent = new RotatingSquareComponent({
+      ...FRAGMENT_PROPS.square,
+      outerColor: (this.owner === "player") ? FRAGMENT_PROPS.square.playerOuterColor : FRAGMENT_PROPS.square.enemyOuterColor
+    });
+    this.addComponent(squareComponent);
+  }
+
+  private updateOpacity(delta: number): void {
     this.timer += delta;
     if (this.timer < FRAGMENT_PROPS.existenceDuration) {
       this.graphics.opacity = 1 - this.timer / FRAGMENT_PROPS.existenceDuration;

@@ -34,17 +34,29 @@ export class StatusPane extends Actor {
   }
 
   public override onInitialize(engine: Engine): void {
+    this.initializeGraphics();
+    this.addItems();
+    this.addDebugItems();
+  }
+
+  private initializeGraphics(): void {
+    this.graphics.use(ASSETS.statusBackground.toSprite());
+  }
+
+  private addItems(): void {
     const scoreItem = new StatusItem({x: 0, y: 12, spriteIndex: 0, getNumber: () => this.status.score});
     const levelItem = new StatusItem({x: 0, y: 42, spriteIndex: 1, getNumber: () => this.status.level + 1});
     const lifeItem = new StatusItem({x: 0, y: 66, spriteIndex: 2, getNumber: () => this.status.life});
     const hitCountItem = new StatusItem({x: 0, y: 96, spriteIndex: 3, getNumber: () => this.status.hitCount});
     const killCountItem = new StatusItem({x: 0, y: 120, spriteIndex: 4, getNumber: () => this.status.killCount});
-    this.graphics.use(ASSETS.statusBackground.toSprite());
     this.addChild(scoreItem);
     this.addChild(levelItem);
     this.addChild(lifeItem);
     this.addChild(hitCountItem);
     this.addChild(killCountItem);
+  }
+
+  private addDebugItems(): void {
     if (document.location.hash === "#debug") {
       const hitRateItem = new StatusItem({x: 0, y: 156, spriteIndex: 5, decimalLength: 2, getNumber: () => this.status.hitRate * 100});
       const comboItem = new StatusItem({x: 0, y: 180, spriteIndex: 6, getNumber: () => this.status.combo});

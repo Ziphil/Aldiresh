@@ -29,6 +29,10 @@ export class GameoverCover extends Actor {
   }
 
   public override onInitialize(engine: Engine): void {
+    this.addLabel();
+  }
+
+  private addLabel(): void {
     const label = new Actor({x: FIELD_PROPS.width / 2, y: FIELD_PROPS.height / 2});
     label.graphics.use(SPRITE_SHEETS.string.sprites[0]);
     this.addChild(label);

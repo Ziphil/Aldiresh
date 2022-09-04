@@ -68,8 +68,7 @@ export class Player extends Actor {
   }
 
   public override onInitialize(engine: Engine): void {
-    const squareComponent = new RotatingSquareComponent(PLAYER_PROPS.square);
-    this.addComponent(squareComponent);
+    this.initializeComponents();
     this.on("precollision", (event) => this.onPreCollision(engine, event));
     engine.input.pointers.primary.on("down", () => this.shoot(engine));
   }
@@ -82,6 +81,11 @@ export class Player extends Actor {
   public onPreCollision(engine: Engine, event: PreCollisionEvent<Actor>): void {
     this.collideWithBullet(engine, event.other);
     this.collideWithItem(engine, event.other);
+  }
+
+  private initializeComponents(): void {
+    const squareComponent = new RotatingSquareComponent(PLAYER_PROPS.square);
+    this.addComponent(squareComponent);
   }
 
   private move(engine: Engine, delta: number): void {

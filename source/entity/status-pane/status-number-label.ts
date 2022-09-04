@@ -32,6 +32,10 @@ export class StatusNumberLabel extends Actor {
   }
 
   public override onInitialize(engine: Engine): void {
+    this.initializeGraphics();
+  }
+
+  private initializeGraphics(): void {
     const text = new Text({text: "", font: SPRITE_FONTS.number});
     this.text = text;
     this.graphics.use(text);
