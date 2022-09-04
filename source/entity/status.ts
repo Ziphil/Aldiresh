@@ -64,30 +64,38 @@ export class Status extends Entity {
   }
 
   public shoot(): void {
-    this.shootCount ++;
+    if (this.life >= 0) {
+      this.shootCount ++;
+    }
   }
 
   public miss(): void {
-    this.missCount ++;
+    if (this.life >= 0) {
+      this.missCount ++;
+    }
   }
 
   public hitEnemy(x: number, y: number, dead: boolean): void {
-    const gainedScore = Math.floor(15 * this.wholeBonusRatio * ((dead) ? 3 : 1));
-    this.score += gainedScore;
-    this.hitCount ++;
-    this.comboTime = 0;
-    if (dead) {
-      this.killCount ++;
+    if (this.life >= 0) {
+      const gainedScore = Math.floor(15 * this.wholeBonusRatio * ((dead) ? 3 : 1));
+      this.score += gainedScore;
+      this.hitCount ++;
+      this.comboTime = 0;
+      if (dead) {
+        this.killCount ++;
+      }
+      if (this.combo < STATUS_PROPS.maxCombo) {
+        this.combo ++;
+      }
+      const label = new ScoreLabel({x, y, score: gainedScore});
+      this.labels.push(label);
     }
-    if (this.combo < STATUS_PROPS.maxCombo) {
-      this.combo ++;
-    }
-    const label = new ScoreLabel({x, y, score: gainedScore});
-    this.labels.push(label);
   }
 
   public damage(): void {
-    this.life --;
+    if (this.life >= 0) {
+      this.life --;
+    }
   }
 
   public get hitRate(): number {

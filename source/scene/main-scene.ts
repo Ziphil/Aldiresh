@@ -59,8 +59,8 @@ export class MainScene extends Scene {
     this.add(player);
     this.add(enemySpawner);
     this.add(target);
-    this.add(status);
     this.add(statusPane);
+    this.add(status);
   }
 
 }

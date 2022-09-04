@@ -7,6 +7,7 @@ import {
   Engine,
   Input,
   PreCollisionEvent,
+  Random,
   vec
 } from "excalibur";
 import {
@@ -18,6 +19,12 @@ import {
 import {
   Bullet
 } from "/source/entity/bullet";
+import {
+  Fragment
+} from "/source/entity/fragment";
+import {
+  GameoverCover
+} from "/source/entity/gameover-cover";
 import {
   Status
 } from "/source/entity/status";
@@ -44,6 +51,7 @@ export const PLAYER_PROPS = {
 
 export class Player extends Actor {
 
+  private readonly random: Random;
   private status!: Status;
   private target!: Target;
 
@@ -54,12 +62,13 @@ export class Player extends Actor {
       radius: PLAYER_PROPS.size / 2,
       collisionType: CollisionType["Passive"]
     });
+    this.random = new Random();
   }
 
   public override onInitialize(engine: Engine): void {
     const squareComponent = new RotatingSquareComponent(PLAYER_PROPS.square);
     this.addComponent(squareComponent);
-    this.on("precollision", this.onPreCollision.bind(this));
+    this.on("precollision", (event) => this.onPreCollision(engine, event));
     engine.input.pointers.primary.on("down", () => this.shoot(engine));
   }
 
@@ -68,8 +77,8 @@ export class Player extends Actor {
     this.bounceWall();
   }
 
-  public onPreCollision(event: PreCollisionEvent<Actor>): void {
-    this.collideWithBullet(event.other);
+  public onPreCollision(engine: Engine, event: PreCollisionEvent<Actor>): void {
+    this.collideWithBullet(engine, event.other);
   }
 
   private move(engine: Engine, delta: number): void {
@@ -93,12 +102,14 @@ export class Player extends Actor {
   }
 
   private shoot(engine: Engine): void {
-    const target = this.target;
-    const direction = target.pos.sub(this.pos).toAngle();
-    const bullet = new Bullet({x: this.pos.x, y: this.pos.y, direction, owner: "player"});
-    bullet.setStatus(this.status);
-    engine.currentScene.add(bullet);
-    this.status.shoot();
+    if (this.status.life > 0) {
+      const target = this.target;
+      const direction = target.pos.sub(this.pos).toAngle();
+      const bullet = new Bullet({x: this.pos.x, y: this.pos.y, direction, owner: "player"});
+      bullet.setStatus(this.status);
+      engine.currentScene.add(bullet);
+      this.status.shoot();
+    }
   }
 
   private bounceWall(): void {
@@ -120,11 +131,31 @@ export class Player extends Actor {
     }
   }
 
-  private collideWithBullet(other: Actor): void {
+  private collideWithBullet(engine: Engine, other: Actor): void {
     if (other instanceof Bullet && other.owner === "enemy") {
       this.status.damage();
+      if (this.status.life <= 0) {
+        this.emitFragments(engine);
+        this.showGameoverCover(engine);
+        this.kill();
+      }
       other.kill();
     }
+  }
+
+  private emitFragments(engine: Engine): void {
+    for (let i = 0 ; i < 5 ; i ++) {
+      const x = this.random.floating(this.pos.x - 4, this.pos.x + 4);
+      const y = this.random.floating(this.pos.y - 4, this.pos.y + 4);
+      const direction = this.random.floating((0.4 * i - 1) * Math.PI, (0.4 * i - 0.6) * Math.PI);
+      const fragment = new Fragment({x, y, direction, owner: "player"});
+      engine.add(fragment);
+    }
+  }
+
+  private showGameoverCover(engine: Engine): void {
+    const gameoverColor = new GameoverCover();
+    engine.add(gameoverColor);
   }
 
   public setTarget(target: Target): void {
