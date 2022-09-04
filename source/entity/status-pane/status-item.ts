@@ -7,7 +7,6 @@ import {
 } from "excalibur";
 import {
   ASSETS,
-  SPRITE_FONTS,
   SPRITE_SHEETS
 } from "/source/core/asset";
 import {
@@ -15,8 +14,8 @@ import {
   SCREEN_PROPS
 } from "/source/core/constant";
 import {
-  NumberLabel
-} from "/source/entity/number-label";
+  StatusNumberLabel
+} from "/source/entity/status-pane/status-number-label";
 
 
 export type StatausItemConfigs = {
@@ -31,7 +30,7 @@ export class StatusItem extends Actor {
 
   private readonly spriteIndex: number;
   private readonly getNumber: () => number;
-  private numberLabel!: NumberLabel;
+  private numberLabel!: StatusNumberLabel;
 
   public constructor({x, y, ...configs}: StatausItemConfigs) {
     super({x, y, z: -90});
@@ -41,7 +40,7 @@ export class StatusItem extends Actor {
   }
 
   public override onInitialize(engine: Engine): void {
-    const numberLabel = new NumberLabel({x: SCREEN_PROPS.width - FIELD_PROPS.width - 22, y: 9, font: SPRITE_FONTS.number, align: "right"});
+    const numberLabel = new StatusNumberLabel({x: SCREEN_PROPS.width - FIELD_PROPS.width - 22, y: 9});
     const nameEntity = new Actor({x: 8, y: 2});
     nameEntity.anchor = vec(0, 0);
     nameEntity.graphics.use(SPRITE_SHEETS.statusName.sprites[this.spriteIndex]);
@@ -52,7 +51,7 @@ export class StatusItem extends Actor {
   }
 
   public override onPostUpdate(engine: Engine, delta: number): void {
-    this.numberLabel.setNumber(this.getNumber());
+    this.numberLabel.number = this.getNumber();
   }
 
 }
