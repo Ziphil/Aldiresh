@@ -5,7 +5,6 @@ import {
   CollisionType,
   Color,
   Engine,
-  Input,
   PreCollisionEvent,
   Random,
   vec
@@ -26,7 +25,12 @@ import {
 import {
   GameoverCover
 } from "/source/entity/gameover-cover";
-import {Item} from "/source/entity/item";
+import {
+  InputManager
+} from "/source/entity/input-manager";
+import {
+  Item
+} from "/source/entity/item";
 import {
   Status
 } from "/source/entity/status";
@@ -54,6 +58,7 @@ export const PLAYER_PROPS = {
 export class Player extends Actor {
 
   private readonly random: Random;
+  private inputManager!: InputManager;
   private status!: Status;
   private target!: Target;
 
@@ -69,12 +74,13 @@ export class Player extends Actor {
 
   public override onInitialize(engine: Engine): void {
     this.initializeComponents();
+    this.initializeInputManager(engine);
     this.on("precollision", (event) => this.onPreCollision(engine, event));
-    engine.input.pointers.primary.on("down", () => this.shoot(engine));
+    this.inputManager.setOnButtonDown(() => this.shoot(engine));
   }
 
   public override onPreUpdate(engine: Engine, delta: number): void {
-    this.move(engine, delta);
+    this.move(delta);
     this.bounceWall();
   }
 
@@ -88,20 +94,14 @@ export class Player extends Actor {
     this.addComponent(squareComponent);
   }
 
-  private move(engine: Engine, delta: number): void {
-    const keyboard = engine.input.keyboard;
-    if (keyboard.isHeld(Input["Keys"]["ArrowLeft"]) || keyboard.isHeld(Input["Keys"]["A"])) {
-      this.vel.x -= PLAYER_PROPS.acc * delta;
-    }
-    if (keyboard.isHeld(Input["Keys"]["ArrowRight"]) || keyboard.isHeld(Input["Keys"]["D"])) {
-      this.vel.x += PLAYER_PROPS.acc * delta;
-    }
-    if (keyboard.isHeld(Input["Keys"]["ArrowUp"]) || keyboard.isHeld(Input["Keys"]["W"])) {
-      this.vel.y -= PLAYER_PROPS.acc * delta;
-    }
-    if (keyboard.isHeld(Input["Keys"]["ArrowDown"]) || keyboard.isHeld(Input["Keys"]["S"])) {
-      this.vel.y += PLAYER_PROPS.acc * delta;
-    }
+  private initializeInputManager(engine: Engine): void {
+    const inputManager = new InputManager(engine);
+    this.inputManager = inputManager;
+  }
+
+  private move(delta: number): void {
+    this.vel.x += this.inputManager.getLeftX() * PLAYER_PROPS.acc * delta;
+    this.vel.y += this.inputManager.getLeftY() * PLAYER_PROPS.acc * delta;
     this.vel.x = Math.max(Math.min(this.vel.x, PLAYER_PROPS.maxVel), -PLAYER_PROPS.maxVel);
     this.vel.y = Math.max(Math.min(this.vel.y, PLAYER_PROPS.maxVel), -PLAYER_PROPS.maxVel);
     this.vel.x -= Math.min(Math.abs(this.vel.x), PLAYER_PROPS.friction * delta) * Math.sign(this.vel.x);

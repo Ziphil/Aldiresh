@@ -33,6 +33,7 @@ export class AldireshEngine extends Engine {
       antialiasing: false,
       suppressHiDPIScaling: true
     });
+    this.input.gamepads.enabled = true;
     this.setupScenes();
     this.setupDevTool();
   }
