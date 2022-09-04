@@ -4,7 +4,6 @@ import {
   Actor,
   Engine,
   Text,
-  Vector,
   vec
 } from "excalibur";
 import {
@@ -13,8 +12,8 @@ import {
 
 
 const SCORE_LABEL_PROPS = {
-  existenceDuration: 1000,
-  terminalOffset: 10
+  vel: 10,
+  existenceDuration: 1000
 };
 
 export type ScoreLabelConfigs = {
@@ -26,7 +25,6 @@ export type ScoreLabelConfigs = {
 
 export class ScoreLabel extends Actor {
 
-  private initialPos: Vector;
   private score: number;
   private timer: number;
 
@@ -35,9 +33,9 @@ export class ScoreLabel extends Actor {
       pos: vec(x, y),
       z: -190
     });
-    this.initialPos = vec(x, y);
     this.score = configs.score;
     this.timer = 0;
+    this.vel.y = -SCORE_LABEL_PROPS.vel;
     this.anchor = vec(0.5, 1);
   }
 
@@ -50,7 +48,6 @@ export class ScoreLabel extends Actor {
   public override onPreUpdate(engine: Engine, delta: number): void {
     this.timer += delta;
     if (this.timer < SCORE_LABEL_PROPS.existenceDuration) {
-      this.pos = this.initialPos.add(vec(0, -this.timer / SCORE_LABEL_PROPS.existenceDuration * SCORE_LABEL_PROPS.terminalOffset));
       this.graphics.opacity = 1 - this.timer / SCORE_LABEL_PROPS.existenceDuration;
     } else {
       this.kill();
