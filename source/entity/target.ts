@@ -11,7 +11,6 @@ import {
 
 
 export const TARGET_PROPS = {
-  size: 31,
   square: {
     outerSize: 31,
     outerRotationVel: 0.003,

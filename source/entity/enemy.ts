@@ -23,6 +23,9 @@ import {
   Bullet
 } from "/source/entity/bullet";
 import {
+  Fragment
+} from "/source/entity/fragment";
+import {
   Status
 } from "/source/entity/status";
 import {
@@ -77,7 +80,7 @@ export class Enemy extends Actor {
     timerComponent.deactivate("changeDirection");
     this.addComponent(squareComponent);
     this.addComponent(timerComponent);
-    this.on("precollision", this.onPreCollision.bind(this));
+    this.on("precollision", (event) => this.onPreCollision(engine, event));
   }
 
   public override onPreUpdate(engine: Engine, delta: number): void {
@@ -85,8 +88,8 @@ export class Enemy extends Actor {
     this.killWhenOutside();
   }
 
-  public onPreCollision(event: PreCollisionEvent<Actor>): void {
-    this.collideWithBullet(event.other);
+  public onPreCollision(engine: Engine, event: PreCollisionEvent<Actor>): void {
+    this.collideWithBullet(engine, event.other);
   }
 
   private activate(delta: number): void {
@@ -126,17 +129,28 @@ export class Enemy extends Actor {
     return timeout;
   }
 
-  private collideWithBullet(other: Actor): void {
+  private collideWithBullet(engine: Engine, other: Actor): void {
     if (other instanceof Bullet && other.owner === "player") {
       if (this.state === "move") {
         this.life --;
         const dead = this.life <= 0;
         this.status.hitEnemy(this.pos.x, this.pos.y, dead);
         if (dead) {
+          this.emitFragments(engine);
           this.kill();
         }
         other.kill();
       }
+    }
+  }
+
+  private emitFragments(engine: Engine): void {
+    for (let i = 0 ; i < 5 ; i ++) {
+      const x = this.random.floating(this.pos.x - 4, this.pos.x + 4);
+      const y = this.random.floating(this.pos.y - 4, this.pos.y + 4);
+      const direction = this.random.floating((0.4 * i - 1) * Math.PI, (0.4 * i - 0.6) * Math.PI);
+      const fragment = new Fragment({x, y, direction, owner: "enemy"});
+      engine.add(fragment);
     }
   }
 
