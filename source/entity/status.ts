@@ -4,33 +4,47 @@ import {
   Engine,
   Entity
 } from "excalibur";
-import {ScoreLabel} from "/source/entity/score-label";
+import {
+  ScoreLabel
+} from "/source/entity/score-label";
 
 
 const STATUS_PROPS = {
-  levelInterval: 25000,
+  levelInterval: 15000,
   maxLevel: 50,
-  comboDuration: 200,
+  initialLife: 15,
+  comboDuration: 2000,
   maxCombo: 40
 };
 
 
 export class Status extends Entity {
 
-  public level: number = 0;
-  public levelTime: number = 0;
-  public life: number = 15;
-  public score: number = 0;
-  public shootCount: number = 0;
-  public missCount: number = 0;
-  public hitCount: number = 0;
-  public killCount: number = 0;
-  public combo: number = 0;
-  public comboTime: number = 0;
-  private labels: Array<ScoreLabel> = [];
+  public score: number;
+  public level: number;
+  public levelTime: number;
+  public life: number;
+  public shootCount: number;
+  public missCount: number;
+  public hitCount: number;
+  public killCount: number;
+  public combo: number;
+  public comboTime: number;
+  private labels: Array<ScoreLabel>;
 
   public constructor() {
     super();
+    this.score = 0;
+    this.level = 0;
+    this.levelTime = 0;
+    this.life = STATUS_PROPS.initialLife;
+    this.shootCount = 0;
+    this.missCount = 0;
+    this.hitCount = 0;
+    this.killCount = 0;
+    this.combo = 0;
+    this.comboTime = 0;
+    this.labels = [];
   }
 
   public override onPreUpdate(engine: Engine, delta: number): void {
@@ -87,8 +101,7 @@ export class Status extends Entity {
       if (this.combo < STATUS_PROPS.maxCombo) {
         this.combo ++;
       }
-      const label = new ScoreLabel({x, y, score: gainedScore});
-      this.labels.push(label);
+      this.emitScoreLabel(x, y, gainedScore);
     }
   }
 
@@ -96,6 +109,11 @@ export class Status extends Entity {
     if (this.life >= 0) {
       this.life --;
     }
+  }
+
+  private emitScoreLabel(x: number, y: number, score: number): void {
+    const label = new ScoreLabel({x, y, score});
+    this.labels.push(label);
   }
 
   public get hitRate(): number {
