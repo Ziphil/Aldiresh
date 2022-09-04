@@ -166,15 +166,15 @@ export class Status extends Entity {
   }
 
   public calcAverageSpawnTimeout(): number {
-    return 150 * 2700 / (this.level * 15 + 150) + 300;
+    return 150 * 3000 / (this.level * 12 + 150);
   }
 
   public calcAverageShootTimeout(): number {
-    return 150 * 900 / (this.level * 12 + 150) + 100;
+    return 150 * 1000 / (this.level * 10 + 150);
   }
 
   public calcItemProbability(): number {
-    return Math.min(this.level * 0.02, 0.3);
+    return Math.min(this.level * 0.01, 0.2);
   }
 
 }
