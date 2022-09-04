@@ -6,7 +6,8 @@ import {
 import {
   Color,
   DisplayMode,
-  Engine
+  Engine,
+  Input
 } from "excalibur";
 import {
   ASSETS
@@ -20,6 +21,9 @@ import {
 import {
   MainScene
 } from "/source/scene/main-scene";
+import {
+  downloadImage
+} from "/source/util/misc";
 
 
 export class AldireshEngine extends Engine {
@@ -35,12 +39,21 @@ export class AldireshEngine extends Engine {
     });
     this.input.gamepads.enabled = true;
     this.setupScenes();
+    this.setupScreenshot();
     this.setupDevTool();
   }
 
   private setupScenes(): void {
     this.add("main", new MainScene());
     this.goToScene("main");
+  }
+
+  private setupScreenshot(): void {
+    this.input.keyboard.on("press", (event) => {
+      if (event.key === Input["Keys"]["P"]) {
+        this.screenshot().then((imageElement) => downloadImage(imageElement, "aldiresh.png"));
+      }
+    });
   }
 
   private setupDevTool(): void {
