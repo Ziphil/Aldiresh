@@ -83,16 +83,16 @@ export class Player extends Actor {
 
   private move(engine: Engine, delta: number): void {
     const keyboard = engine.input.keyboard;
-    if (keyboard.isHeld(Input["Keys"]["ArrowLeft"])) {
+    if (keyboard.isHeld(Input["Keys"]["ArrowLeft"]) || keyboard.isHeld(Input["Keys"]["A"])) {
       this.vel.x -= PLAYER_PROPS.acc * delta;
     }
-    if (keyboard.isHeld(Input["Keys"]["ArrowRight"])) {
+    if (keyboard.isHeld(Input["Keys"]["ArrowRight"]) || keyboard.isHeld(Input["Keys"]["D"])) {
       this.vel.x += PLAYER_PROPS.acc * delta;
     }
-    if (keyboard.isHeld(Input["Keys"]["ArrowUp"])) {
+    if (keyboard.isHeld(Input["Keys"]["ArrowUp"]) || keyboard.isHeld(Input["Keys"]["W"])) {
       this.vel.y -= PLAYER_PROPS.acc * delta;
     }
-    if (keyboard.isHeld(Input["Keys"]["ArrowDown"])) {
+    if (keyboard.isHeld(Input["Keys"]["ArrowDown"]) || keyboard.isHeld(Input["Keys"]["S"])) {
       this.vel.y += PLAYER_PROPS.acc * delta;
     }
     this.vel.x = Math.max(Math.min(this.vel.x, PLAYER_PROPS.maxVel), -PLAYER_PROPS.maxVel);
