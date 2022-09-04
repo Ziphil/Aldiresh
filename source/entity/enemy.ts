@@ -69,13 +69,14 @@ export class Enemy extends Actor {
   }
 
   public override onInitialize(engine: Engine): void {
-    this.addComponent(new RotatingSquareComponent(ENEMY_PROPS.square));
-    this.addComponent(new TimerComponent());
-    const component = this.get(TimerComponent)!;
-    component.setOperation("shoot", () => this.shoot(engine), this.status.averageShootTimeout);
-    component.setOperation("changeDirection", () => this.changeDirection(), 2000);
-    component.deactivate("shoot");
-    component.deactivate("changeDirection");
+    const squareComponent = new RotatingSquareComponent(ENEMY_PROPS.square);
+    const timerComponent = new TimerComponent();
+    timerComponent.setOperation("shoot", () => this.shoot(engine), this.status.averageShootTimeout);
+    timerComponent.setOperation("changeDirection", () => this.changeDirection(), 2000);
+    timerComponent.deactivate("shoot");
+    timerComponent.deactivate("changeDirection");
+    this.addComponent(squareComponent);
+    this.addComponent(timerComponent);
     this.on("precollision", this.onPreCollision.bind(this));
   }
 
