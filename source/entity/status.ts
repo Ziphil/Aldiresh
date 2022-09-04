@@ -54,7 +54,7 @@ export class Status extends Entity {
   }
 
   private updateLevel(delta: number): void {
-    if (this.life >= 0) {
+    if (this.life > 0) {
       this.levelTimer += delta;
       if (this.level < STATUS_PROPS.maxLevel && this.levelTimer >= STATUS_PROPS.levelInterval) {
         this.level ++;
@@ -81,19 +81,19 @@ export class Status extends Entity {
   }
 
   public shoot(): void {
-    if (this.life >= 0) {
+    if (this.life > 0) {
       this.shootCount ++;
     }
   }
 
   public miss(): void {
-    if (this.life >= 0) {
+    if (this.life > 0) {
       this.missCount ++;
     }
   }
 
   public hitEnemy(x: number, y: number, dead: boolean): void {
-    if (this.life >= 0) {
+    if (this.life > 0) {
       const gainedScore = Math.floor(50 * this.wholeBonusRatio * ((dead) ? 3 : 1));
       this.score += gainedScore;
       this.hitCount ++;
@@ -109,7 +109,7 @@ export class Status extends Entity {
   }
 
   public damage(): void {
-    if (this.life >= 0) {
+    if (this.life > 0) {
       this.life --;
     }
   }
