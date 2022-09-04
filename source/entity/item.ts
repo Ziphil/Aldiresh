@@ -12,6 +12,7 @@ import {
   RotatingSquareComponent
 } from "/source/component/rotating-square";
 import {
+  DEPTHS,
   FIELD_PROPS
 } from "/source/core/constant";
 import {
@@ -45,7 +46,7 @@ export class Item extends Actor {
   public constructor({x, y, ...configs}: BulletConfigs) {
     super({
       pos: vec(x, y),
-      z: -220,
+      z: DEPTHS.item,
       radius: ITEM_PROPS.size / 2,
       collisionType: CollisionType["Passive"],
       color: Color["Transparent"]

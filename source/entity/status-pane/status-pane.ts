@@ -9,6 +9,7 @@ import {
   ASSETS
 } from "/source/core/asset";
 import {
+  DEPTHS,
   FIELD_PROPS
 } from "/source/core/constant";
 import {
@@ -25,8 +26,11 @@ export class StatusPane extends Actor {
   private status!: Status;
 
   public constructor() {
-    super({x: FIELD_PROPS.width, y: 0, z: -100});
-    this.anchor = vec(0, 0);
+    super({
+      pos: vec(FIELD_PROPS.width, 0),
+      anchor: vec(0, 0),
+      z: DEPTHS.statusPane
+    });
   }
 
   public override onInitialize(engine: Engine): void {

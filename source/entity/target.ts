@@ -3,11 +3,15 @@
 import {
   Actor,
   Color,
-  Engine
+  Engine,
+  vec
 } from "excalibur";
 import {
   RotatingSquareComponent
 } from "/source/component/rotating-square";
+import {
+  DEPTHS
+} from "/source/core/constant";
 
 
 export const TARGET_PROPS = {
@@ -22,7 +26,13 @@ export const TARGET_PROPS = {
 export class Target extends Actor {
 
   public constructor({x, y}: {x: number, y: number}) {
-    super({x, y, z: -180});
+    super({
+      pos: vec(x, y),
+      z: DEPTHS.target
+    });
+  }
+
+  public override onInitialize(engine: Engine): void {
     this.addComponent(new RotatingSquareComponent({...TARGET_PROPS.square, framed: true}));
   }
 

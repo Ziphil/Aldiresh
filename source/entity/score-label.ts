@@ -9,6 +9,9 @@ import {
 import {
   SPRITE_FONTS
 } from "/source/core/asset";
+import {
+  DEPTHS
+} from "/source/core/constant";
 
 
 const SCORE_LABEL_PROPS = {
@@ -31,7 +34,7 @@ export class ScoreLabel extends Actor {
   public constructor({x, y, ...configs}: ScoreLabelConfigs) {
     super({
       pos: vec(x, y),
-      z: -190
+      z: DEPTHS.scoreLabel
     });
     this.score = configs.score;
     this.timer = 0;

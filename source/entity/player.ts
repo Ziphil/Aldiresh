@@ -14,6 +14,7 @@ import {
   RotatingSquareComponent
 } from "/source/component/rotating-square";
 import {
+  DEPTHS,
   FIELD_PROPS
 } from "/source/core/constant";
 import {
@@ -59,7 +60,7 @@ export class Player extends Actor {
   public constructor({x, y}: {x: number, y: number}) {
     super({
       pos: vec(x, y),
-      z: -200,
+      z: DEPTHS.player,
       radius: PLAYER_PROPS.size / 2,
       collisionType: CollisionType["Passive"]
     });

@@ -10,6 +10,9 @@ import {
 import {
   RotatingSquareComponent
 } from "/source/component/rotating-square";
+import {
+  DEPTHS
+} from "/source/core/constant";
 
 
 const FRAGMENT_PROPS = {
@@ -39,7 +42,7 @@ export class Fragment extends Actor {
   public constructor({x, y, ...configs}: ScoreLabelConfigs) {
     super({
       pos: vec(x, y),
-      z: -230
+      z: DEPTHS.fragment
     });
     this.owner = configs.owner;
     this.timer = 0;

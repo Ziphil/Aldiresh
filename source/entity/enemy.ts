@@ -17,6 +17,7 @@ import {
   TimerComponent
 } from "/source/component/timer";
 import {
+  DEPTHS,
   FIELD_PROPS
 } from "/source/core/constant";
 import {
@@ -64,7 +65,7 @@ export class Enemy extends Actor {
   public constructor({x, y}: {x: number, y: number}) {
     super({
       pos: vec(x, y),
-      z: -210,
+      z: DEPTHS.enemy,
       radius: ENEMY_PROPS.size / 2,
       collisionType: CollisionType["Passive"],
       color: Color["Transparent"]
@@ -162,6 +163,7 @@ export class Enemy extends Actor {
     if (this.random.next() <= this.status.calcItemProbability()) {
       const direction = this.random.floating(-Math.PI, Math.PI);
       const item = new Item({x: this.pos.x, y: this.pos.y, direction, type: "recover"});
+      item.setStatus(this.status);
       engine.add(item);
     }
   }

@@ -24,9 +24,11 @@ export class StatusNumberLabel extends Actor {
   private text!: Text;
 
   public constructor({x, y, ...configs}: StatusNumberLabelConfigs) {
-    super({x, y, z: -90});
+    super({
+      pos: vec(x, y),
+      anchor: vec(1, 0.5)
+    });
     this.decimalLength = configs.decimalLength ?? 0;
-    this.anchor = vec(1, 0.5);
   }
 
   public override onInitialize(engine: Engine): void {

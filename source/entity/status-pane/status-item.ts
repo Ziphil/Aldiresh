@@ -35,11 +35,13 @@ export class StatusItem extends Actor {
   private numberLabel!: StatusNumberLabel;
 
   public constructor({x, y, ...configs}: StatausItemConfigs) {
-    super({x, y, z: -90});
+    super({
+      pos: vec(x, y),
+      anchor: vec(0, 0)
+    });
     this.spriteIndex = configs.spriteIndex;
     this.decimalLength = configs.decimalLength;
     this.getNumber = configs.getNumber;
-    this.anchor = vec(0, 0);
   }
 
   public override onInitialize(engine: Engine): void {

@@ -10,6 +10,7 @@ import {
   SPRITE_SHEETS
 } from "/source/core/asset";
 import {
+  DEPTHS,
   FIELD_PROPS
 } from "/source/core/constant";
 
@@ -19,7 +20,7 @@ export class GameoverCover extends Actor {
   public constructor() {
     super({
       pos: vec(0, 0),
-      z: -100,
+      z: DEPTHS.gameoverCover,
       width: FIELD_PROPS.width,
       height: FIELD_PROPS.height,
       color: Color.fromHSL(0, 0, 0, 0.5)
