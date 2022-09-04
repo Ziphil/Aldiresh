@@ -6,8 +6,7 @@ import {
 import {
   Color,
   DisplayMode,
-  Engine,
-  Loader
+  Engine
 } from "excalibur";
 import {
   ASSETS
@@ -15,6 +14,9 @@ import {
 import {
   SCREEN_PROPS
 } from "/source/core/constant";
+import {
+  AldireshLoader
+} from "/source/core/loader";
 import {
   MainScene
 } from "/source/scene/main-scene";
@@ -47,7 +49,7 @@ export class AldireshEngine extends Engine {
   }
 
   public async run(): Promise<void> {
-    const loader = new Loader(Object.values(ASSETS));
+    const loader = new AldireshLoader(Object.values(ASSETS));
     await this.start(loader);
   }
 
