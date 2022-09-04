@@ -9,7 +9,7 @@ import {
 } from "/source/entity/score-label";
 
 
-const STATUS_PROPS = {
+export const STATUS_PROPS = {
   levelInterval: 15000,
   maxLevel: 99,
   initialLife: 15,
@@ -22,28 +22,28 @@ export class Status extends Entity {
 
   public score: number;
   public level: number;
-  public levelTime: number;
+  public levelTimer: number;
   public life: number;
   public shootCount: number;
   public missCount: number;
   public hitCount: number;
   public killCount: number;
   public combo: number;
-  public comboTime: number;
+  public comboTimer: number;
   private labels: Array<ScoreLabel>;
 
   public constructor() {
     super();
     this.score = 0;
     this.level = 0;
-    this.levelTime = 0;
+    this.levelTimer = 0;
     this.life = STATUS_PROPS.initialLife;
     this.shootCount = 0;
     this.missCount = 0;
     this.hitCount = 0;
     this.killCount = 0;
     this.combo = 0;
-    this.comboTime = 0;
+    this.comboTimer = 0;
     this.labels = [];
   }
 
@@ -54,17 +54,18 @@ export class Status extends Entity {
   }
 
   private updateLevel(delta: number): void {
-    this.levelTime += delta;
-    if (this.level < STATUS_PROPS.maxLevel && this.levelTime >= STATUS_PROPS.levelInterval) {
+    this.levelTimer += delta;
+    if (this.level < STATUS_PROPS.maxLevel && this.levelTimer >= STATUS_PROPS.levelInterval) {
       this.level ++;
-      this.levelTime -= STATUS_PROPS.levelInterval;
+      this.levelTimer -= STATUS_PROPS.levelInterval;
     }
   }
 
   private updateCombo(delta: number): void {
-    if (this.comboTime < STATUS_PROPS.comboDuration) {
-      this.comboTime += delta;
-      if (this.comboTime >= STATUS_PROPS.comboDuration) {
+    if (this.comboTimer < STATUS_PROPS.comboDuration) {
+      this.comboTimer += delta;
+      if (this.comboTimer >= STATUS_PROPS.comboDuration) {
+        this.comboTimer = STATUS_PROPS.comboDuration;
         this.combo = 0;
       }
     }
@@ -94,7 +95,7 @@ export class Status extends Entity {
       const gainedScore = Math.floor(15 * this.wholeBonusRatio * ((dead) ? 3 : 1));
       this.score += gainedScore;
       this.hitCount ++;
-      this.comboTime = 0;
+      this.comboTimer = 0;
       if (dead) {
         this.killCount ++;
       }
