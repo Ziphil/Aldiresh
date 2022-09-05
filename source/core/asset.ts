@@ -13,7 +13,8 @@ export const ASSETS = {
   string: new ImageSource("asset/image/string.png"),
   statusName: new ImageSource("asset/image/status-name.png"),
   statusBackground: new ImageSource("asset/image/status-background.png"),
-  statusFrame: new ImageSource("asset/image/status-frame.png")
+  statusFrame: new ImageSource("asset/image/status-frame.png"),
+  logo: new ImageSource("asset/image/logo.png")
 };
 
 export const SPRITE_SHEETS = {

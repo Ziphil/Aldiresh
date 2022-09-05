@@ -22,6 +22,9 @@ import {
   MainScene
 } from "/source/scene/main-scene";
 import {
+  TitleScene
+} from "/source/scene/title-scene";
+import {
   downloadImage
 } from "/source/util/misc";
 
@@ -44,6 +47,7 @@ export class AldireshEngine extends Engine {
   }
 
   private setupScenes(): void {
+    this.add("title", new TitleScene());
     this.add("main", new MainScene());
   }
 
@@ -64,7 +68,7 @@ export class AldireshEngine extends Engine {
   public async run(): Promise<void> {
     const loader = new AldireshLoader(Object.values(ASSETS));
     await this.start(loader);
-    this.goToScene("main");
+    this.goToScene("title");
   }
 
 }
