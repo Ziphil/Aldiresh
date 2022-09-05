@@ -5,8 +5,9 @@ import {
   Scene
 } from "excalibur";
 import {
+  InputManagerSystem,
   RotatingSquareSystem
-} from "/source/component/rotating-square";
+} from "/source/component";
 import {
   SCREEN_PROPS
 } from "/source/core/constant";
@@ -34,6 +35,7 @@ export class TitleScene extends Scene {
 
   private initializeSystems(): void {
     this.world.add(new RotatingSquareSystem());
+    this.world.add(new InputManagerSystem());
   }
 
   private initializeEntities(): void {

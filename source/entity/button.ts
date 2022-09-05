@@ -7,6 +7,9 @@ import {
   vec
 } from "excalibur";
 import {
+  InputManagerComponent
+} from "/source/component";
+import {
   SPRITE_SHEETS
 } from "/source/core/asset";
 import {
@@ -51,6 +54,7 @@ export class Button extends Actor {
 
   public override onInitialize(engine: Engine): void {
     this.initializeGraphics();
+    this.initializeComponents(engine);
     this.target = engine.currentScene.world.entityManager.getByName("target")[0] as Target;
   }
 
@@ -71,6 +75,18 @@ export class Button extends Actor {
     this.graphics.use("default");
     const stringImage = new Image({x: 0, y: 0, graphic: SPRITE_SHEETS.string.sprites[this.spriteIndex]});
     this.addChild(stringImage);
+  }
+
+  private initializeComponents(engine: Engine): void {
+    const inputComponent = new InputManagerComponent();
+    inputComponent.setOnButtonDown(() => this.press(engine));
+    this.addComponent(inputComponent);
+  }
+
+  private press(engine: Engine): void {
+    if (this.hovered) {
+      engine.goToScene("main");
+    }
   }
 
 }

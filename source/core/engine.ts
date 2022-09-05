@@ -68,7 +68,7 @@ export class AldireshEngine extends Engine {
   public async run(): Promise<void> {
     const loader = new AldireshLoader(Object.values(ASSETS));
     await this.start(loader);
-    this.goToScene("main");
+    this.goToScene("title");
   }
 
 }
