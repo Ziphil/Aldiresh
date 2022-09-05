@@ -51,7 +51,7 @@ export class MainScene extends Scene {
   private initializeEntities(): void {
     const player = new Player({x: FIELD_PROPS.width / 2, y: FIELD_PROPS.height / 2});
     const enemySpawner = new EnemySpawner();
-    const target = new Target({x: FIELD_PROPS.width / 2, y: FIELD_PROPS.height / 2});
+    const target = new Target({x: FIELD_PROPS.width / 2, y: FIELD_PROPS.height / 2, range: "field"});
     const statusPane = new StatusPane();
     const status = new Status();
     player.setTarget(target);

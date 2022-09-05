@@ -41,7 +41,7 @@ export class TitleScene extends Scene {
   private initializeEntities(): void {
     const logo = new Logo({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2 - 30});
     const button = new Button({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2 + 30, spriteIndex: 1});
-    const target = new Target({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2});
+    const target = new Target({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2, range: "screen"});
     this.add(logo);
     this.add(button);
     this.add(target);

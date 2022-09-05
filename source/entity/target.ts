@@ -14,7 +14,8 @@ import {
 } from "/source/component";
 import {
   DEPTHS,
-  FIELD_PROPS
+  FIELD_PROPS,
+  SCREEN_PROPS
 } from "/source/core/constant";;
 
 
@@ -27,12 +28,19 @@ export const TARGET_PROPS = {
   }
 };
 
+export type TargetConfigs = {
+  x: number,
+  y: number,
+  range: "screen" | "field"
+};
+
 
 export class Target extends Actor {
 
+  private range: "screen" | "field";
   private previousPointerPos: Vector;
 
-  public constructor({x, y}: {x: number, y: number}) {
+  public constructor({x, y, ...configs}: TargetConfigs) {
     super({
       pos: vec(x, y),
       z: DEPTHS.target,
@@ -41,6 +49,7 @@ export class Target extends Actor {
       collisionType: CollisionType["PreventCollision"],
       name: "target"
     });
+    this.range = configs.range;
     this.previousPointerPos = vec(x, y);
   }
 
@@ -68,8 +77,9 @@ export class Target extends Actor {
 
   private followPointer(engine: Engine): void {
     const pos = engine.input.pointers.primary.lastScreenPos;
+    const props = (this.range === "screen") ? SCREEN_PROPS : FIELD_PROPS;
     if (pos.x !== this.previousPointerPos.x || pos.y !== this.previousPointerPos.y) {
-      if (pos.x >= 0 && pos.x <= FIELD_PROPS.width && pos.y >= 0 && pos.y <= FIELD_PROPS.height) {
+      if (pos.x >= 0 && pos.x <= props.width && pos.y >= 0 && pos.y <= props.height) {
         this.pos.x = pos.x;
         this.pos.y = pos.y;
       }
