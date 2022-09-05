@@ -153,7 +153,7 @@ export class Status extends Entity {
   }
 
   public calcHitScore(dead: boolean): number {
-    const deadBonusRatio = (dead) ? 1 : 3;
+    const deadBonusRatio = (dead) ? 3 : 1;
     const score = this.wholeBonusRatio * deadBonusRatio * 50;
     return Math.floor(score);
   }
