@@ -161,7 +161,7 @@ export class Status extends Entity {
   }
 
   public calcItemScore(): number {
-    const score = (this.level + 1) * 100;
+    const score = this.levelBonusRatio * 300;
     return Math.floor(score);
   }
 
