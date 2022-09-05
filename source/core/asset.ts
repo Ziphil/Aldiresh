@@ -8,12 +8,12 @@ import {
 
 
 export const ASSETS = {
-  number: new ImageSource("/asset/image/number.png"),
-  smallNumber: new ImageSource("/asset/image/small-number.png"),
-  string: new ImageSource("/asset/image/string.png"),
-  statusName: new ImageSource("/asset/image/status-name.png"),
-  statusBackground: new ImageSource("/asset/image/status-background.png"),
-  statusFrame: new ImageSource("/asset/image/status-frame.png")
+  number: new ImageSource("asset/image/number.png"),
+  smallNumber: new ImageSource("asset/image/small-number.png"),
+  string: new ImageSource("asset/image/string.png"),
+  statusName: new ImageSource("asset/image/status-name.png"),
+  statusBackground: new ImageSource("asset/image/status-background.png"),
+  statusFrame: new ImageSource("asset/image/status-frame.png")
 };
 
 export const SPRITE_SHEETS = {
