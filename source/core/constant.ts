@@ -12,12 +12,14 @@ export const FIELD_PROPS = {
 
 export const DEPTHS = {
   statusPane: -10,
-  gameoverCover: -11,
-  target: -18,
-  scoreLabel: -19,
-  player: -20,
-  enemy: -21,
-  item: -22,
-  bullet: -23,
-  fragment: -24
+  target: -20,
+  logo: -28,
+  button: -29,
+  gameoverCover: -30,
+  scoreLabel: -39,
+  player: -40,
+  enemy: -41,
+  item: -42,
+  bullet: -43,
+  fragment: -44
 };

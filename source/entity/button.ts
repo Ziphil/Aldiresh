@@ -13,6 +13,9 @@ import {
   SPRITE_SHEETS
 } from "/source/core/asset";
 import {
+  DEPTHS
+} from "/source/core/constant";
+import {
   Image
 } from "/source/entity/image";
 import {
@@ -46,6 +49,7 @@ export class Button extends Actor {
       pos: vec(x, y),
       width: 144,
       height: 18,
+      z: DEPTHS.button,
       collisionType: CollisionType["Passive"]
     });
     this.spriteIndex = configs.spriteIndex;
