@@ -43,7 +43,7 @@ export const SPRITE_SHEETS = {
   }),
   button: SpriteSheet.fromImageSource({
     image: ASSETS.button,
-    grid: {rows: 1, columns: 2, spriteWidth: 144, spriteHeight: 18}
+    grid: {rows: 2, columns: 1, spriteWidth: 144, spriteHeight: 18}
   }),
   statusName: SpriteSheet.fromImageSource({
     image: ASSETS.statusName,

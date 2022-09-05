@@ -21,7 +21,6 @@ import {
 
 
 export const TARGET_PROPS = {
-  size: 31,
   vel: 240,
   square: {
     outerSize: 31,
@@ -40,9 +39,10 @@ export class Target extends Actor {
     super({
       pos: vec(x, y),
       z: DEPTHS.target,
-      radius: TARGET_PROPS.size / 2,
+      radius: 1,
       color: Color["Transparent"],
-      collisionType: CollisionType["PreventCollision"]
+      collisionType: CollisionType["PreventCollision"],
+      name: "target"
     });
     this.previousPointerPos = vec(x, y);
   }
