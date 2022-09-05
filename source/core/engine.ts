@@ -45,7 +45,6 @@ export class AldireshEngine extends Engine {
 
   private setupScenes(): void {
     this.add("main", new MainScene());
-    this.goToScene("main");
   }
 
   private setupScreenshot(): void {
@@ -65,6 +64,7 @@ export class AldireshEngine extends Engine {
   public async run(): Promise<void> {
     const loader = new AldireshLoader(Object.values(ASSETS));
     await this.start(loader);
+    this.goToScene("main");
   }
 
 }
