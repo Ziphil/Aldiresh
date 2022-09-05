@@ -10,6 +10,7 @@ import {
 export const ASSETS = {
   number: new ImageSource("asset/image/number.png"),
   smallNumber: new ImageSource("asset/image/small-number.png"),
+  char: new ImageSource("asset/image/char.png"),
   string: new ImageSource("asset/image/string.png"),
   button: new ImageSource("asset/image/button.png"),
   statusName: new ImageSource("asset/image/status-name.png"),
@@ -32,6 +33,10 @@ export const SPRITE_SHEETS = {
       ...Array.from({length: 10}).map((dummy, index) => ({x: index * 7, y: 0, width: 7, height: 6})),
       {x: 70, y: 0, width: 2, height: 6}
     ]
+  }),
+  char: SpriteSheet.fromImageSource({
+    image: ASSETS.char,
+    grid: {rows: 4, columns: 7, spriteWidth: 11, spriteHeight: 10}
   }),
   string: SpriteSheet.fromImageSourceWithSourceViews({
     image: ASSETS.string,
@@ -61,5 +66,11 @@ export const SPRITE_FONTS = {
     spriteSheet: SPRITE_SHEETS.smallNumber,
     alphabet: "0123456789.",
     spacing: 1
+  }),
+  char: new SpriteFont({
+    spriteSheet: SPRITE_SHEETS.char,
+    alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ ",
+    spacing: 2,
+    caseInsensitive: true
   })
 };

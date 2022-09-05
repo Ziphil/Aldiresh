@@ -5,15 +5,19 @@ import {
   CollisionType,
   Color,
   Engine,
+  Text,
   vec
 } from "excalibur";
 import {
-  SPRITE_SHEETS
+  SPRITE_FONTS
 } from "/source/core/asset";
 import {
   DEPTHS,
   FIELD_PROPS
 } from "/source/core/constant";
+import {
+  Image
+} from "/source/entity/image";
 
 
 export class GameoverCover extends Actor {
@@ -35,8 +39,8 @@ export class GameoverCover extends Actor {
   }
 
   private addLabel(): void {
-    const label = new Actor({x: FIELD_PROPS.width / 2, y: FIELD_PROPS.height / 2});
-    label.graphics.use(SPRITE_SHEETS.string.sprites[0]);
+    const text = new Text({text: "Game Over", font: SPRITE_FONTS.char});
+    const label = new Image({x: FIELD_PROPS.width / 2, y: FIELD_PROPS.height / 2, graphic: text});
     this.addChild(label);
   }
 

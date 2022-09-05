@@ -4,20 +4,19 @@ import {
   Actor,
   CollisionType,
   Engine,
+  Text,
   vec
 } from "excalibur";
 import {
   InputManagerComponent
 } from "/source/component";
 import {
+  SPRITE_FONTS,
   SPRITE_SHEETS
 } from "/source/core/asset";
 import {
   DEPTHS
 } from "/source/core/constant";
-import {
-  Image
-} from "/source/entity/image";
 import {
   Target
 } from "/source/entity/target";
@@ -34,13 +33,13 @@ export const STATUS_PROPS = {
 export type ButtonConfigs = {
   x: number,
   y: number,
-  spriteIndex: number
+  string: string
 };
 
 
 export class Button extends Actor {
 
-  private readonly spriteIndex: number;
+  private readonly string: string;
   private hovered: boolean;
   private target!: Target;
 
@@ -52,7 +51,7 @@ export class Button extends Actor {
       z: DEPTHS.button,
       collisionType: CollisionType["Passive"]
     });
-    this.spriteIndex = configs.spriteIndex;
+    this.string = configs.string;
     this.hovered = false;
   }
 
@@ -77,8 +76,9 @@ export class Button extends Actor {
     this.graphics.add("default", SPRITE_SHEETS.button.sprites[0]);
     this.graphics.add("hovered", SPRITE_SHEETS.button.sprites[1]);
     this.graphics.use("default");
-    const stringImage = new Image({x: 0, y: 0, graphic: SPRITE_SHEETS.string.sprites[this.spriteIndex]});
-    this.addChild(stringImage);
+    const text = new Text({text: this.string, font: SPRITE_FONTS.char});
+    this.graphics.layers.create({name: "string", order: 1});
+    this.graphics.layers.get("string").use(text);
   }
 
   private initializeComponents(engine: Engine): void {
