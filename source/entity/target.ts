@@ -2,6 +2,7 @@
 
 import {
   Actor,
+  CollisionType,
   Color,
   Engine,
   Vector,
@@ -40,7 +41,8 @@ export class Target extends Actor {
       pos: vec(x, y),
       z: DEPTHS.target,
       radius: TARGET_PROPS.size / 2,
-      color: Color["Transparent"]
+      color: Color["Transparent"],
+      collisionType: CollisionType["PreventCollision"]
     });
     this.previousPointerPos = vec(x, y);
   }

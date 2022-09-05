@@ -2,6 +2,7 @@
 
 import {
   Actor,
+  CollisionType,
   Engine,
   Text,
   vec
@@ -35,7 +36,8 @@ export class ScoreLabel extends Actor {
     super({
       pos: vec(x, y),
       anchor: vec(0.5, 1),
-      z: DEPTHS.scoreLabel
+      z: DEPTHS.scoreLabel,
+      collisionType: CollisionType["PreventCollision"]
     });
     this.score = configs.score;
     this.timer = 0;

@@ -2,6 +2,7 @@
 
 import {
   Actor,
+  CollisionType,
   Engine,
   vec
 } from "excalibur";
@@ -37,25 +38,22 @@ export class StatusItem extends Actor {
   public constructor({x, y, ...configs}: StatausItemConfigs) {
     super({
       pos: vec(x, y),
-      anchor: vec(0, 0)
+      anchor: vec(0, 0),
+      collisionType: CollisionType["PreventCollision"]
     });
     this.spriteIndex = configs.spriteIndex;
     this.decimalLength = configs.decimalLength;
     this.getNumber = configs.getNumber;
+    this.graphics.use(ASSETS.statusFrame.toSprite());
   }
 
   public override onInitialize(engine: Engine): void {
-    this.initializeGraphics();
     this.addNumberLabel();
     this.addNameEntity();
   }
 
   public override onPostUpdate(engine: Engine, delta: number): void {
     this.updateNumber();
-  }
-
-  private initializeGraphics(): void {
-    this.graphics.use(ASSETS.statusFrame.toSprite());
   }
 
   private addNumberLabel(): void {

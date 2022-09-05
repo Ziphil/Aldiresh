@@ -2,6 +2,7 @@
 
 import {
   Actor,
+  CollisionType,
   Color,
   Engine,
   vec
@@ -24,6 +25,7 @@ export class GameoverCover extends Actor {
       z: DEPTHS.gameoverCover,
       width: FIELD_PROPS.width,
       height: FIELD_PROPS.height,
+      collisionType: CollisionType["PreventCollision"],
       color: Color.fromHSL(0, 0, 0, 0.5)
     });
   }

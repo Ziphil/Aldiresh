@@ -2,6 +2,7 @@
 
 import {
   Actor,
+  CollisionType,
   Engine,
   Text,
   vec
@@ -26,7 +27,8 @@ export class StatusNumberLabel extends Actor {
   public constructor({x, y, ...configs}: StatusNumberLabelConfigs) {
     super({
       pos: vec(x, y),
-      anchor: vec(1, 0.5)
+      anchor: vec(1, 0.5),
+      collisionType: CollisionType["PreventCollision"]
     });
     this.decimalLength = configs.decimalLength ?? 0;
   }

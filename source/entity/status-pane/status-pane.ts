@@ -2,6 +2,7 @@
 
 import {
   Actor,
+  CollisionType,
   Engine,
   vec
 } from "excalibur";
@@ -29,18 +30,15 @@ export class StatusPane extends Actor {
     super({
       pos: vec(FIELD_PROPS.width, 0),
       anchor: vec(0, 0),
-      z: DEPTHS.statusPane
+      z: DEPTHS.statusPane,
+      collisionType: CollisionType["PreventCollision"]
     });
+    this.graphics.use(ASSETS.statusBackground.toSprite());
   }
 
   public override onInitialize(engine: Engine): void {
-    this.initializeGraphics();
     this.addItems();
     this.addDebugItems();
-  }
-
-  private initializeGraphics(): void {
-    this.graphics.use(ASSETS.statusBackground.toSprite());
   }
 
   private addItems(): void {
