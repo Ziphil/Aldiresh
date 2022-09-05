@@ -5,14 +5,11 @@ import {
   Scene
 } from "excalibur";
 import {
-  AutoKillSystem
-} from "/source/component/auto-kill";
-import {
-  RotatingSquareSystem
-} from "/source/component/rotating-square";
-import {
+  AutoKillSystem,
+  InputManagerSystem,
+  RotatingSquareSystem,
   TimerSystem
-} from "/source/component/timer";
+} from "/source/component";
 import {
   FIELD_PROPS
 } from "/source/core/constant";
@@ -46,6 +43,7 @@ export class MainScene extends Scene {
 
   private initializeSystems(): void {
     this.world.add(new RotatingSquareSystem());
+    this.world.add(new InputManagerSystem());
     this.world.add(new TimerSystem());
     this.world.add(new AutoKillSystem());
   }

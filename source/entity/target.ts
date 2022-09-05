@@ -9,15 +9,13 @@ import {
   vec
 } from "excalibur";
 import {
+  InputManagerComponent,
   RotatingSquareComponent
-} from "/source/component/rotating-square";
+} from "/source/component";
 import {
   DEPTHS,
   FIELD_PROPS
-} from "/source/core/constant";
-import {
-  InputManager
-} from "/source/entity/input-manager";
+} from "/source/core/constant";;
 
 
 export const TARGET_PROPS = {
@@ -32,7 +30,6 @@ export const TARGET_PROPS = {
 
 export class Target extends Actor {
 
-  private inputManager!: InputManager;
   private previousPointerPos: Vector;
 
   public constructor({x, y}: {x: number, y: number}) {
@@ -49,7 +46,6 @@ export class Target extends Actor {
 
   public override onInitialize(engine: Engine): void {
     this.initializeComponents();
-    this.initializeInputManager(engine);
   }
 
   public override onPreUpdate(engine: Engine, delta: number): void {
@@ -59,17 +55,15 @@ export class Target extends Actor {
 
   private initializeComponents(): void {
     const squareComponent = new RotatingSquareComponent({...TARGET_PROPS.square, framed: true});
+    const inputComponent = new InputManagerComponent();
     this.addComponent(squareComponent);
-  }
-
-  private initializeInputManager(engine: Engine): void {
-    const inputManager = new InputManager(engine);
-    this.inputManager = inputManager;
+    this.addComponent(inputComponent);
   }
 
   private move(): void {
-    this.vel.x = this.inputManager.getRightX() * TARGET_PROPS.vel;
-    this.vel.y = this.inputManager.getRightY() * TARGET_PROPS.vel;
+    const inputManager = this.get(InputManagerComponent)!;
+    this.vel.x = inputManager.secondaryX * TARGET_PROPS.vel;
+    this.vel.y = inputManager.secondaryY * TARGET_PROPS.vel;
   }
 
   private followPointer(engine: Engine): void {

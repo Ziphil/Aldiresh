@@ -10,8 +10,9 @@ import {
   vec
 } from "excalibur";
 import {
+  InputManagerComponent,
   RotatingSquareComponent
-} from "/source/component/rotating-square";
+} from "/source/component";
 import {
   DEPTHS,
   FIELD_PROPS
@@ -25,9 +26,6 @@ import {
 import {
   GameoverCover
 } from "/source/entity/gameover-cover";
-import {
-  InputManager
-} from "/source/entity/input-manager";
 import {
   Item
 } from "/source/entity/item";
@@ -58,7 +56,6 @@ export const PLAYER_PROPS = {
 export class Player extends Actor {
 
   private readonly random: Random;
-  private inputManager!: InputManager;
   private status!: Status;
   private target!: Target;
 
@@ -73,10 +70,8 @@ export class Player extends Actor {
   }
 
   public override onInitialize(engine: Engine): void {
-    this.initializeComponents();
-    this.initializeInputManager(engine);
+    this.initializeComponents(engine);
     this.on("precollision", (event) => this.onPreCollision(engine, event));
-    this.inputManager.setOnButtonDown(() => this.shoot(engine));
   }
 
   public override onPreUpdate(engine: Engine, delta: number): void {
@@ -89,19 +84,18 @@ export class Player extends Actor {
     this.collideWithItem(engine, event.other);
   }
 
-  private initializeComponents(): void {
+  private initializeComponents(engine: Engine): void {
     const squareComponent = new RotatingSquareComponent(PLAYER_PROPS.square);
+    const inputComponent = new InputManagerComponent();
+    inputComponent.setOnButtonDown(() => this.shoot(engine));
     this.addComponent(squareComponent);
-  }
-
-  private initializeInputManager(engine: Engine): void {
-    const inputManager = new InputManager(engine);
-    this.inputManager = inputManager;
+    this.addComponent(inputComponent);
   }
 
   private move(delta: number): void {
-    this.vel.x += this.inputManager.getLeftX() * PLAYER_PROPS.acc * delta;
-    this.vel.y += this.inputManager.getLeftY() * PLAYER_PROPS.acc * delta;
+    const inputManager = this.get(InputManagerComponent)!;
+    this.vel.x += inputManager.primaryX * PLAYER_PROPS.acc * delta;
+    this.vel.y += inputManager.primaryY * PLAYER_PROPS.acc * delta;
     this.vel.x = Math.max(Math.min(this.vel.x, PLAYER_PROPS.maxVel), -PLAYER_PROPS.maxVel);
     this.vel.y = Math.max(Math.min(this.vel.y, PLAYER_PROPS.maxVel), -PLAYER_PROPS.maxVel);
     this.vel.x -= Math.min(Math.abs(this.vel.x), PLAYER_PROPS.friction * delta) * Math.sign(this.vel.x);
