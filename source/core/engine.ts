@@ -38,6 +38,7 @@ export class AldireshEngine extends Engine {
       canvasElementId: "screen",
       backgroundColor: Color.fromHex("#000000"),
       antialiasing: false,
+      snapToPixel: true,
       suppressHiDPIScaling: true
     });
     this.input.gamepads.enabled = true;
