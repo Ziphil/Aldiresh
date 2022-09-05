@@ -15,23 +15,11 @@ export class InputManager {
   }
 
   public getLeftX(): number {
-    const keyboardX = this.getKeyboardLeftX();
-    const gamepadX = this.getGampepadLeftX();
-    if (Math.abs(keyboardX) >= Math.abs(gamepadX)) {
-      return keyboardX;
-    } else {
-      return gamepadX;
-    }
+    return compareAbs(this.getKeyboardLeftX(), this.getGampepadLeftX());
   }
 
   public getLeftY(): number {
-    const keyboardY = this.getKeyboardLeftY();
-    const gamepadY = this.getGampepadLeftY();
-    if (Math.abs(keyboardY) >= Math.abs(gamepadY)) {
-      return keyboardY;
-    } else {
-      return gamepadY;
-    }
+    return compareAbs(this.getKeyboardLeftY(), this.getGampepadLeftY());
   }
 
   public getRightX(): number {
@@ -44,25 +32,13 @@ export class InputManager {
 
   private getKeyboardLeftX(): number {
     const keyboard = this.engine.input.keyboard;
-    let x = 0;
-    if (keyboard.isHeld(Input["Keys"]["ArrowLeft"]) || keyboard.isHeld(Input["Keys"]["A"])) {
-      x -= 1;
-    }
-    if (keyboard.isHeld(Input["Keys"]["ArrowRight"]) || keyboard.isHeld(Input["Keys"]["D"])) {
-      x += 1;
-    }
+    const x = +(keyboard.isHeld(Input["Keys"]["ArrowRight"]) || keyboard.isHeld(Input["Keys"]["D"])) - +(keyboard.isHeld(Input["Keys"]["ArrowLeft"]) || keyboard.isHeld(Input["Keys"]["A"]));
     return x;
   }
 
   private getKeyboardLeftY(): number {
     const keyboard = this.engine.input.keyboard;
-    let y = 0;
-    if (keyboard.isHeld(Input["Keys"]["ArrowUp"]) || keyboard.isHeld(Input["Keys"]["W"])) {
-      y -= 1;
-    }
-    if (keyboard.isHeld(Input["Keys"]["ArrowDown"]) || keyboard.isHeld(Input["Keys"]["S"])) {
-      y += 1;
-    }
+    const y = +(keyboard.isHeld(Input["Keys"]["ArrowUp"]) || keyboard.isHeld(Input["Keys"]["W"])) - +(keyboard.isHeld(Input["Keys"]["ArrowDown"]) || keyboard.isHeld(Input["Keys"]["S"]));
     return y;
   }
 
@@ -97,4 +73,13 @@ export class InputManager {
     gamepad.on("button", callback);
   }
 
+}
+
+
+function compareAbs(first: number, second: number): number {
+  if (Math.abs(first) >= Math.abs(second)) {
+    return first;
+  } else {
+    return second;
+  }
 }

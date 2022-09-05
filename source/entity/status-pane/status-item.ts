@@ -15,6 +15,9 @@ import {
   SCREEN_PROPS
 } from "/source/core/constant";
 import {
+  Image
+} from "/source/entity/image";
+import {
   StatusNumberLabel
 } from "/source/entity/status-pane/status-number-label";
 
@@ -48,24 +51,19 @@ export class StatusItem extends Actor {
   }
 
   public override onInitialize(engine: Engine): void {
-    this.addNumberLabel();
-    this.addNameEntity();
+    this.addChildren();
   }
 
   public override onPostUpdate(engine: Engine, delta: number): void {
     this.updateNumber();
   }
 
-  private addNumberLabel(): void {
+  private addChildren(): void {
     const numberLabel = new StatusNumberLabel({x: SCREEN_PROPS.width - FIELD_PROPS.width - 22, y: 9, decimalLength: this.decimalLength});
+    const nameImage = new Image({x: 8, y: 2, anchor: vec(0, 0), graphic: SPRITE_SHEETS.statusName.sprites[this.spriteIndex]});
     this.numberLabel = numberLabel;
     this.addChild(numberLabel);
-  }
-
-  private addNameEntity(): void {
-    const nameEntity = new Actor({x: 8, y: 2, anchor: vec(0, 0)});
-    nameEntity.graphics.use(SPRITE_SHEETS.statusName.sprites[this.spriteIndex]);
-    this.addChild(nameEntity);
+    this.addChild(nameImage);
   }
 
   private updateNumber(): void {
