@@ -59,7 +59,7 @@ export class StatusItem extends Actor {
   }
 
   private addChildren(): void {
-    const numberLabel = new StatusNumberLabel({x: SCREEN_PROPS.width - FIELD_PROPS.width - 22, y: 9, decimalLength: this.decimalLength});
+    const numberLabel = new StatusNumberLabel({x: SCREEN_PROPS.width - FIELD_PROPS.width - 22, y: 8, decimalLength: this.decimalLength});
     const nameImage = new Image({x: 8, y: 2, anchor: vec(0, 0), graphic: SPRITE_SHEETS.statusName.sprites[this.spriteIndex]});
     this.numberLabel = numberLabel;
     this.addChild(numberLabel);
