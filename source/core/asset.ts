@@ -11,6 +11,7 @@ export const ASSETS = {
   number: new ImageSource("asset/image/number.png"),
   smallNumber: new ImageSource("asset/image/small-number.png"),
   string: new ImageSource("asset/image/string.png"),
+  button: new ImageSource("asset/image/button.png"),
   statusName: new ImageSource("asset/image/status-name.png"),
   statusBackground: new ImageSource("asset/image/status-background.png"),
   statusFrame: new ImageSource("asset/image/status-frame.png"),
@@ -35,8 +36,14 @@ export const SPRITE_SHEETS = {
   string: SpriteSheet.fromImageSourceWithSourceViews({
     image: ASSETS.string,
     sourceViews: [
-      {x: 0, y: 0, width: 110, height: 10}
+      {x: 0, y: 0, width: 110, height: 10},
+      {x: 0, y: 10, width: 63, height: 10},
+      {x: 0, y: 20, width: 63, height: 10}
     ]
+  }),
+  button: SpriteSheet.fromImageSource({
+    image: ASSETS.button,
+    grid: {rows: 1, columns: 2, spriteWidth: 144, spriteHeight: 18}
   }),
   statusName: SpriteSheet.fromImageSource({
     image: ASSETS.statusName,

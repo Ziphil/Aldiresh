@@ -8,16 +8,13 @@ import {
 import {
   ASSETS
 } from "/source/core/asset";
-import {
-  SCREEN_PROPS
-} from "/source/core/constant";
 
 
 export class Logo extends Actor {
 
-  public constructor() {
+  public constructor({x, y}: {x: number, y: number}) {
     super({
-      pos: vec(SCREEN_PROPS.width / 2, SCREEN_PROPS.height / 2 - 20),
+      pos: vec(x, y),
       collisionType: CollisionType["PreventCollision"]
     });
     this.graphics.use(ASSETS.logo.toSprite());
