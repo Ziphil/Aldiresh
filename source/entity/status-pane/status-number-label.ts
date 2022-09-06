@@ -38,7 +38,7 @@ export class StatusNumberLabel extends Actor {
   }
 
   private initializeGraphics(): void {
-    const text = new Text({text: "", font: SPRITE_FONTS.number});
+    const text = new Text({text: "", font: SPRITE_FONTS.char});
     this.text = text;
     this.graphics.use(text);
   }

@@ -8,11 +8,9 @@ import {
 
 
 export const ASSETS = {
-  number: new ImageSource("asset/image/number.png"),
-  smallNumber: new ImageSource("asset/image/small-number.png"),
   char: new ImageSource("asset/image/char.png"),
-  string: new ImageSource("asset/image/string.png"),
-  button: new ImageSource("asset/image/button.png"),
+  smallNumber: new ImageSource("asset/image/small-number.png"),
+  buttonFrame: new ImageSource("asset/image/button-frame.png"),
   statusName: new ImageSource("asset/image/status-name.png"),
   statusBackground: new ImageSource("asset/image/status-background.png"),
   statusFrame: new ImageSource("asset/image/status-frame.png"),
@@ -20,11 +18,17 @@ export const ASSETS = {
 };
 
 export const SPRITE_SHEETS = {
-  number: SpriteSheet.fromImageSourceWithSourceViews({
-    image: ASSETS.number,
+  char: SpriteSheet.fromImageSourceWithSourceViews({
+    image: ASSETS.char,
     sourceViews: [
-      ...Array.from({length: 13}).map((dummy, index) => ({x: index * 11, y: 0, width: 11, height: 10})),
-      {x: 143, y: 0, width: 4, height: 10}
+      ...Array.from({length: 7}).map((dummy, index) => ({x: index * 11, y: 0, width: 11, height: 10})),
+      ...Array.from({length: 7}).map((dummy, index) => ({x: index * 11, y: 10, width: 11, height: 10})),
+      ...Array.from({length: 7}).map((dummy, index) => ({x: index * 11, y: 20, width: 11, height: 10})),
+      ...Array.from({length: 6}).map((dummy, index) => ({x: index * 11, y: 30, width: 11, height: 10})),
+      ...Array.from({length: 5}).map((dummy, index) => ({x: index * 11, y: 40, width: 11, height: 10})),
+      ...Array.from({length: 5}).map((dummy, index) => ({x: index * 11, y: 50, width: 11, height: 10})),
+      ...Array.from({length: 3}).map((dummy, index) => ({x: index * 11, y: 60, width: 11, height: 10})),
+      {x: 33, y: 60, width: 4, height: 10}
     ]
   }),
   smallNumber: SpriteSheet.fromImageSourceWithSourceViews({
@@ -34,21 +38,14 @@ export const SPRITE_SHEETS = {
       {x: 70, y: 0, width: 2, height: 6}
     ]
   }),
-  char: SpriteSheet.fromImageSource({
-    image: ASSETS.char,
-    grid: {rows: 4, columns: 7, spriteWidth: 11, spriteHeight: 10}
-  }),
-  string: SpriteSheet.fromImageSourceWithSourceViews({
-    image: ASSETS.string,
+  buttonFrame: SpriteSheet.fromImageSourceWithSourceViews({
+    image: ASSETS.buttonFrame,
     sourceViews: [
-      {x: 0, y: 0, width: 110, height: 10},
-      {x: 0, y: 10, width: 63, height: 10},
-      {x: 0, y: 20, width: 63, height: 10}
+      ...Array.from({length: 8}).flatMap((dummy, index) => [
+        {x: 0, y: index * 18, width: index * 13 + 51, height: 18},
+        {x: 142, y: index * 18, width: index * 13 + 51, height: 18}
+      ])
     ]
-  }),
-  button: SpriteSheet.fromImageSource({
-    image: ASSETS.button,
-    grid: {rows: 2, columns: 1, spriteWidth: 144, spriteHeight: 18}
   }),
   statusName: SpriteSheet.fromImageSource({
     image: ASSETS.statusName,
@@ -57,20 +54,15 @@ export const SPRITE_SHEETS = {
 };
 
 export const SPRITE_FONTS = {
-  number: new SpriteFont({
-    spriteSheet: SPRITE_SHEETS.number,
-    alphabet: "0123456789+-±.",
-    spacing: 2
+  char: new SpriteFont({
+    spriteSheet: SPRITE_SHEETS.char,
+    alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789+-±.",
+    spacing: 2,
+    caseInsensitive: true
   }),
   smallNumber: new SpriteFont({
     spriteSheet: SPRITE_SHEETS.smallNumber,
     alphabet: "0123456789.",
     spacing: 1
-  }),
-  char: new SpriteFont({
-    spriteSheet: SPRITE_SHEETS.char,
-    alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ ",
-    spacing: 2,
-    caseInsensitive: true
   })
 };

@@ -33,13 +33,15 @@ export const STATUS_PROPS = {
 export type ButtonConfigs = {
   x: number,
   y: number,
-  string: string
+  string: string,
+  length: number
 };
 
 
 export class Button extends Actor {
 
   private readonly string: string;
+  private readonly length: number;
   private hovered: boolean;
   private target!: Target;
 
@@ -52,6 +54,7 @@ export class Button extends Actor {
       collisionType: CollisionType["Passive"]
     });
     this.string = configs.string;
+    this.length = configs.length;
     this.hovered = false;
   }
 
@@ -73,8 +76,8 @@ export class Button extends Actor {
   }
 
   private initializeGraphics(): void {
-    this.graphics.add("default", SPRITE_SHEETS.button.sprites[0]);
-    this.graphics.add("hovered", SPRITE_SHEETS.button.sprites[1]);
+    this.graphics.add("default", SPRITE_SHEETS.buttonFrame.sprites[this.length * 2 - 2]);
+    this.graphics.add("hovered", SPRITE_SHEETS.buttonFrame.sprites[this.length * 2 - 1]);
     this.graphics.use("default");
     const text = new Text({text: this.string, font: SPRITE_FONTS.char});
     this.graphics.layers.create({name: "string", order: 1});
