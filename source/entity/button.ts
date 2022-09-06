@@ -22,19 +22,12 @@ import {
 } from "/source/entity/target";
 
 
-export const STATUS_PROPS = {
-  levelInterval: 15000,
-  maxLevel: 49,
-  initialLife: 5,
-  comboDuration: 3000,
-  maxCombo: 30
-};
-
 export type ButtonConfigs = {
   x: number,
   y: number,
   string: string,
-  length: number
+  length: number,
+  onPress: () => void
 };
 
 
@@ -42,6 +35,7 @@ export class Button extends Actor {
 
   private readonly string: string;
   private readonly length: number;
+  private readonly onPress: () => void;
   private hovered: boolean;
   private target!: Target;
 
@@ -55,6 +49,7 @@ export class Button extends Actor {
     });
     this.string = configs.string;
     this.length = configs.length;
+    this.onPress = configs.onPress;
     this.hovered = false;
   }
 
@@ -92,7 +87,7 @@ export class Button extends Actor {
 
   private press(engine: Engine): void {
     if (this.hovered) {
-      engine.goToScene("main");
+      this.onPress();
     }
   }
 
