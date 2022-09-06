@@ -42,8 +42,8 @@ export class Button extends Actor {
   public constructor({x, y, ...configs}: ButtonConfigs) {
     super({
       pos: vec(x, y),
-      width: 144,
-      height: 18,
+      width: configs.length * 13 + 36,
+      height: 16,
       z: DEPTHS.button,
       collisionType: CollisionType["Passive"]
     });
@@ -71,8 +71,8 @@ export class Button extends Actor {
   }
 
   private initializeGraphics(): void {
-    this.graphics.add("default", SPRITE_SHEETS.buttonFrame.sprites[this.length * 2 - 2]);
-    this.graphics.add("hovered", SPRITE_SHEETS.buttonFrame.sprites[this.length * 2 - 1]);
+    this.graphics.add("default", SPRITE_SHEETS.buttonFrame.sprites[this.length * 2 - 1]);
+    this.graphics.add("hovered", SPRITE_SHEETS.buttonFrame.sprites[this.length * 2 - 2]);
     this.graphics.use("default");
     const text = new Text({text: this.string, font: SPRITE_FONTS.char});
     this.graphics.layers.create({name: "string", order: 1});

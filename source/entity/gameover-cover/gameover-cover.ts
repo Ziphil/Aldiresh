@@ -15,7 +15,12 @@ import {
   DEPTHS,
   FIELD_PROPS
 } from "/source/core/constant";
-import {Button} from "/source/entity/button";
+import {
+  Button
+} from "/source/entity/button";
+import {
+  NameInputPane
+} from "/source/entity/gameover-cover/name-input-pane";
 import {
   Image
 } from "/source/entity/image";
@@ -59,10 +64,12 @@ export class GameoverCover extends Actor {
   private addLabel(engine: Engine): void {
     const topText = new Text({text: "Game Over", font: SPRITE_FONTS.char});
     const topLabel = new Image({x: FIELD_PROPS.width / 2, y: 30, graphic: topText});
-    const rankingPane = new RankingPane({x: 30, y: (FIELD_PROPS.height - 234) / 2, ranking: RANKING, simple: true});
-    const backButton = new Button({x: FIELD_PROPS.width / 2, y: FIELD_PROPS.height - 30, string: "Back", length: 8, onPress: () => engine.goToScene("title")});
+    const rankingPane = new RankingPane({x: 35, y: 59, ranking: RANKING, simple: true});
+    const nameInputPane = new NameInputPane({x: 292, y: 59, onPress: () => null});
+    const backButton = new Button({x: FIELD_PROPS.width / 2, y: FIELD_PROPS.height - 36, string: "Back", length: 8, onPress: () => engine.goToScene("title")});
     this.addChild(topLabel);
     this.addChild(rankingPane);
+    this.addChild(nameInputPane);
     this.addChild(backButton);
   }
 
