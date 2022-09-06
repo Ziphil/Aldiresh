@@ -25,7 +25,7 @@ import {
 } from "/source/entity/fragment";
 import {
   GameoverCover
-} from "/source/entity/gameover-cover";
+} from "/source/entity/gameover-cover/gameover-cover";
 import {
   Item
 } from "/source/entity/item";

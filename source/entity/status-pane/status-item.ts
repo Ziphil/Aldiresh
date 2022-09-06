@@ -18,8 +18,8 @@ import {
   Image
 } from "/source/entity/image";
 import {
-  StatusNumberLabel
-} from "/source/entity/status-pane/status-number-label";
+  StringLabel
+} from "/source/entity/string-label";
 
 
 export type StatausItemConfigs = {
@@ -36,7 +36,7 @@ export class StatusItem extends Actor {
   private readonly spriteIndex: number;
   private readonly decimalLength?: number;
   private readonly getNumber: () => number;
-  private numberLabel!: StatusNumberLabel;
+  private label!: StringLabel;
 
   public constructor({x, y, ...configs}: StatausItemConfigs) {
     super({
@@ -59,15 +59,15 @@ export class StatusItem extends Actor {
   }
 
   private addChildren(): void {
-    const numberLabel = new StatusNumberLabel({x: SCREEN_PROPS.width - FIELD_PROPS.width - 24, y: 8, decimalLength: this.decimalLength});
+    const label = new StringLabel({x: SCREEN_PROPS.width - FIELD_PROPS.width - 24, y: 8, decimalLength: this.decimalLength});
     const nameImage = new Image({x: 8, y: 2, anchor: vec(0, 0), graphic: SPRITE_SHEETS.statusName.sprites[this.spriteIndex]});
-    this.numberLabel = numberLabel;
-    this.addChild(numberLabel);
+    this.label = label;
+    this.addChild(label);
     this.addChild(nameImage);
   }
 
   private updateNumber(): void {
-    this.numberLabel.number = this.getNumber();
+    this.label.string = this.getNumber();
   }
 
 }
