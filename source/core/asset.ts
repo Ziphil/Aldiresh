@@ -43,7 +43,8 @@ export const SPRITE_SHEETS = {
     sourceViews: [
       ...Array.from({length: 8}).flatMap((dummy, index) => [
         {x: 0, y: index * 18, width: index * 13 + 51, height: 18},
-        {x: 142, y: index * 18, width: index * 13 + 51, height: 18}
+        {x: 142, y: index * 18, width: index * 13 + 51, height: 18},
+        {x: 284, y: index * 18, width: index * 13 + 51, height: 18}
       ])
     ]
   }),

@@ -36,7 +36,7 @@ export class RankingItem extends Actor {
       anchor: vec(0, 0),
       collisionType: CollisionType["PreventCollision"]
     });
-    this.graphics.use(SPRITE_SHEETS.buttonFrame.sprites[configs.length * 2 - 2]);
+    this.graphics.use(SPRITE_SHEETS.buttonFrame.sprites[configs.length * 3 - 3]);
     this.length = configs.length;
     this.initialString = configs.string;
   }

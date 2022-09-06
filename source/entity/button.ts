@@ -71,8 +71,8 @@ export class Button extends Actor {
   }
 
   private initializeGraphics(): void {
-    this.graphics.add("default", SPRITE_SHEETS.buttonFrame.sprites[this.length * 2 - 1]);
-    this.graphics.add("hovered", SPRITE_SHEETS.buttonFrame.sprites[this.length * 2 - 2]);
+    this.graphics.add("default", SPRITE_SHEETS.buttonFrame.sprites[this.length * 3 - 2]);
+    this.graphics.add("hovered", SPRITE_SHEETS.buttonFrame.sprites[this.length * 3 - 1]);
     this.graphics.use("default");
     const text = new Text({text: this.string, font: SPRITE_FONTS.char});
     this.graphics.layers.create({name: "string", order: 1});
