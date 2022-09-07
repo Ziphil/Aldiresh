@@ -60,14 +60,8 @@ export class Button extends Actor {
   }
 
   public override onPreUpdate(engine: Engine, delta: number): void {
-    const contacts = this.collider.collide(this.target.collider);
-    if (contacts.length > 0) {
-      this.graphics.use("hovered");
-      this.hovered = true;
-    } else {
-      this.graphics.use("default");
-      this.hovered = false;
-    }
+    this.updateHovered();
+    this.press();
   }
 
   private initializeGraphics(): void {
@@ -81,12 +75,23 @@ export class Button extends Actor {
 
   private initializeComponents(engine: Engine): void {
     const inputComponent = new InputManagerComponent();
-    inputComponent.setOnButtonDown(() => this.press(engine));
     this.addComponent(inputComponent);
   }
 
-  private press(engine: Engine): void {
-    if (this.hovered) {
+  private updateHovered(): void {
+    const contacts = this.collider.collide(this.target.collider);
+    if (contacts.length > 0) {
+      this.graphics.use("hovered");
+      this.hovered = true;
+    } else {
+      this.graphics.use("default");
+      this.hovered = false;
+    }
+  }
+
+  private press(): void {
+    const inputManager = this.get(InputManagerComponent)!;
+    if (this.hovered && inputManager.buttonPressed) {
       this.onPress();
     }
   }

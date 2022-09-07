@@ -27,8 +27,7 @@ export class InputManagerComponent extends Component<typeof INPUT_MANAGER_COMPON
   public keyboardSecondaryY: number;
   public gamepadSecondaryX: number;
   public gamepadSecondaryY: number;
-  public onButtonDown?: () => void;
-  public onButtonDownSet: boolean = false;
+  public buttonPressed: boolean;
 
   public constructor() {
     super();
@@ -40,10 +39,7 @@ export class InputManagerComponent extends Component<typeof INPUT_MANAGER_COMPON
     this.keyboardSecondaryY = 0;
     this.gamepadSecondaryX = 0;
     this.gamepadSecondaryY = 0;
-  }
-
-  public setOnButtonDown(onButtonDown: () => void): void {
-    this.onButtonDown = onButtonDown;
+    this.buttonPressed = false;
   }
 
   public get primaryX(): number {
@@ -69,34 +65,32 @@ export class InputManagerSystem extends System<InputManagerComponent | Transform
 
   public readonly types: any = INPUT_MANAGER_SYSTEM_TYPES;
   public readonly systemType: SystemType = SystemType["Update"];
+  private buttonPressed!: boolean;
   private engine!: Engine;
 
   public override initialize(scene: Scene): void {
+    this.buttonPressed = false;
     this.engine = scene.engine;
-    const pointer = this.engine.input.pointers.primary;
-    const gamepad = this.engine.input.gamepads.at(0);
-    scene.on("deactivate", () => {
-      pointer.off("down");
-      gamepad.off("button");
-    });
+    this.addEventListeners();
   }
 
   public override update(entities: Array<Entity>, delta: number): void {
     for (const entity of entities) {
-      this.updateKayboard(entity, delta);
+      this.updateKeyboard(entity, delta);
       this.updateGamepad(entity, delta);
-      const component = entity.get(InputManagerComponent)!;
-      const pointer = this.engine.input.pointers.primary;
-      const gamepad = this.engine.input.gamepads.at(0);
-      if (component.onButtonDown !== undefined && !component.onButtonDownSet) {
-        pointer.on("down", component.onButtonDown);
-        gamepad.on("button", component.onButtonDown);
-        component.onButtonDownSet = true;
-      }
+      this.updateButton(entity);
     }
+    this.resetButton();
   }
 
-  private updateKayboard(entity: Entity, delta: number): void {
+  private addEventListeners(): void {
+    const pointer = this.engine.input.pointers.primary;
+    const gamepad = this.engine.input.gamepads.at(0);
+    pointer.on("down", () => this.buttonPressed = true);
+    gamepad.on("button", () => this.buttonPressed = true);
+  }
+
+  private updateKeyboard(entity: Entity, delta: number): void {
     const component = entity.get(InputManagerComponent)!;
     const keyboard = this.engine.input.keyboard;
     component.keyboardPrimaryX = +(keyboard.isHeld(Input["Keys"]["ArrowRight"]) || keyboard.isHeld(Input["Keys"]["D"])) - +(keyboard.isHeld(Input["Keys"]["ArrowLeft"]) || keyboard.isHeld(Input["Keys"]["A"]));
@@ -114,8 +108,13 @@ export class InputManagerSystem extends System<InputManagerComponent | Transform
     component.gamepadSecondaryY = gamepad.getAxes(Input["Axes"]["RightStickY"]);
   }
 
-  private pressButton(): void {
+  private updateButton(entity: Entity): void {
+    const component = entity.get(InputManagerComponent)!;
+    component.buttonPressed = this.buttonPressed;
+  }
 
+  private resetButton(): void {
+    this.buttonPressed = false;
   }
 
 }

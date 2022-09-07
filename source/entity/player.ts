@@ -76,6 +76,7 @@ export class Player extends Actor {
 
   public override onPreUpdate(engine: Engine, delta: number): void {
     this.move(delta);
+    this.shoot(engine);
     this.bounceWall();
   }
 
@@ -87,7 +88,6 @@ export class Player extends Actor {
   private initializeComponents(engine: Engine): void {
     const squareComponent = new RotatingSquareComponent(PLAYER_PROPS.square);
     const inputComponent = new InputManagerComponent();
-    inputComponent.setOnButtonDown(() => this.shoot(engine));
     this.addComponent(squareComponent);
     this.addComponent(inputComponent);
   }
@@ -103,7 +103,8 @@ export class Player extends Actor {
   }
 
   private shoot(engine: Engine): void {
-    if (this.status.life > 0) {
+    const inputManager = this.get(InputManagerComponent)!;
+    if (this.status.life > 0 && inputManager.buttonPressed) {
       const target = this.target;
       const direction = target.pos.sub(this.pos).toAngle();
       const bullet = new Bullet({x: this.pos.x, y: this.pos.y, direction, owner: "player"});
