@@ -12,14 +12,11 @@ import {
   SCREEN_PROPS
 } from "/source/core/constant";
 import {
-  Button
-} from "/source/entity/button";
-import {
-  Logo
-} from "/source/entity/logo";
-import {
   Target
 } from "/source/entity/target";
+import {
+  TitleCover
+} from "/source/entity/title/title-cover";
 
 
 export class TitleScene extends Scene {
@@ -39,11 +36,9 @@ export class TitleScene extends Scene {
   }
 
   private addEntities(engine: Engine): void {
-    const logo = new Logo({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2 - 30});
-    const button = new Button({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2 + 30, string: "Start", length: 8, onPress: () => engine.goToScene("main")});
+    const cover = new TitleCover();
     const target = new Target({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2, range: "screen"});
-    this.add(logo);
-    this.add(button);
+    this.add(cover);
     this.add(target);
   }
 

@@ -14,7 +14,7 @@ export const DEPTHS = {
   statusPane: -10,
   target: -20,
   button: -29,
-  gameoverCover: -30,
+  cover: -30,
   scoreLabel: -39,
   player: -40,
   enemy: -41,

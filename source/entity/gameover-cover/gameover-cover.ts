@@ -46,7 +46,7 @@ export class GameoverCover extends Actor {
     super({
       pos: vec(0, 0),
       anchor: vec(0, 0),
-      z: DEPTHS.gameoverCover,
+      z: DEPTHS.cover,
       width: FIELD_PROPS.width,
       height: FIELD_PROPS.height,
       collisionType: CollisionType["PreventCollision"],
