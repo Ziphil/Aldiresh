@@ -9,7 +9,8 @@ import {
   TimerComponent
 } from "/source/component/timer";
 import {
-  FIELD_PROPS
+  FIELD_PROPS,
+  SCREEN_PROPS
 } from "/source/core/constant";
 import {
   ENEMY_PROPS,
@@ -23,13 +24,20 @@ import {
 } from "/source/util/misc";
 
 
+export type EnemySpawnerConfigs = {
+  range: "screen" | "field"
+};
+
+
 export class EnemySpawner extends Entity {
 
+  private readonly range: "screen" | "field";
   private readonly random: Random;
   private status!: Status;
 
-  public constructor() {
+  public constructor(configs: EnemySpawnerConfigs) {
     super();
+    this.range = configs.range;
     this.random = new Random();
   }
 
@@ -44,8 +52,9 @@ export class EnemySpawner extends Entity {
   }
 
   private spawn(engine: Engine): number {
-    const x = this.random.floating(ENEMY_PROPS.size, FIELD_PROPS.width - ENEMY_PROPS.size);
-    const y = this.random.floating(ENEMY_PROPS.size, FIELD_PROPS.height - ENEMY_PROPS.size);
+    const props = (this.range === "screen") ? SCREEN_PROPS : FIELD_PROPS;
+    const x = this.random.floating(ENEMY_PROPS.size, props.width - ENEMY_PROPS.size);
+    const y = this.random.floating(ENEMY_PROPS.size, props.height - ENEMY_PROPS.size);
     const enemy = new Enemy({x, y});
     enemy.setStatus(this.status);
     engine.currentScene.add(enemy);

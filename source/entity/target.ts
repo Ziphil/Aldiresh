@@ -37,7 +37,7 @@ export type TargetConfigs = {
 
 export class Target extends Actor {
 
-  private range: "screen" | "field";
+  private readonly range: "screen" | "field";
   private previousPointerPos: Vector;
 
   public constructor({x, y, ...configs}: TargetConfigs) {

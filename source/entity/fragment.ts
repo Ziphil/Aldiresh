@@ -26,7 +26,7 @@ const FRAGMENT_PROPS = {
   }
 };
 
-export type ScoreLabelConfigs = {
+export type FragmentConfigs = {
   x: number,
   y: number,
   direction: number,
@@ -39,7 +39,7 @@ export class Fragment extends Actor {
   private readonly owner: "player" | "enemy";
   private timer: number;
 
-  public constructor({x, y, ...configs}: ScoreLabelConfigs) {
+  public constructor({x, y, ...configs}: FragmentConfigs) {
     super({
       pos: vec(x, y),
       z: DEPTHS.fragment

@@ -53,12 +53,12 @@ export class MainScene extends Scene {
     this.world.add(new RotatingSquareSystem());
     this.world.add(new InputManagerSystem());
     this.world.add(new TimerSystem());
-    this.world.add(new AutoKillSystem());
+    this.world.add(new AutoKillSystem("field"));
   }
 
   private addEntities(): void {
     const player = new Player({x: FIELD_PROPS.width / 2, y: FIELD_PROPS.height / 2});
-    const enemySpawner = new EnemySpawner();
+    const enemySpawner = new EnemySpawner({range: "field"});
     const target = new Target({x: FIELD_PROPS.width / 2, y: FIELD_PROPS.height / 2, range: "field"});
     const statusPane = new StatusPane();
     const status = new Status();
