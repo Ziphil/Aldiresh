@@ -104,7 +104,7 @@ export class GameoverCover extends Actor {
 function calcPushedRanking(ranking: Ranking, status: Status): [index: number | null, pushedRanking: Ranking] {
   const pushedRanking = ranking.slice();
   const {score, level, hitCount, killCount} = status;
-  const index = pushedRanking.findIndex((result) => result.score < score);
+  const index = pushedRanking.findIndex((result) => result.score <= score);
   if (index < 0) {
     return [null, pushedRanking];
   } else {
