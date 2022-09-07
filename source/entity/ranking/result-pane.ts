@@ -7,6 +7,9 @@ import {
   vec
 } from "excalibur";
 import {
+  DEPTHS
+} from "/source/core/constant";
+import {
   ResultItem
 } from "/source/entity/ranking/result-item";
 import {
@@ -42,6 +45,7 @@ export class ResultPane extends Actor {
     super({
       pos: vec(x, y),
       anchor: vec(0, 0),
+      z: DEPTHS.button,
       collisionType: CollisionType["PreventCollision"]
     });
     this.simple = configs.simple ?? false;
@@ -55,8 +59,8 @@ export class ResultPane extends Actor {
   }
 
   private addChildren(): void {
-    const rankLabel = new StringLabel({x: 24, y: 8, string: this.initialResult?.rank});
-    const nameLabel = new StringLabel({x: 73, y: 8, string: this.initialResult?.name});
+    const rankLabel = new StringLabel({x: 24, y: 8, value: this.initialResult?.rank});
+    const nameLabel = new StringLabel({x: 73, y: 8, value: this.initialResult?.name});
     const scoreItem = new ResultItem({x: 85, y: 0, value: this.initialResult?.score, length: 8});
     this.rankLabel = rankLabel;
     this.nameLabel = nameLabel;
@@ -86,8 +90,8 @@ export class ResultPane extends Actor {
   }
 
   public set result(result: Result) {
-    this.rankLabel.string = result.rank;
-    this.nameLabel.string = result.name;
+    this.rankLabel.value = result.rank;
+    this.nameLabel.value = result.name;
     this.scoreItem.value = result.score;
     if (this.levelItem !== undefined && this.hitCoundItem !== undefined && this.killCountItem !== undefined) {
       this.levelItem.value = result.level;

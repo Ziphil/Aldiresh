@@ -7,6 +7,9 @@ import {
   vec
 } from "excalibur";
 import {
+  DEPTHS
+} from "/source/core/constant";
+import {
   ResultPane
 } from "/source/entity/ranking/result-pane";
 import {
@@ -34,6 +37,7 @@ export class RankingPane extends Actor {
     super({
       pos: vec(x, y),
       anchor: vec(0, 0),
+      z: DEPTHS.button,
       collisionType: CollisionType["PreventCollision"]
     });
     this.simple = configs.simple;

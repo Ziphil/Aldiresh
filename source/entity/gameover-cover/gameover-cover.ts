@@ -5,12 +5,8 @@ import {
   CollisionType,
   Color,
   Engine,
-  Text,
   vec
 } from "excalibur";
-import {
-  SPRITE_FONTS
-} from "/source/core/asset";
 import {
   DEPTHS,
   FIELD_PROPS
@@ -22,14 +18,14 @@ import {
   NameInputPane
 } from "/source/entity/gameover-cover/name-input-pane";
 import {
-  Image
-} from "/source/entity/image";
-import {
   RankingPane
 } from "/source/entity/ranking/ranking-pane";
 import {
   Status
 } from "/source/entity/status";
+import {
+  StringLabel
+} from "/source/entity/string-label";
 import {
   Ranking,
   fetchRanking
@@ -56,16 +52,16 @@ export class GameoverCover extends Actor {
   }
 
   public override onInitialize(engine: Engine): void {
-    this.addLabel(engine);
+    this.addChildren(engine);
   }
 
-  private async addLabel(engine: Engine): Promise<void> {
+  private async addChildren(engine: Engine): Promise<void> {
     const ranking = await fetchRanking();
     const [index, pushedRanking] = calcPushedRanking(ranking, this.status);
     const topLabelString = (index !== null) ? "Enter Your Name" : "Game Over";
     const buttonString = (index !== null) ? "OK" : "Back";
     const rankingPaneX = (index !== null) ? 35 : 126;
-    const topLabel = new Image({x: FIELD_PROPS.width / 2, y: 30, graphic: new Text({text: topLabelString, font: SPRITE_FONTS.char})});
+    const topLabel = new StringLabel({x: FIELD_PROPS.width / 2, y: 30, anchor: vec(0.5, 0.5), value: topLabelString});
     const button = new Button({x: FIELD_PROPS.width / 2, y: 324, string: buttonString, length: 8, onPress: () => this.back(engine)});
     const rankingPane = new RankingPane({x: rankingPaneX, y: 59, ranking: pushedRanking, simple: true, blinkIndex: index ?? undefined});
     this.ranking = pushedRanking;

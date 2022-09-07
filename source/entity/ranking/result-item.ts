@@ -11,6 +11,9 @@ import {
   SPRITE_FONTS,
   SPRITE_SHEETS
 } from "/source/core/asset";
+import {
+  DEPTHS
+} from "/source/core/constant";
 
 
 export type RankingItemConfigs = {
@@ -31,6 +34,7 @@ export class ResultItem extends Actor {
     super({
       pos: vec(x, y),
       anchor: vec(0, 0),
+      z: DEPTHS.button,
       collisionType: CollisionType["PreventCollision"]
     });
     this.graphics.use(SPRITE_SHEETS.buttonFrame.sprites[configs.length * 3 - 3]);

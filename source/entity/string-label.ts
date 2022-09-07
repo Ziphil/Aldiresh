@@ -5,17 +5,22 @@ import {
   CollisionType,
   Engine,
   Text,
+  Vector,
   vec
 } from "excalibur";
 import {
   SPRITE_FONTS
 } from "/source/core/asset";
+import {
+  DEPTHS
+} from "/source/core/constant";
 
 
 export type StatusNumberLabelConfigs = {
   x: number,
   y: number,
-  string?: string | number,
+  anchor?: Vector,
+  value?: string | number,
   decimalLength?: number
 };
 
@@ -29,11 +34,12 @@ export class StringLabel extends Actor {
   public constructor({x, y, ...configs}: StatusNumberLabelConfigs) {
     super({
       pos: vec(x, y),
-      anchor: vec(1, 0.5),
+      anchor: configs.anchor ?? vec(1, 0.5),
+      z: DEPTHS.button,
       collisionType: CollisionType["PreventCollision"]
     });
     this.decimalLength = configs.decimalLength ?? 0;
-    this.initialString = formatString(configs.string ?? "", configs.decimalLength);
+    this.initialString = formatValue(configs.value ?? "", configs.decimalLength);
   }
 
   public override onInitialize(engine: Engine): void {
@@ -46,18 +52,18 @@ export class StringLabel extends Actor {
     this.graphics.use(text);
   }
 
-  public set string(string: string | number) {
-    const formattedString = formatString(string, this.decimalLength);
+  public set value(value: string | number) {
+    const formattedString = formatValue(value, this.decimalLength);
     this.text.text = formattedString;
   }
 
 }
 
 
-function formatString(string: string | number, decimalLength?: number): string {
-  if (typeof string === "number") {
-    return string.toFixed(decimalLength ?? 0);
+function formatValue(value: string | number, decimalLength?: number): string {
+  if (typeof value === "number") {
+    return value.toFixed(decimalLength ?? 0);
   } else {
-    return string;
+    return value;
   }
 }

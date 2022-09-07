@@ -13,7 +13,6 @@ export const FIELD_PROPS = {
 export const DEPTHS = {
   statusPane: -10,
   target: -20,
-  logo: -28,
   button: -29,
   gameoverCover: -30,
   scoreLabel: -39,

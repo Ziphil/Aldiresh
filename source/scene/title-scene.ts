@@ -30,7 +30,7 @@ export class TitleScene extends Scene {
 
   public override onInitialize(engine: Engine): void {
     this.initializeSystems();
-    this.initializeEntities(engine);
+    this.addEntities(engine);
   }
 
   private initializeSystems(): void {
@@ -38,7 +38,7 @@ export class TitleScene extends Scene {
     this.world.add(new InputManagerSystem());
   }
 
-  private initializeEntities(engine: Engine): void {
+  private addEntities(engine: Engine): void {
     const logo = new Logo({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2 - 30});
     const button = new Button({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2 + 30, string: "Start", length: 8, onPress: () => engine.goToScene("main")});
     const target = new Target({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2, range: "screen"});

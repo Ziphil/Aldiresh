@@ -18,7 +18,7 @@ export class Logo extends Actor {
   public constructor({x, y}: {x: number, y: number}) {
     super({
       pos: vec(x, y),
-      z: DEPTHS.logo,
+      z: DEPTHS.button,
       collisionType: CollisionType["PreventCollision"]
     });
     this.graphics.use(ASSETS.logo.toSprite());
