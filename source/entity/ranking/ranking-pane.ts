@@ -7,8 +7,8 @@ import {
   vec
 } from "excalibur";
 import {
-  RankingRow
-} from "/source/entity/ranking/ranking-row";
+  ResultPane
+} from "/source/entity/ranking/result-pane";
 import {
   Ranking
 } from "/source/util/request";
@@ -28,7 +28,7 @@ export class RankingPane extends Actor {
   private readonly simple?: boolean;
   private readonly blinkIndex?: number;
   private readonly initialRanking?: Ranking;
-  private rows: Array<RankingRow>;
+  private rows: Array<ResultPane>;
 
   public constructor({x, y, ...configs}: RankingRowConfigs) {
     super({
@@ -52,7 +52,7 @@ export class RankingPane extends Actor {
         const result = this.initialRanking[i];
         const simple = this.simple;
         const blink = this.blinkIndex === i;
-        const row = new RankingRow({x: 0, y: i * 24, result, simple, blink});
+        const row = new ResultPane({x: 0, y: i * 24, result, simple, blink});
         this.rows.push(row);
         this.addChild(row);
       }

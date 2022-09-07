@@ -7,8 +7,8 @@ import {
   vec
 } from "excalibur";
 import {
-  RankingItem
-} from "/source/entity/ranking/ranking-item";
+  ResultItem
+} from "/source/entity/ranking/result-item";
 import {
   StringLabel
 } from "/source/entity/string-label";
@@ -26,17 +26,17 @@ export type RankingRowConfigs = {
 };
 
 
-export class RankingRow extends Actor {
+export class ResultPane extends Actor {
 
   private readonly simple: boolean;
   private readonly blink: boolean;
   private readonly initialResult?: Result;
   private rankLabel!: StringLabel;
   private nameLabel!: StringLabel;
-  private scoreItem!: RankingItem;
-  private levelItem?: RankingItem;
-  private hitCoundItem?: RankingItem;
-  private killCountItem?: RankingItem;
+  private scoreItem!: ResultItem;
+  private levelItem?: ResultItem;
+  private hitCoundItem?: ResultItem;
+  private killCountItem?: ResultItem;
 
   public constructor({x, y, ...configs}: RankingRowConfigs) {
     super({
@@ -51,12 +51,13 @@ export class RankingRow extends Actor {
 
   public override onInitialize(engine: Engine): void {
     this.addChildren();
+    this.setupBlink();
   }
 
   private addChildren(): void {
     const rankLabel = new StringLabel({x: 24, y: 8, string: this.initialResult?.rank});
     const nameLabel = new StringLabel({x: 73, y: 8, string: this.initialResult?.name});
-    const scoreItem = new RankingItem({x: 85, y: 0, string: this.initialResult?.score, length: 8});
+    const scoreItem = new ResultItem({x: 85, y: 0, value: this.initialResult?.score, length: 8});
     this.rankLabel = rankLabel;
     this.nameLabel = nameLabel;
     this.scoreItem = scoreItem;
@@ -64,9 +65,9 @@ export class RankingRow extends Actor {
     this.addChild(nameLabel);
     this.addChild(scoreItem);
     if (!this.simple) {
-      const levelItem = new RankingItem({x: 227, y: 0, string: this.initialResult?.level, length: 5});
-      const hitCountItem = new RankingItem({x: 330, y: 0, string: this.initialResult?.hitCount, length: 5});
-      const killCountItem = new RankingItem({x: 433, y: 0, string: this.initialResult?.killCount, length: 5});
+      const levelItem = new ResultItem({x: 227, y: 0, value: this.initialResult?.level, length: 5});
+      const hitCountItem = new ResultItem({x: 330, y: 0, value: this.initialResult?.hitCount, length: 5});
+      const killCountItem = new ResultItem({x: 433, y: 0, value: this.initialResult?.killCount, length: 5});
       this.levelItem = levelItem;
       this.hitCoundItem = hitCountItem;
       this.killCountItem = killCountItem;
@@ -76,14 +77,22 @@ export class RankingRow extends Actor {
     }
   }
 
+  private setupBlink(): void {
+    if (this.blink) {
+      this.rankLabel.actions.blink(750, 750, 1 / 0);
+      this.nameLabel.actions.blink(750, 750, 1 / 0);
+      this.scoreItem.actions.blink(750, 750, 1 / 0);
+    }
+  }
+
   public set result(result: Result) {
     this.rankLabel.string = result.rank;
     this.nameLabel.string = result.name;
-    this.scoreItem.string = result.score;
+    this.scoreItem.value = result.score;
     if (this.levelItem !== undefined && this.hitCoundItem !== undefined && this.killCountItem !== undefined) {
-      this.levelItem.string = result.level;
-      this.hitCoundItem.string = result.hitCount;
-      this.killCountItem.string = result.killCount;
+      this.levelItem.value = result.level;
+      this.hitCoundItem.value = result.hitCount;
+      this.killCountItem.value = result.killCount;
     }
   }
 
