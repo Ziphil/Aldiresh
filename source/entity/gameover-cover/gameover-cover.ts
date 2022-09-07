@@ -28,14 +28,17 @@ import {
 } from "/source/entity/string-label";
 import {
   Ranking,
-  fetchRanking
+  Result,
+  fetchRanking,
+  sendResult
 } from "/source/util/request";
 
 
 export class GameoverCover extends Actor {
 
   private ranking!: Ranking;
-  private index!: number | null;
+  private rank!: number | null;
+  private rankingName: string;
   private rankingPane!: RankingPane;
   public status!: Status;
 
@@ -49,6 +52,7 @@ export class GameoverCover extends Actor {
       collisionType: CollisionType["PreventCollision"],
       color: Color.fromHSL(0, 0, 0, 0.5)
     });
+    this.rankingName = "";
   }
 
   public override onInitialize(engine: Engine): void {
@@ -57,39 +61,42 @@ export class GameoverCover extends Actor {
 
   private async addChildren(engine: Engine): Promise<void> {
     const ranking = await fetchRanking();
-    const [index, pushedRanking] = calcPushedRanking(ranking, this.status);
-    const topLabelString = (index !== null) ? "Enter Your Name" : "Game Over";
-    const buttonString = (index !== null) ? "OK" : "Back";
-    const rankingPaneX = (index !== null) ? 35 : 126;
+    const [rank, pushedRanking] = calcPushedRanking(ranking, this.status);
+    const topLabelString = (rank !== null) ? "Enter Your Name" : "Game Over";
+    const buttonString = (rank !== null) ? "OK" : "Back";
+    const rankingPaneX = (rank !== null) ? 35 : 126;
     const topLabel = new StringLabel({x: FIELD_PROPS.width / 2, y: 30, anchor: vec(0.5, 0.5), value: topLabelString});
     const button = new Button({x: FIELD_PROPS.width / 2, y: 324, string: buttonString, length: 8, onPress: () => this.back(engine)});
-    const rankingPane = new RankingPane({x: rankingPaneX, y: 59, ranking: pushedRanking, simple: true, blinkIndex: index ?? undefined});
+    const rankingPane = new RankingPane({x: rankingPaneX, y: 59, ranking: pushedRanking, simple: true, blinkIndex: rank ?? undefined});
     this.ranking = pushedRanking;
-    this.index = index;
+    this.rank = rank;
     this.rankingPane = rankingPane;
     this.addChild(topLabel);
     this.addChild(rankingPane);
     this.addChild(button);
-    if (index !== null) {
+    if (rank !== null) {
       const nameInputPane = new NameInputPane({x: 292, y: 59, onPress: (char) => this.editRanking(char)});
       this.addChild(nameInputPane);
     }
   }
 
   private editRanking(char: string | null): void {
-    if (this.index !== null) {
+    if (this.rank !== null) {
       const ranking = this.ranking.slice();
-      const index = this.index;
+      const index = this.rank;
       const name = (char !== null) ? (ranking[index].name + char).substring(0, 3) : ranking[index].name.substring(0, ranking[index].name.length - 1);
-      ranking[this.index] = {...ranking[this.index], name};
+      ranking[this.rank] = {...ranking[this.rank], name};
       this.ranking = ranking;
+      this.rankingName = name;
       this.rankingPane.ranking = ranking;
     }
   }
 
-  private async back(engine: Engine): Promise<void> {
-    if (this.index !== null) {
-      Function.prototype();
+  private back(engine: Engine): void {
+    if (this.rank !== null) {
+      const name = this.rankingName;
+      const {score, level, hitCount, killCount} = this.status;
+      sendResult({name, score, level, hitCount, killCount});
     }
     engine.goToScene("title");
   }
@@ -97,18 +104,18 @@ export class GameoverCover extends Actor {
 }
 
 
-function calcPushedRanking(ranking: Ranking, status: Status): [index: number | null, pushedRanking: Ranking] {
+function calcPushedRanking(ranking: Ranking, result: Omit<Result, "rank">): [rank: number | null, pushedRanking: Ranking] {
   const pushedRanking = ranking.slice();
-  const {score, level, hitCount, killCount} = status;
-  const index = pushedRanking.findIndex((result) => result.score <= score);
-  if (index < 0) {
+  const {score, level, hitCount, killCount} = result;
+  const rank = pushedRanking.findIndex((rankingResult) => rankingResult.score <= score);
+  if (rank < 0) {
     return [null, pushedRanking];
   } else {
-    pushedRanking.splice(index, 0, {rank: index + 1, name: "", score, level, hitCount, killCount});
+    pushedRanking.splice(rank, 0, {rank, name: "", score, level, hitCount, killCount});
     pushedRanking.splice(10, 1);
-    for (let i = index + 1 ; i < pushedRanking.length ; i ++) {
-      pushedRanking[i] = {...pushedRanking[i], rank: i + 1};
+    for (let i = rank + 1 ; i < pushedRanking.length ; i ++) {
+      pushedRanking[i] = {...pushedRanking[i], rank: pushedRanking[i].rank + 1};
     }
   }
-  return [index, pushedRanking];
+  return [rank, pushedRanking];
 }

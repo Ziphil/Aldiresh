@@ -59,7 +59,7 @@ export class ResultPane extends Actor {
   }
 
   private addChildren(): void {
-    const rankLabel = new StringLabel({x: 24, y: 8, value: this.initialResult?.rank});
+    const rankLabel = new StringLabel({x: 24, y: 8, value: (this.initialResult !== undefined) ? this.initialResult.rank + 1 : undefined});
     const nameLabel = new StringLabel({x: 73, y: 8, value: this.initialResult?.name});
     const scoreItem = new ResultItem({x: 85, y: 0, value: this.initialResult?.score, length: 8});
     this.rankLabel = rankLabel;
@@ -69,7 +69,7 @@ export class ResultPane extends Actor {
     this.addChild(nameLabel);
     this.addChild(scoreItem);
     if (!this.simple) {
-      const levelItem = new ResultItem({x: 227, y: 0, value: this.initialResult?.level, length: 5});
+      const levelItem = new ResultItem({x: 227, y: 0, value: (this.initialResult !== undefined) ? this.initialResult.level + 1 : undefined, length: 5});
       const hitCountItem = new ResultItem({x: 330, y: 0, value: this.initialResult?.hitCount, length: 5});
       const killCountItem = new ResultItem({x: 433, y: 0, value: this.initialResult?.killCount, length: 5});
       this.levelItem = levelItem;
@@ -90,7 +90,7 @@ export class ResultPane extends Actor {
   }
 
   public set result(result: Result) {
-    this.rankLabel.value = result.rank;
+    this.rankLabel.value = result.rank + 1;
     this.nameLabel.value = result.name;
     this.scoreItem.value = result.score;
     if (this.levelItem !== undefined && this.hitCoundItem !== undefined && this.killCountItem !== undefined) {
