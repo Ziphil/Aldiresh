@@ -12,7 +12,7 @@ import {
 export const STATUS_PROPS = {
   levelInterval: 15000,
   maxLevel: 49,
-  initialLife: 5,
+  initialLife: 1,
   comboDuration: 3000,
   maxCombo: 30
 };
@@ -35,7 +35,7 @@ export class Status extends Entity {
   public constructor() {
     super();
     this.score = 0;
-    this.level = 0;
+    this.level = 49;
     this.levelTimer = 0;
     this.life = STATUS_PROPS.initialLife;
     this.shootCount = 0;

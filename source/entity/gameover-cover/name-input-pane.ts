@@ -14,7 +14,7 @@ import {
 export type RankingItemConfigs = {
   x: number,
   y: number,
-  onPress: (char: string) => void
+  onPress: (char: string | null) => void
 };
 
 

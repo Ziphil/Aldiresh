@@ -12,26 +12,31 @@ import {
 import {
   StringLabel
 } from "/source/entity/string-label";
+import {
+  Result
+} from "/source/util/request";
 
 
 export type RankingRowConfigs = {
   x: number,
   y: number,
-  result?: {rank: number, name: string, score: number, level: number, hit: number, kill: number},
-  simple?: boolean
+  result?: Result,
+  simple?: boolean,
+  blink?: boolean
 };
 
 
 export class RankingRow extends Actor {
 
-  private readonly simple?: boolean;
-  private readonly initialResult?: {rank: number, name: string, score: number, level: number, hit: number, kill: number};
+  private readonly simple: boolean;
+  private readonly blink: boolean;
+  private readonly initialResult?: Result;
   private rankLabel!: StringLabel;
   private nameLabel!: StringLabel;
   private scoreItem!: RankingItem;
   private levelItem?: RankingItem;
-  private hitItem?: RankingItem;
-  private killItem?: RankingItem;
+  private hitCoundItem?: RankingItem;
+  private killCountItem?: RankingItem;
 
   public constructor({x, y, ...configs}: RankingRowConfigs) {
     super({
@@ -40,6 +45,7 @@ export class RankingRow extends Actor {
       collisionType: CollisionType["PreventCollision"]
     });
     this.simple = configs.simple ?? false;
+    this.blink = configs.blink ?? false;
     this.initialResult = configs.result;
   }
 
@@ -59,25 +65,25 @@ export class RankingRow extends Actor {
     this.addChild(scoreItem);
     if (!this.simple) {
       const levelItem = new RankingItem({x: 227, y: 0, string: this.initialResult?.level, length: 5});
-      const hitItem = new RankingItem({x: 330, y: 0, string: this.initialResult?.hit, length: 5});
-      const killItem = new RankingItem({x: 433, y: 0, string: this.initialResult?.kill, length: 5});
+      const hitCountItem = new RankingItem({x: 330, y: 0, string: this.initialResult?.hitCount, length: 5});
+      const killCountItem = new RankingItem({x: 433, y: 0, string: this.initialResult?.killCount, length: 5});
       this.levelItem = levelItem;
-      this.hitItem = hitItem;
-      this.killItem = killItem;
+      this.hitCoundItem = hitCountItem;
+      this.killCountItem = killCountItem;
       this.addChild(levelItem);
-      this.addChild(hitItem);
-      this.addChild(killItem);
+      this.addChild(hitCountItem);
+      this.addChild(killCountItem);
     }
   }
 
-  public set result(result: {rank: number, name: string, score: number, level: number, hit: number, kill: number}) {
+  public set result(result: Result) {
     this.rankLabel.string = result.rank;
     this.nameLabel.string = result.name;
     this.scoreItem.string = result.score;
-    if (this.levelItem !== undefined && this.hitItem !== undefined && this.killItem !== undefined) {
+    if (this.levelItem !== undefined && this.hitCoundItem !== undefined && this.killCountItem !== undefined) {
       this.levelItem.string = result.level;
-      this.hitItem.string = result.hit;
-      this.killItem.string = result.kill;
+      this.hitCoundItem.string = result.hitCount;
+      this.killCountItem.string = result.killCount;
     }
   }
 

@@ -9,20 +9,25 @@ import {
 import {
   RankingRow
 } from "/source/entity/ranking/ranking-row";
+import {
+  Ranking
+} from "/source/util/request";
 
 
 export type RankingRowConfigs = {
   x: number,
   y: number,
-  ranking: Array<{rank: number, name: string, score: number, level: number, hit: number, kill: number}>,
-  simple?: boolean
+  ranking: Ranking,
+  simple?: boolean,
+  blinkIndex?: number
 };
 
 
 export class RankingPane extends Actor {
 
   private readonly simple?: boolean;
-  private readonly initialRanking?: Array<{rank: number, name: string, score: number, level: number, hit: number, kill: number}>;
+  private readonly blinkIndex?: number;
+  private readonly initialRanking?: Ranking;
   private rows: Array<RankingRow>;
 
   public constructor({x, y, ...configs}: RankingRowConfigs) {
@@ -32,6 +37,7 @@ export class RankingPane extends Actor {
       collisionType: CollisionType["PreventCollision"]
     });
     this.simple = configs.simple;
+    this.blinkIndex = configs.blinkIndex;
     this.initialRanking = configs.ranking;
     this.rows = [];
   }
@@ -44,14 +50,16 @@ export class RankingPane extends Actor {
     if (this.initialRanking !== undefined) {
       for (let i = 0 ; i < this.initialRanking.length ; i ++) {
         const result = this.initialRanking[i];
-        const row = new RankingRow({x: 0, y: i * 24, result, simple: this.simple});
+        const simple = this.simple;
+        const blink = this.blinkIndex === i;
+        const row = new RankingRow({x: 0, y: i * 24, result, simple, blink});
         this.rows.push(row);
         this.addChild(row);
       }
     }
   }
 
-  public set result(ranking: Array<{rank: number, name: string, score: number, level: number, hit: number, kill: number}>) {
+  public set ranking(ranking: Ranking) {
     for (let i = 0 ; i < ranking.length ; i ++) {
       this.rows[i].result = ranking[i];
     }

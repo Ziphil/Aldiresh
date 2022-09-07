@@ -163,6 +163,7 @@ export class Player extends Actor {
 
   private showGameoverCover(engine: Engine): void {
     const gameoverColor = new GameoverCover();
+    gameoverColor.status = this.status;
     engine.add(gameoverColor);
   }
 

@@ -4,31 +4,28 @@ import {
   Actor,
   CollisionType,
   Engine,
+  Text,
   vec
 } from "excalibur";
 import {
+  SPRITE_FONTS,
   SPRITE_SHEETS
 } from "/source/core/asset";
-import {
-  StringLabel
-} from "/source/entity/string-label";
 
 
 export type RankingItemConfigs = {
   x: number,
   y: number,
   string?: string | number,
-  length: number,
-  decimalLength?: number
+  length: number
 };
 
 
 export class RankingItem extends Actor {
 
   private readonly length: number;
-  private readonly decimalLength?: number;
   private readonly initialString?: string | number;
-  private label!: StringLabel;
+  private text!: Text;
 
   public constructor({x, y, ...configs}: RankingItemConfigs) {
     super({
@@ -42,17 +39,21 @@ export class RankingItem extends Actor {
   }
 
   public override onInitialize(engine: Engine): void {
-    this.addChildren();
+    this.initializeGraphics();
   }
 
-  private addChildren(): void {
-    const label = new StringLabel({x: this.length * 13 + 19, y: 8, string: this.initialString, decimalLength: this.decimalLength});
-    this.label = label;
-    this.addChild(label);
+  private initializeGraphics(): void {
+    const frameSprite = SPRITE_SHEETS.buttonFrame.sprites[this.length * 3 - 3];
+    this.graphics.use(frameSprite);
+    const string = this.initialString?.toString() ?? "";
+    const text = new Text({text: string, font: SPRITE_FONTS.char});
+    this.graphics.layers.create({name: "string", order: 1, offset: vec(frameSprite.width - text.width - 18, 4)});
+    this.graphics.layers.get("string").use(text);
+    this.text = text;
   }
 
   public set string(string: string | number) {
-    this.label.string = string;
+    this.text.text = string.toString();
   }
 
 }
