@@ -22,6 +22,9 @@ import {
   MainScene
 } from "/source/scene/main-scene";
 import {
+  RankingScene
+} from "/source/scene/ranking-scene";
+import {
   TitleScene
 } from "/source/scene/title-scene";
 import {
@@ -49,8 +52,9 @@ export class AldireshEngine extends Engine {
   }
 
   private setupScenes(): void {
-    this.add("title", new TitleScene());
     this.add("main", new MainScene());
+    this.add("title", new TitleScene());
+    this.add("ranking", new RankingScene());
   }
 
   private setupScreenshot(): void {
