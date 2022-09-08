@@ -5,6 +5,7 @@ import {
   CollisionType,
   Color,
   Engine,
+  Entity,
   vec
 } from "excalibur";
 import {
@@ -27,6 +28,8 @@ import {
 
 export class RankingCover extends Actor {
 
+  private waitLabel!: Entity;
+
   public constructor() {
     super({
       pos: vec(0, 0),
@@ -40,14 +43,22 @@ export class RankingCover extends Actor {
   }
 
   public override onInitialize(engine: Engine): void {
-    this.addChildren(engine);
+    this.addWaitingChildren(engine);
+    this.addFinalChildren(engine);
   }
 
-  private async addChildren(engine: Engine): Promise<void> {
+  private addWaitingChildren(engine: Engine): void {
+    const waitLabel = new StringLabel({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2, anchor: vec(0.5, 0.5), value: "Please Wait"});
+    this.waitLabel = waitLabel;
+    this.addChild(waitLabel);
+  }
+
+  private async addFinalChildren(engine: Engine): Promise<void> {
     const ranking = await fetchRanking();
     const topLabel = new StringLabel({x: SCREEN_PROPS.width / 2, y: 30, anchor: vec(0.5, 0.5), value: "Ranking"});
     const button = new Button({x: SCREEN_PROPS.width / 2, y: 324, string: "Back", length: 8, onPress: () => engine.goToScene("title")});
     const rankingPane = new RankingPane({x: 71, y: 59, ranking});
+    this.removeChild(this.waitLabel);
     this.addChild(topLabel);
     this.addChild(button);
     this.addChild(rankingPane);
