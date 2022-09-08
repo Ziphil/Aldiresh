@@ -60,7 +60,7 @@ export class StatusItem extends Actor {
     this.graphics.layers.get("string").use(text);
     this.text = text;
     const nameSprite = SPRITE_SHEETS.statusName.sprites[this.spriteIndex];
-    this.graphics.layers.create({name: "name", order: 1, offset: vec(8, 2)});
+    this.graphics.layers.create({name: "name", order: 1, offset: vec(8, 15 - nameSprite.height)});
     this.graphics.layers.get("name").use(nameSprite);
   }
 

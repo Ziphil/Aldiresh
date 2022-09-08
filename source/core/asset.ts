@@ -49,9 +49,22 @@ export const SPRITE_SHEETS = {
       ])
     ]
   }),
-  statusName: SpriteSheet.fromImageSource({
+  statusName: SpriteSheet.fromImageSourceWithSourceViews({
     image: ASSETS.statusName,
-    grid: {rows: 12, columns: 1, spriteWidth: 39, spriteHeight: 13}
+    sourceViews: [
+      {x: 0, y: 7, width: 39, height: 6},
+      {x: 0, y: 20, width: 39, height: 6},
+      {x: 0, y: 33, width: 31, height: 6},
+      {x: 0, y: 46, width: 23, height: 6},
+      {x: 0, y: 59, width: 31, height: 6},
+      {x: 0, y: 65, width: 31, height: 13},
+      {x: 0, y: 85, width: 39, height: 6},
+      {x: 0, y: 91, width: 39, height: 13},
+      {x: 0, y: 104, width: 39, height: 13},
+      {x: 0, y: 117, width: 39, height: 13},
+      {x: 0, y: 130, width: 39, height: 13},
+      {x: 0, y: 143, width: 39, height: 13}
+    ]
   })
 };
 
