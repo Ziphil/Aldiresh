@@ -5,6 +5,7 @@ import {
   CollisionType,
   Color,
   Engine,
+  Entity,
   vec
 } from "excalibur";
 import {
@@ -39,6 +40,8 @@ export class GameoverCover extends Actor {
   private ranking!: Ranking;
   private rank!: number | null;
   private rankingName: string;
+  private gameoverLabel!: Entity;
+  private waitLabel!: Entity;
   private rankingPane!: RankingPane;
   public status!: Status;
 
@@ -56,21 +59,32 @@ export class GameoverCover extends Actor {
   }
 
   public override onInitialize(engine: Engine): void {
-    this.addChildren(engine);
+    this.addWaitingChildren(engine);
+    this.addFinalChildren(engine);
   }
 
-  private async addChildren(engine: Engine): Promise<void> {
+  private addWaitingChildren(engine: Engine): void {
+    const gameoverLabel = new StringLabel({x: FIELD_PROPS.width / 2, y: FIELD_PROPS.height / 2 - 12, anchor: vec(0.5, 0.5), value: "Game Over"});
+    const waitLabel = new StringLabel({x: FIELD_PROPS.width / 2, y: FIELD_PROPS.height / 2 + 12, anchor: vec(0.5, 0.5), value: "Please Wait"});
+    this.gameoverLabel = gameoverLabel;
+    this.waitLabel = waitLabel;
+    this.addChild(gameoverLabel);
+    this.addChild(waitLabel);
+  }
+
+  private async addFinalChildren(engine: Engine): Promise<void> {
     const ranking = await fetchRanking();
     const [rank, pushedRanking] = calcPushedRanking(ranking, this.status);
     const topLabelString = (rank !== null) ? "Enter Your Name" : "Game Over";
     const buttonString = (rank !== null) ? "OK" : "Back";
-    const rankingPaneX = (rank !== null) ? 35 : 126;
     const topLabel = new StringLabel({x: FIELD_PROPS.width / 2, y: 30, anchor: vec(0.5, 0.5), value: topLabelString});
     const button = new Button({x: FIELD_PROPS.width / 2, y: 324, string: buttonString, length: 8, onPress: () => this.back(engine)});
-    const rankingPane = new RankingPane({x: rankingPaneX, y: 59, ranking: pushedRanking, simple: true, blinkIndex: rank ?? undefined});
+    const rankingPane = new RankingPane({x: (rank !== null) ? 35 : 126, y: 59, ranking: pushedRanking, simple: true, blinkIndex: rank ?? undefined});
     this.ranking = pushedRanking;
     this.rank = rank;
     this.rankingPane = rankingPane;
+    this.removeChild(this.gameoverLabel);
+    this.removeChild(this.waitLabel);
     this.addChild(topLabel);
     this.addChild(rankingPane);
     this.addChild(button);
