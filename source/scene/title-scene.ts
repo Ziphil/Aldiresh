@@ -2,7 +2,8 @@
 
 import {
   Engine,
-  Scene
+  Scene,
+  SceneActivationContext
 } from "excalibur";
 import {
   AutoKillSystem,
@@ -35,7 +36,14 @@ export class TitleScene extends Scene {
 
   public override onInitialize(engine: Engine): void {
     this.initializeSystems();
-    this.addEntities(engine);
+  }
+
+  public override onActivate({engine}: SceneActivationContext<unknown>): void {
+    this.addEntities();
+  }
+
+  public override onDeactivate({engine}: SceneActivationContext<unknown>): void {
+    this.clearEntities();
   }
 
   private initializeSystems(): void {
@@ -45,7 +53,7 @@ export class TitleScene extends Scene {
     this.world.add(new AutoKillSystem("screen"));
   }
 
-  private addEntities(engine: Engine): void {
+  private addEntities(): void {
     const cover = new TitleCover();
     const enemySpawner = new EnemySpawner({range: "screen"});
     const target = new Target({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2, range: "screen"});
@@ -55,6 +63,10 @@ export class TitleScene extends Scene {
     this.add(cover);
     this.add(enemySpawner);
     this.add(target);
+  }
+
+  private clearEntities(): void {
+    this.world.clearEntities();
   }
 
 }
