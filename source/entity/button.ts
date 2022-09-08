@@ -42,8 +42,6 @@ export class Button extends Actor {
   public constructor({x, y, ...configs}: ButtonConfigs) {
     super({
       pos: vec(x, y),
-      width: configs.length * 13 + 36,
-      height: 16,
       z: DEPTHS.button,
       collisionType: CollisionType["Passive"]
     });
