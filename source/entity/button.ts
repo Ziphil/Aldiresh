@@ -55,6 +55,7 @@ export class Button extends Actor {
 
   public override onInitialize(engine: Engine): void {
     this.initializeGraphics();
+    this.initializeCollider();
     this.initializeComponents(engine);
     this.target = engine.currentScene.world.entityManager.getByName("target")[0] as Target;
   }
@@ -71,6 +72,16 @@ export class Button extends Actor {
     const text = new Text({text: this.string, font: SPRITE_FONTS.char});
     this.graphics.layers.create({name: "string", order: 1});
     this.graphics.layers.get("string").use(text);
+  }
+
+  private initializeCollider(): void {
+    const {width, height} = SPRITE_SHEETS.buttonFrame.sprites[this.length * 3 - 2];
+    this.collider.usePolygonCollider([
+      vec(-width / 2 + height + 1, -height / 2 + 1),
+      vec(width / 2 - 1, -height / 2 + 1),
+      vec(width / 2 - height - 1, height / 2 - 1),
+      vec(-width / 2 + 1, height / 2 - 1)
+    ], vec(1, 1));
   }
 
   private initializeComponents(engine: Engine): void {
