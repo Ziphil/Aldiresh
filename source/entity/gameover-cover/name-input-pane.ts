@@ -20,7 +20,7 @@ export type RankingItemConfigs = {
 
 export class NameInputPane extends Actor {
 
-  private readonly onPress: (char: string) => void;
+  private readonly onPress: (char: string | null) => void;
 
   public constructor({x, y, ...configs}: RankingItemConfigs) {
     super({
@@ -44,6 +44,10 @@ export class NameInputPane extends Actor {
         this.addChild(button);
       }
     }
+    const hyphenButton = new Button({x: 2 * 51 + 25, y: 6 * 24 + 8, string: "-", length: 1, onPress: () => this.onPress("-")});
+    const deleteButton = new Button({x: 2 * 51 + 25, y: 9 * 24 + 8, string: "@", length: 1, onPress: () => this.onPress(null)});
+    this.addChild(hyphenButton);
+    this.addChild(deleteButton);
   }
 
 }

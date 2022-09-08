@@ -28,7 +28,8 @@ export const SPRITE_SHEETS = {
       ...Array.from({length: 5}).map((dummy, index) => ({x: index * 11, y: 40, width: 11, height: 10})),
       ...Array.from({length: 5}).map((dummy, index) => ({x: index * 11, y: 50, width: 11, height: 10})),
       ...Array.from({length: 3}).map((dummy, index) => ({x: index * 11, y: 60, width: 11, height: 10})),
-      {x: 33, y: 60, width: 4, height: 10}
+      {x: 33, y: 60, width: 4, height: 10},
+      {x: 44, y: 60, width: 20, height: 10}
     ]
   }),
   smallNumber: SpriteSheet.fromImageSourceWithSourceViews({
@@ -57,7 +58,7 @@ export const SPRITE_SHEETS = {
 export const SPRITE_FONTS = {
   char: new SpriteFont({
     spriteSheet: SPRITE_SHEETS.char,
-    alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789+-±.",
+    alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789+-±.@",
     spacing: 2,
     caseInsensitive: true
   }),
