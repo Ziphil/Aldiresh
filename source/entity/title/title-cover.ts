@@ -15,25 +15,16 @@ import {
   Button
 } from "/source/entity/button";
 import {
-  RankingPane
-} from "/source/entity/ranking/ranking-pane";
-import {
   Status
 } from "/source/entity/status";
 import {
   Logo
 } from "/source/entity/title/logo";
-import {
-  Ranking
-} from "/source/util/request";
 
 
 export class TitleCover extends Actor {
 
-  private ranking!: Ranking;
-  private rank!: number | null;
-  private rankingName: string;
-  private rankingPane!: RankingPane;
+  private instructionSetup: boolean;
   public status!: Status;
 
   public constructor() {
@@ -46,20 +37,39 @@ export class TitleCover extends Actor {
       collisionType: CollisionType["PreventCollision"],
       color: Color.fromHSL(0, 0, 0, 0.5)
     });
-    this.rankingName = "";
+    this.instructionSetup = false;
   }
 
   public override onInitialize(engine: Engine): void {
     this.addChildren(engine);
+    this.setupInstruction();
   }
 
   private async addChildren(engine: Engine): Promise<void> {
-    const logo = new Logo({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2 - 30});
-    const mainButton = new Button({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2 + 30, string: "Start", length: 8, onPress: () => engine.goToScene("main")});
-    const rankingButton = new Button({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2 + 54, string: "Ranking", length: 8, onPress: () => engine.goToScene("ranking")});
+    const logo = new Logo({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2 - 46});
+    const mainButton = new Button({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2 + 14, string: "Start", length: 8, onPress: () => engine.goToScene("main")});
+    const rankingButton = new Button({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2 + 38, string: "Ranking", length: 8, onPress: () => engine.goToScene("ranking")});
+    const instructionButton = new Button({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2 + 62, string: "How To", length: 8, onPress: () => this.showInstruction()});
     this.addChild(logo);
     this.addChild(mainButton);
     this.addChild(rankingButton);
+    this.addChild(instructionButton);
+  }
+
+  private setupInstruction(): void {
+    if (!this.instructionSetup) {
+      const buttonElement = document.getElementById("button")!;
+      buttonElement.addEventListener("click", () => {
+        const instructionElement = document.getElementById("instruction-container")!;
+        instructionElement.ariaHidden = "true";
+      });
+      this.instructionSetup = true;
+    }
+  }
+
+  private showInstruction(): void {
+    const instructionElement = document.getElementById("instruction-container")!;
+    instructionElement.ariaHidden = "false";
   }
 
 }

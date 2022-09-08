@@ -10,27 +10,46 @@
   </head>
   <body>
 
-    <main id="main">
-      <main id="screen-container">
+    <main class="main">
+      <div class="screen-container">
         <canvas id="screen">
-      </main>
-      <div id="instruction">
-        <div class="column">
+      </div>
+    </main>
+
+    <div class="instruction-container" id="instruction-container" aria-hidden="true">
+      <div class="instruction">
+        <div class="section">
           <div class="heading">操作方法</div>
-          <div class="table">
-            <div><span class="key">W</span>, <span class="key">A</span>, <span class="key">S</span>, <span class="key">D</span></div>
-            <div>プレイヤーの移動</div>
-            <div><span class="key">↑</span>, <span class="key">←</span>, <span class="key">↓</span>, <span class="key">→</span></div>
-            <div>プレイヤーの移動</div>
-            <div>マウス</div>
-            <div>照準の移動</div>
-            <div>クリック</div>
-            <div>弾の発射</div>
-            <div><span class="key">P</span></div>
-            <div>スクリーンショットの撮影</div>
+          <div class="operation">
+            <div class="table-container">
+              <div class="table-heading">キーボード</div>
+              <div class="table">
+                <div><span class="key">W</span>, <span class="key">A</span>, <span class="key">S</span>, <span class="key">D</span></div>
+                <div>プレイヤーの移動</div>
+                <div><span class="key">↑</span>, <span class="key">←</span>, <span class="key">↓</span>, <span class="key">→</span></div>
+                <div>プレイヤーの移動</div>
+                <div>マウス</div>
+                <div>照準の移動</div>
+                <div>クリック</div>
+                <div>弾の発射</div>
+                <div><span class="key">P</span></div>
+                <div>スクリーンショットの撮影</div>
+              </div>
+            </div>
+            <div class="table-container">
+              <div class="table-heading">ゲームパッド</div>
+              <div class="table">
+                <div>左スティック</div>
+                <div>プレイヤーの移動</div>
+                <div>右スティック</div>
+                <div>照準の移動</div>
+                <div>その他のボタン</div>
+                <div>弾の発射</div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="column">
+        <div class="section">
           <div class="heading">ゲームの説明</div>
           <div class="explanation">
             <div class="paragraph">
@@ -45,8 +64,11 @@
             </div>
           </div>
         </div>
+        <div class="section">
+          <button class="button" id="button">閉じる</button>
+        </div>
       </div>
-    </main>
+    </div>
 
   </body>
 </html>
