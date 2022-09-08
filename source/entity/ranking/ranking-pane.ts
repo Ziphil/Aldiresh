@@ -6,6 +6,7 @@ import {
   Engine,
   vec
 } from "excalibur";
+import {SPRITE_SHEETS} from "/source/core/asset";
 import {
   DEPTHS
 } from "/source/core/constant";
@@ -47,6 +48,16 @@ export class RankingPane extends Actor {
   }
 
   public override onInitialize(engine: Engine): void {
+    if (!this.simple) {
+      this.graphics.layers.create({name: "score", order: 1, offset: vec(168, 0)});
+      this.graphics.layers.create({name: "level", order: 1, offset: vec(271, 0)});
+      this.graphics.layers.create({name: "hit", order: 1, offset: vec(390, 0)});
+      this.graphics.layers.create({name: "kill", order: 1, offset: vec(485, 0)});
+      this.graphics.layers.get("score").use(SPRITE_SHEETS.statusName.sprites[0]);
+      this.graphics.layers.get("level").use(SPRITE_SHEETS.statusName.sprites[1]);
+      this.graphics.layers.get("hit").use(SPRITE_SHEETS.statusName.sprites[3]);
+      this.graphics.layers.get("kill").use(SPRITE_SHEETS.statusName.sprites[4]);
+    }
     this.addChildren();
   }
 
@@ -56,7 +67,8 @@ export class RankingPane extends Actor {
         const result = this.initialRanking[i];
         const simple = this.simple;
         const blink = this.blinkIndex === i;
-        const row = new ResultPane({x: 0, y: i * 24, result, simple, blink});
+        const offset = (this.simple) ? 0 : 10;
+        const row = new ResultPane({x: 0, y: i * 24 + offset, result, simple, blink});
         this.rows.push(row);
         this.addChild(row);
       }

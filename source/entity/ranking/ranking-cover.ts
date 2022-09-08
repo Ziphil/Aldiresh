@@ -57,7 +57,7 @@ export class RankingCover extends Actor {
     const ranking = await fetchRanking();
     const topLabel = new StringLabel({x: SCREEN_PROPS.width / 2, y: 30, anchor: vec(0.5, 0.5), value: "Ranking"});
     const button = new Button({x: SCREEN_PROPS.width / 2, y: 324, string: "Back", length: 8, onPress: () => engine.goToScene("title")});
-    const rankingPane = new RankingPane({x: 71, y: 59, ranking});
+    const rankingPane = new RankingPane({x: 71, y: 53, ranking});
     this.removeChild(this.waitLabel);
     this.addChild(topLabel);
     this.addChild(button);
