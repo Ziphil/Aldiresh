@@ -16,7 +16,7 @@ import {
   DEPTHS,
   FIELD_PROPS,
   SCREEN_PROPS
-} from "/source/core/constant";;
+} from "/source/core/constant";
 
 
 export const TARGET_PROPS = {

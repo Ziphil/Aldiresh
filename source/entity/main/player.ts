@@ -18,23 +18,23 @@ import {
   FIELD_PROPS
 } from "/source/core/constant";
 import {
+  GameoverCover
+} from "/source/entity/gameover/gameover-cover";
+import {
   Bullet
-} from "/source/entity/bullet";
+} from "/source/entity/main/bullet";
 import {
   Fragment
-} from "/source/entity/fragment";
-import {
-  GameoverCover
-} from "/source/entity/gameover-cover/gameover-cover";
+} from "/source/entity/main/fragment";
 import {
   Item
-} from "/source/entity/item";
+} from "/source/entity/main/item";
 import {
   Status
-} from "/source/entity/status";
+} from "/source/entity/main/status";
 import {
   Target
-} from "/source/entity/target";
+} from "/source/entity/main/target";
 
 
 export const PLAYER_PROPS = {

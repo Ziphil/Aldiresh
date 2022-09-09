@@ -17,13 +17,13 @@ import {
 } from "/source/entity/button";
 import {
   NameInputPane
-} from "/source/entity/gameover-cover/name-input-pane";
+} from "/source/entity/gameover/name-input-pane";
+import {
+  Status
+} from "/source/entity/main/status";
 import {
   RankingPane
 } from "/source/entity/ranking/ranking-pane";
-import {
-  Status
-} from "/source/entity/status";
 import {
   StringLabel
 } from "/source/entity/string-label";

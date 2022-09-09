@@ -15,10 +15,10 @@ import {
 import {
   ENEMY_PROPS,
   Enemy
-} from "/source/entity/enemy";
+} from "/source/entity/main/enemy";
 import {
   Status
-} from "/source/entity/status";
+} from "/source/entity/main/status";
 import {
   randomize
 } from "/source/util/misc";

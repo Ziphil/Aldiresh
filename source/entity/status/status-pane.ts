@@ -16,10 +16,10 @@ import {
 import {
   STATUS_PROPS,
   Status
-} from "/source/entity/status";
+} from "/source/entity/main/status";
 import {
   StatusItem
-} from "/source/entity/status-pane/status-item";
+} from "/source/entity/status/status-item";
 
 
 export class StatusPane extends Actor {

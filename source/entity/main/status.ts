@@ -6,7 +6,7 @@ import {
 } from "excalibur";
 import {
   ScoreLabel
-} from "/source/entity/score-label";
+} from "/source/entity/main/score-label";
 
 
 export const STATUS_PROPS = {

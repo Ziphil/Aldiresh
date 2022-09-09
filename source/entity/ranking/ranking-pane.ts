@@ -6,7 +6,9 @@ import {
   Engine,
   vec
 } from "excalibur";
-import {SPRITE_SHEETS} from "/source/core/asset";
+import {
+  SPRITE_SHEETS
+} from "/source/core/asset";
 import {
   DEPTHS
 } from "/source/core/constant";

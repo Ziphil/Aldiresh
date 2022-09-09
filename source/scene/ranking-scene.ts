@@ -16,16 +16,16 @@ import {
 } from "/source/core/constant";
 import {
   EnemySpawner
-} from "/source/entity/enemy-spawner";
+} from "/source/entity/main/enemy-spawner";
+import {
+  Status
+} from "/source/entity/main/status";
+import {
+  Target
+} from "/source/entity/main/target";
 import {
   RankingCover
 } from "/source/entity/ranking/ranking-cover";
-import {
-  Status
-} from "/source/entity/status";
-import {
-  Target
-} from "/source/entity/target";
 
 
 export class RankingScene extends Scene {

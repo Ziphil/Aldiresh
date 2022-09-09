@@ -16,13 +16,13 @@ import {
 } from "/source/core/constant";
 import {
   EnemySpawner
-} from "/source/entity/enemy-spawner";
+} from "/source/entity/main/enemy-spawner";
 import {
   Status
-} from "/source/entity/status";
+} from "/source/entity/main/status";
 import {
   Target
-} from "/source/entity/target";
+} from "/source/entity/main/target";
 import {
   TitleCover
 } from "/source/entity/title/title-cover";

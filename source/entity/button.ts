@@ -19,7 +19,7 @@ import {
 } from "/source/core/constant";
 import {
   Target
-} from "/source/entity/target";
+} from "/source/entity/main/target";
 
 
 export type ButtonConfigs = {

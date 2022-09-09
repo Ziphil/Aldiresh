@@ -16,19 +16,19 @@ import {
 } from "/source/core/constant";
 import {
   EnemySpawner
-} from "/source/entity/enemy-spawner";
+} from "/source/entity/main/enemy-spawner";
 import {
   Player
-} from "/source/entity/player";
+} from "/source/entity/main/player";
 import {
   Status
-} from "/source/entity/status";
-import {
-  StatusPane
-} from "/source/entity/status-pane/status-pane";
+} from "/source/entity/main/status";
 import {
   Target
-} from "/source/entity/target";
+} from "/source/entity/main/target";
+import {
+  StatusPane
+} from "/source/entity/status/status-pane";
 
 
 export class MainScene extends Scene {

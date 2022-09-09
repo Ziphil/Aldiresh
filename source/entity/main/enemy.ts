@@ -24,16 +24,16 @@ import {
 } from "/source/core/constant";
 import {
   Bullet
-} from "/source/entity/bullet";
+} from "/source/entity/main/bullet";
 import {
   Fragment
-} from "/source/entity/fragment";
+} from "/source/entity/main/fragment";
 import {
   Item
-} from "/source/entity/item";
+} from "/source/entity/main/item";
 import {
   Status
-} from "/source/entity/status";
+} from "/source/entity/main/status";
 import {
   randomize
 } from "/source/util/misc";

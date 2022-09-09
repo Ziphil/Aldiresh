@@ -16,7 +16,7 @@ import {
 } from "/source/entity/button";
 import {
   Status
-} from "/source/entity/status";
+} from "/source/entity/main/status";
 import {
   Logo
 } from "/source/entity/title/logo";

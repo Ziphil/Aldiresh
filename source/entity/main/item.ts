@@ -19,7 +19,7 @@ import {
 } from "/source/core/constant";
 import {
   Status
-} from "/source/entity/status";
+} from "/source/entity/main/status";
 
 
 export const ITEM_PROPS = {

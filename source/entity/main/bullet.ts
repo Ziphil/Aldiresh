@@ -8,7 +8,9 @@ import {
   Vector,
   vec
 } from "excalibur";
-import {AutoKillComponent} from "/source/component/auto-kill";
+import {
+  AutoKillComponent
+} from "/source/component/auto-kill";
 import {
   RotatingSquareComponent
 } from "/source/component/rotating-square";
@@ -17,7 +19,7 @@ import {
 } from "/source/core/constant";
 import {
   Status
-} from "/source/entity/status";
+} from "/source/entity/main/status";
 
 
 export const BULLET_PROPS = {
