@@ -54,11 +54,12 @@ export class ResultPane extends Actor {
   }
 
   public override onInitialize(engine: Engine): void {
-    this.addChildren();
+    this.addSimpleChildren();
+    this.addAdditionalChildren();
     this.setupBlink();
   }
 
-  private addChildren(): void {
+  private addSimpleChildren(): void {
     const rankLabel = new StringLabel({x: 24, y: 8, value: (this.initialResult !== undefined) ? this.initialResult.rank + 1 : undefined});
     const nameLabel = new StringLabel({x: 73, y: 8, value: this.initialResult?.name});
     const scoreItem = new ResultItem({x: 85, y: 0, value: this.initialResult?.score, length: 8});
@@ -68,6 +69,9 @@ export class ResultPane extends Actor {
     this.addChild(rankLabel);
     this.addChild(nameLabel);
     this.addChild(scoreItem);
+  }
+
+  private addAdditionalChildren(): void {
     if (!this.simple) {
       const levelItem = new ResultItem({x: 227, y: 0, value: (this.initialResult !== undefined) ? this.initialResult.level + 1 : undefined, length: 5});
       const hitCountItem = new ResultItem({x: 330, y: 0, value: this.initialResult?.hitCount, length: 5});
