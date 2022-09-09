@@ -41,8 +41,8 @@ export type BulletConfigs = {
 
 export class Bullet extends Actor {
 
-  private status!: Status;
   public readonly owner: "player" | "enemy";
+  public status!: Status;
 
   public constructor({x, y, ...configs}: BulletConfigs) {
     super({
@@ -75,10 +75,6 @@ export class Bullet extends Actor {
     if (this.owner === "player") {
       this.status.miss();
     }
-  }
-
-  public setStatus(status: Status): void {
-    this.status = status;
   }
 
 }

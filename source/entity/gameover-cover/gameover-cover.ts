@@ -78,7 +78,7 @@ export class GameoverCover extends Actor {
     const topLabelString = (rank !== null) ? "Enter Your Name" : "Game Over";
     const buttonString = (rank !== null) ? "OK" : "Back";
     const topLabel = new StringLabel({x: FIELD_PROPS.width / 2, y: 30, anchor: vec(0.5, 0.5), value: topLabelString});
-    const button = new Button({x: FIELD_PROPS.width / 2, y: 324, string: buttonString, length: 8, onPress: () => this.back(engine)});
+    const button = new Button({x: FIELD_PROPS.width / 2, y: 324, string: buttonString, length: 8, onPress: () => this.backTitle(engine)});
     const rankingPane = new RankingPane({x: (rank !== null) ? 35 : 126, y: 59, ranking: pushedRanking, simple: true, blinkIndex: rank ?? undefined});
     this.ranking = pushedRanking;
     this.rank = rank;
@@ -106,7 +106,7 @@ export class GameoverCover extends Actor {
     }
   }
 
-  private back(engine: Engine): void {
+  private backTitle(engine: Engine): void {
     if (this.rank !== null) {
       const name = this.rankingName;
       const {score, level, hitCount, killCount} = this.status;

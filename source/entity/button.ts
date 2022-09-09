@@ -37,7 +37,7 @@ export class Button extends Actor {
   private readonly length: number;
   private readonly onPress: () => void;
   private hovered: boolean;
-  private target!: Target;
+  public target!: Target;
 
   public constructor({x, y, ...configs}: ButtonConfigs) {
     super({

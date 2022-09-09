@@ -56,8 +56,8 @@ export const PLAYER_PROPS = {
 export class Player extends Actor {
 
   private readonly random: Random;
-  private status!: Status;
-  private target!: Target;
+  public status!: Status;
+  public target!: Target;
 
   public constructor({x, y}: {x: number, y: number}) {
     super({
@@ -108,7 +108,7 @@ export class Player extends Actor {
       const target = this.target;
       const direction = target.pos.sub(this.pos).toAngle();
       const bullet = new Bullet({x: this.pos.x, y: this.pos.y, direction, owner: "player"});
-      bullet.setStatus(this.status);
+      bullet.status = this.status;
       engine.currentScene.add(bullet);
       this.status.shoot();
     }
@@ -166,14 +166,6 @@ export class Player extends Actor {
     const gameoverColor = new GameoverCover();
     gameoverColor.status = this.status;
     engine.add(gameoverColor);
-  }
-
-  public setTarget(target: Target): void {
-    this.target = target;
-  }
-
-  public setStatus(status: Status): void {
-    this.status = status;
   }
 
 }

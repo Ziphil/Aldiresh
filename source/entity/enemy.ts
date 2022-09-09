@@ -59,10 +59,10 @@ type EnemyState = "activate" | "move";
 export class Enemy extends Actor {
 
   private readonly random: Random;
-  private status!: Status;
   private state: EnemyState;
   private life: number;
   private activationTimer: number;
+  public status!: Status;
 
   public constructor({x, y}: {x: number, y: number}) {
     super({
@@ -122,7 +122,7 @@ export class Enemy extends Actor {
   private shoot(engine: Engine): number {
     const direction = this.random.floating(-Math.PI, Math.PI);
     const bullet = new Bullet({x: this.pos.x, y: this.pos.y, direction, owner: "enemy"});
-    bullet.setStatus(this.status);
+    bullet.status = this.status;
     engine.currentScene.add(bullet);
     const timeout = randomize(this.random, this.status.calcAverageShootTimeout());
     return timeout;
@@ -165,13 +165,9 @@ export class Enemy extends Actor {
     if (this.random.next() <= this.status.calcItemProbability()) {
       const direction = this.random.floating(-Math.PI, Math.PI);
       const item = new Item({x: this.pos.x, y: this.pos.y, direction, type: "recover"});
-      item.setStatus(this.status);
+      item.status = this.status;
       engine.add(item);
     }
-  }
-
-  public setStatus(status: Status): void {
-    this.status = status;
   }
 
 }

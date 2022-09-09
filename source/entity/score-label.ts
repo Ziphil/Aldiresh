@@ -29,7 +29,7 @@ export type ScoreLabelConfigs = {
 
 export class ScoreLabel extends Actor {
 
-  private score: number;
+  private readonly score: number;
   private timer: number;
 
   public constructor({x, y, ...configs}: ScoreLabelConfigs) {

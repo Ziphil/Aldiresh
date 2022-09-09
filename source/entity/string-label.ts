@@ -27,7 +27,7 @@ export type StatusNumberLabelConfigs = {
 
 export class StringLabel extends Actor {
 
-  private initialString: string;
+  private readonly initialString: string;
   private readonly decimalLength: number;
   private text!: Text;
 

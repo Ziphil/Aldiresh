@@ -33,7 +33,7 @@ export class EnemySpawner extends Entity {
 
   private readonly range: "screen" | "field";
   private readonly random: Random;
-  private status!: Status;
+  public status!: Status;
 
   public constructor(configs: EnemySpawnerConfigs) {
     super();
@@ -56,14 +56,10 @@ export class EnemySpawner extends Entity {
     const x = this.random.floating(ENEMY_PROPS.size, props.width - ENEMY_PROPS.size);
     const y = this.random.floating(ENEMY_PROPS.size, props.height - ENEMY_PROPS.size);
     const enemy = new Enemy({x, y});
-    enemy.setStatus(this.status);
+    enemy.status = this.status;
     engine.currentScene.add(enemy);
     const timeout = randomize(this.random, this.status.calcAverageSpawnTimeout());
     return timeout;
-  }
-
-  public setStatus(status: Status): void {
-    this.status = status;
   }
 
 }

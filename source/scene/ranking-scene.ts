@@ -59,7 +59,7 @@ export class RankingScene extends Scene {
     const target = new Target({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2, range: "screen"});
     const status = new Status();
     status.level = 10;
-    enemySpawner.setStatus(status);
+    enemySpawner.status = status;
     this.add(cover);
     this.add(enemySpawner);
     this.add(target);

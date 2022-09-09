@@ -42,8 +42,8 @@ export type BulletConfigs = {
 
 export class Item extends Actor {
 
-  private status!: Status;
   public readonly type: "recover";
+  public status!: Status;
 
   public constructor({x, y, ...configs}: BulletConfigs) {
     super({
@@ -66,10 +66,6 @@ export class Item extends Actor {
     const autoKillComponent = new AutoKillComponent(ITEM_PROPS.size);
     this.addComponent(squareComponent);
     this.addComponent(autoKillComponent);
-  }
-
-  public setStatus(status: Status): void {
-    this.status = status;
   }
 
 }

@@ -62,10 +62,10 @@ export class MainScene extends Scene {
     const target = new Target({x: FIELD_PROPS.width / 2, y: FIELD_PROPS.height / 2, range: "field"});
     const statusPane = new StatusPane();
     const status = new Status();
-    player.setTarget(target);
-    player.setStatus(status);
-    enemySpawner.setStatus(status);
-    statusPane.setStatus(status);
+    player.target = target;
+    player.status = status;
+    enemySpawner.status = status;
+    statusPane.status = status;
     this.add(player);
     this.add(enemySpawner);
     this.add(target);

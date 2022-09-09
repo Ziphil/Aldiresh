@@ -24,7 +24,7 @@ import {
 
 export class StatusPane extends Actor {
 
-  private status!: Status;
+  public status!: Status;
 
   public constructor() {
     super({
@@ -71,10 +71,6 @@ export class StatusPane extends Actor {
       this.addChild(comboBonusItem);
       this.addChild(wholeBonusItem);
     }
-  }
-
-  public setStatus(status: Status): void {
-    this.status = status;
   }
 
 }
