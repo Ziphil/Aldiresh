@@ -14,7 +14,8 @@ export const ASSETS = {
   statusName: new ImageSource("asset/image/status-name.png"),
   statusBackground: new ImageSource("asset/image/status-background.png"),
   statusFrame: new ImageSource("asset/image/status-frame.png"),
-  logo: new ImageSource("asset/image/logo.png")
+  logo: new ImageSource("asset/image/logo.png"),
+  copyright: new ImageSource("asset/image/copyright.png")
 };
 
 export const SPRITE_SHEETS = {

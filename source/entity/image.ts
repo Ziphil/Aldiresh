@@ -12,7 +12,7 @@ export class Image extends Actor {
 
   public constructor(configs: ActorArgs & {graphic: Graphic}) {
     super({
-      collisionType: CollisionType["Passive"],
+      collisionType: CollisionType["PreventCollision"],
       ...configs
     });
     this.graphics.use(configs.graphic);

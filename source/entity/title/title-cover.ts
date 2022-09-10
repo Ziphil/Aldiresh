@@ -7,6 +7,7 @@ import {
   Engine,
   vec
 } from "excalibur";
+import {ASSETS} from "/source/core/asset";
 import {
   DEPTHS,
   SCREEN_PROPS
@@ -14,12 +15,10 @@ import {
 import {
   Button
 } from "/source/entity/button";
+import {Image} from "/source/entity/image";
 import {
   Status
 } from "/source/entity/main/status";
-import {
-  Logo
-} from "/source/entity/title/logo";
 
 
 export class TitleCover extends Actor {
@@ -46,11 +45,13 @@ export class TitleCover extends Actor {
   }
 
   private async addChildren(engine: Engine): Promise<void> {
-    const logo = new Logo({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2 - 46});
+    const logo = new Image({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2 - 46, graphic: ASSETS.logo.toSprite()});
+    const copyright = new Image({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height - 15, graphic: ASSETS.copyright.toSprite()});
     const mainButton = new Button({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2 + 14, string: "Start", length: 8, onPress: () => engine.goToScene("main")});
     const rankingButton = new Button({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2 + 38, string: "Ranking", length: 8, onPress: () => engine.goToScene("ranking")});
     const instructionButton = new Button({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2 + 62, string: "How To", length: 8, onPress: () => this.showInstruction()});
     this.addChild(logo);
+    this.addChild(copyright);
     this.addChild(mainButton);
     this.addChild(rankingButton);
     this.addChild(instructionButton);
