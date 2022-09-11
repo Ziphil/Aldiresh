@@ -94,7 +94,7 @@ export class InputManagerSystem extends System<InputManagerComponent | Transform
     const component = entity.get(InputManagerComponent)!;
     const keyboard = this.engine.input.keyboard;
     component.keyboardPrimaryX = +(keyboard.isHeld(Input["Keys"]["ArrowRight"]) || keyboard.isHeld(Input["Keys"]["D"])) - +(keyboard.isHeld(Input["Keys"]["ArrowLeft"]) || keyboard.isHeld(Input["Keys"]["A"]));
-    component.keyboardPrimaryY = +(keyboard.isHeld(Input["Keys"]["ArrowUp"]) || keyboard.isHeld(Input["Keys"]["S"])) - +(keyboard.isHeld(Input["Keys"]["ArrowDown"]) || keyboard.isHeld(Input["Keys"]["W"]));
+    component.keyboardPrimaryY = +(keyboard.isHeld(Input["Keys"]["ArrowDown"]) || keyboard.isHeld(Input["Keys"]["S"])) - +(keyboard.isHeld(Input["Keys"]["ArrowUp"]) || keyboard.isHeld(Input["Keys"]["W"]));
     component.keyboardSecondaryX = +keyboard.isHeld(Input["Keys"]["L"]) - +keyboard.isHeld(Input["Keys"]["J"]);
     component.keyboardSecondaryY = +keyboard.isHeld(Input["Keys"]["K"]) - +keyboard.isHeld(Input["Keys"]["I"]);
   }
