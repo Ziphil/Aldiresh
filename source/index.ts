@@ -1,9 +1,9 @@
 //
 
 import {
-  AldireshEngine
+  CustomEngine
 } from "/source/core/engine";
 
 
-const engine = new AldireshEngine();
+const engine = new CustomEngine();
 engine.run();

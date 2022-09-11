@@ -6,7 +6,7 @@ import {
 } from "excalibur";
 
 
-export class AldireshLoader extends Loader {
+export class CustomLoader extends Loader {
 
   public constructor(loadables?: Array<Loadable<any>>) {
     super(loadables);

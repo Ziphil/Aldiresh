@@ -16,7 +16,7 @@ import {
   SCREEN_DIMENSION
 } from "/source/core/constant";
 import {
-  AldireshLoader
+  CustomLoader
 } from "/source/core/loader";
 import {
   MainScene
@@ -32,7 +32,7 @@ import {
 } from "/source/util/misc";
 
 
-export class AldireshEngine extends Engine {
+export class CustomEngine extends Engine {
 
   public constructor() {
     super({
@@ -72,7 +72,7 @@ export class AldireshEngine extends Engine {
   }
 
   public async run(): Promise<void> {
-    const loader = new AldireshLoader(Object.values(ASSETS));
+    const loader = new CustomLoader(Object.values(ASSETS));
     await this.start(loader);
     this.goToScene("title");
   }
