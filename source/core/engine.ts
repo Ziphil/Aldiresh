@@ -13,7 +13,7 @@ import {
   ASSETS
 } from "/source/core/asset";
 import {
-  SCREEN_PROPS
+  SCREEN_DIMENSION
 } from "/source/core/constant";
 import {
   AldireshLoader
@@ -36,8 +36,8 @@ export class AldireshEngine extends Engine {
 
   public constructor() {
     super({
-      resolution: {width: SCREEN_PROPS.width, height: SCREEN_PROPS.height},
-      viewport: {width: SCREEN_PROPS.width * 2, height: SCREEN_PROPS.height * 2},
+      resolution: {width: SCREEN_DIMENSION.width, height: SCREEN_DIMENSION.height},
+      viewport: {width: SCREEN_DIMENSION.width * 2, height: SCREEN_DIMENSION.height * 2},
       displayMode: DisplayMode["Fixed"],
       canvasElementId: "screen",
       backgroundColor: Color.fromHex("#000000"),

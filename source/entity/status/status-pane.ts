@@ -11,7 +11,7 @@ import {
 } from "/source/core/asset";
 import {
   DEPTHS,
-  FIELD_PROPS
+  FIELD_DIMENSION
 } from "/source/core/constant";
 import {
   STATUS_PROPS,
@@ -28,7 +28,7 @@ export class StatusPane extends Actor {
 
   public constructor() {
     super({
-      pos: vec(FIELD_PROPS.width, 0),
+      pos: vec(FIELD_DIMENSION.width, 0),
       anchor: vec(0, 0),
       z: DEPTHS.statusPane,
       collisionType: CollisionType["PreventCollision"]

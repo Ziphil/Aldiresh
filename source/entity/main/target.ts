@@ -14,8 +14,8 @@ import {
 } from "/source/component";
 import {
   DEPTHS,
-  FIELD_PROPS,
-  SCREEN_PROPS
+  FIELD_DIMENSION,
+  SCREEN_DIMENSION
 } from "/source/core/constant";
 
 
@@ -77,9 +77,9 @@ export class Target extends Actor {
 
   private followPointer(engine: Engine): void {
     const pos = engine.input.pointers.primary.lastScreenPos;
-    const props = (this.range === "screen") ? SCREEN_PROPS : FIELD_PROPS;
+    const dimension = (this.range === "screen") ? SCREEN_DIMENSION : FIELD_DIMENSION;
     if (pos.x !== this.previousPointerPos.x || pos.y !== this.previousPointerPos.y) {
-      if (pos.x >= 0 && pos.x <= props.width && pos.y >= 0 && pos.y <= props.height) {
+      if (pos.x >= 0 && pos.x <= dimension.width && pos.y >= 0 && pos.y <= dimension.height) {
         this.pos.x = pos.x;
         this.pos.y = pos.y;
       }

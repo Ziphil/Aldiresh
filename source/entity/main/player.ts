@@ -15,7 +15,7 @@ import {
 } from "/source/component";
 import {
   DEPTHS,
-  FIELD_PROPS
+  FIELD_DIMENSION
 } from "/source/core/constant";
 import {
   GameoverCover
@@ -119,16 +119,16 @@ export class Player extends Actor {
       this.pos.x = PLAYER_PROPS.size;
       this.vel.x = -this.vel.x;
     }
-    if (this.pos.x > FIELD_PROPS.width - PLAYER_PROPS.size) {
-      this.pos.x = FIELD_PROPS.width - PLAYER_PROPS.size;
+    if (this.pos.x > FIELD_DIMENSION.width - PLAYER_PROPS.size) {
+      this.pos.x = FIELD_DIMENSION.width - PLAYER_PROPS.size;
       this.vel.x = -this.vel.x;
     }
     if (this.pos.y < PLAYER_PROPS.size) {
       this.pos.y = PLAYER_PROPS.size;
       this.vel.y = -this.vel.y;
     }
-    if (this.pos.y > FIELD_PROPS.height - PLAYER_PROPS.size) {
-      this.pos.y = FIELD_PROPS.height - PLAYER_PROPS.size;
+    if (this.pos.y > FIELD_DIMENSION.height - PLAYER_PROPS.size) {
+      this.pos.y = FIELD_DIMENSION.height - PLAYER_PROPS.size;
       this.vel.y = -this.vel.y;
     }
   }

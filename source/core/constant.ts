@@ -1,11 +1,11 @@
 //
 
 
-export const SCREEN_PROPS = {
+export const SCREEN_DIMENSION = {
   width: 680,
   height: 360
 };
-export const FIELD_PROPS = {
+export const FIELD_DIMENSION = {
   width: 480,
   height: 360
 };

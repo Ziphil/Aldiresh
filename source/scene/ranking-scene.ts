@@ -12,7 +12,7 @@ import {
   TimerSystem
 } from "/source/component";
 import {
-  SCREEN_PROPS
+  SCREEN_DIMENSION
 } from "/source/core/constant";
 import {
   EnemySpawner
@@ -56,7 +56,7 @@ export class RankingScene extends Scene {
   private addEntities(): void {
     const cover = new RankingCover();
     const enemySpawner = new EnemySpawner({range: "screen"});
-    const target = new Target({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2, range: "screen"});
+    const target = new Target({x: SCREEN_DIMENSION.width / 2, y: SCREEN_DIMENSION.height / 2, range: "screen"});
     const status = new Status();
     status.level = 10;
     enemySpawner.status = status;

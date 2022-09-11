@@ -8,8 +8,8 @@ import {
   TransformComponent
 } from "excalibur";
 import {
-  FIELD_PROPS,
-  SCREEN_PROPS
+  FIELD_DIMENSION,
+  SCREEN_DIMENSION
 } from "/source/core/constant";
 
 
@@ -50,9 +50,9 @@ export class AutoKillSystem extends System<AutoKillComponent | TransformComponen
   private autoKill(entity: Entity, delta: number): void {
     const component = entity.get(AutoKillComponent)!;
     const transformComponent = entity.get(TransformComponent)!;
-    const props = (this.range === "screen") ? SCREEN_PROPS : FIELD_PROPS;
+    const dimension = (this.range === "screen") ? SCREEN_DIMENSION : FIELD_DIMENSION;
     const {x, y} = transformComponent.pos;
-    if (x < -component.size || x > props.width + component.size || y < -component.size || y > props.height + component.size) {
+    if (x < -component.size || x > dimension.width + component.size || y < -component.size || y > dimension.height + component.size) {
       entity.kill();
       entity.emit("autokill", {});
     }

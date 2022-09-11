@@ -10,7 +10,7 @@ import {
 } from "excalibur";
 import {
   DEPTHS,
-  SCREEN_PROPS
+  SCREEN_DIMENSION
 } from "/source/core/constant";
 import {
   Button
@@ -35,8 +35,8 @@ export class RankingCover extends Actor {
       pos: vec(0, 0),
       anchor: vec(0, 0),
       z: DEPTHS.cover,
-      width: SCREEN_PROPS.width,
-      height: SCREEN_PROPS.height,
+      width: SCREEN_DIMENSION.width,
+      height: SCREEN_DIMENSION.height,
       collisionType: CollisionType["PreventCollision"],
       color: Color.fromHSL(0, 0, 0, 0.5)
     });
@@ -48,15 +48,15 @@ export class RankingCover extends Actor {
   }
 
   private addWaitingChildren(engine: Engine): void {
-    const waitLabel = new StringLabel({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2, anchor: vec(0.5, 0.5), value: "Please Wait"});
+    const waitLabel = new StringLabel({x: SCREEN_DIMENSION.width / 2, y: SCREEN_DIMENSION.height / 2, anchor: vec(0.5, 0.5), value: "Please Wait"});
     this.waitLabel = waitLabel;
     this.addChild(waitLabel);
   }
 
   private async addFinalChildren(engine: Engine): Promise<void> {
     const ranking = await fetchRanking();
-    const topLabel = new StringLabel({x: SCREEN_PROPS.width / 2, y: 30, anchor: vec(0.5, 0.5), value: "Ranking"});
-    const button = new Button({x: SCREEN_PROPS.width / 2, y: 324, string: "Back", length: 8, onPress: () => engine.goToScene("title")});
+    const topLabel = new StringLabel({x: SCREEN_DIMENSION.width / 2, y: 30, anchor: vec(0.5, 0.5), value: "Ranking"});
+    const button = new Button({x: SCREEN_DIMENSION.width / 2, y: 324, string: "Back", length: 8, onPress: () => engine.goToScene("title")});
     const rankingPane = new RankingPane({x: 71, y: 53, ranking});
     this.removeChild(this.waitLabel);
     this.addChild(topLabel);

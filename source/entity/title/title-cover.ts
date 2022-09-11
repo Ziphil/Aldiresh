@@ -10,7 +10,7 @@ import {
 import {ASSETS} from "/source/core/asset";
 import {
   DEPTHS,
-  SCREEN_PROPS
+  SCREEN_DIMENSION
 } from "/source/core/constant";
 import {
   Button
@@ -31,8 +31,8 @@ export class TitleCover extends Actor {
       pos: vec(0, 0),
       anchor: vec(0, 0),
       z: DEPTHS.cover,
-      width: SCREEN_PROPS.width,
-      height: SCREEN_PROPS.height,
+      width: SCREEN_DIMENSION.width,
+      height: SCREEN_DIMENSION.height,
       collisionType: CollisionType["PreventCollision"],
       color: Color.fromHSL(0, 0, 0, 0.5)
     });
@@ -45,11 +45,11 @@ export class TitleCover extends Actor {
   }
 
   private async addChildren(engine: Engine): Promise<void> {
-    const logo = new Image({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2 - 46, graphic: ASSETS.logo.toSprite()});
-    const copyright = new Image({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height - 15, graphic: ASSETS.copyright.toSprite()});
-    const mainButton = new Button({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2 + 14, string: "Start", length: 8, onPress: () => engine.goToScene("main")});
-    const rankingButton = new Button({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2 + 38, string: "Ranking", length: 8, onPress: () => engine.goToScene("ranking")});
-    const instructionButton = new Button({x: SCREEN_PROPS.width / 2, y: SCREEN_PROPS.height / 2 + 62, string: "How To", length: 8, onPress: () => this.showInstruction()});
+    const logo = new Image({x: SCREEN_DIMENSION.width / 2, y: SCREEN_DIMENSION.height / 2 - 46, graphic: ASSETS.logo.toSprite()});
+    const copyright = new Image({x: SCREEN_DIMENSION.width / 2, y: SCREEN_DIMENSION.height - 15, graphic: ASSETS.copyright.toSprite()});
+    const mainButton = new Button({x: SCREEN_DIMENSION.width / 2, y: SCREEN_DIMENSION.height / 2 + 14, string: "Start", length: 8, onPress: () => engine.goToScene("main")});
+    const rankingButton = new Button({x: SCREEN_DIMENSION.width / 2, y: SCREEN_DIMENSION.height / 2 + 38, string: "Ranking", length: 8, onPress: () => engine.goToScene("ranking")});
+    const instructionButton = new Button({x: SCREEN_DIMENSION.width / 2, y: SCREEN_DIMENSION.height / 2 + 62, string: "How To", length: 8, onPress: () => this.showInstruction()});
     this.addChild(logo);
     this.addChild(copyright);
     this.addChild(mainButton);

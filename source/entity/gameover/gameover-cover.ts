@@ -10,7 +10,7 @@ import {
 } from "excalibur";
 import {
   DEPTHS,
-  FIELD_PROPS
+  FIELD_DIMENSION
 } from "/source/core/constant";
 import {
   Button
@@ -50,8 +50,8 @@ export class GameoverCover extends Actor {
       pos: vec(0, 0),
       anchor: vec(0, 0),
       z: DEPTHS.cover,
-      width: FIELD_PROPS.width,
-      height: FIELD_PROPS.height,
+      width: FIELD_DIMENSION.width,
+      height: FIELD_DIMENSION.height,
       collisionType: CollisionType["PreventCollision"],
       color: Color.fromHSL(0, 0, 0, 0.5)
     });
@@ -64,8 +64,8 @@ export class GameoverCover extends Actor {
   }
 
   private addWaitingChildren(engine: Engine): void {
-    const gameoverLabel = new StringLabel({x: FIELD_PROPS.width / 2, y: FIELD_PROPS.height / 2 - 12, anchor: vec(0.5, 0.5), value: "Game Over"});
-    const waitLabel = new StringLabel({x: FIELD_PROPS.width / 2, y: FIELD_PROPS.height / 2 + 12, anchor: vec(0.5, 0.5), value: "Please Wait"});
+    const gameoverLabel = new StringLabel({x: FIELD_DIMENSION.width / 2, y: FIELD_DIMENSION.height / 2 - 12, anchor: vec(0.5, 0.5), value: "Game Over"});
+    const waitLabel = new StringLabel({x: FIELD_DIMENSION.width / 2, y: FIELD_DIMENSION.height / 2 + 12, anchor: vec(0.5, 0.5), value: "Please Wait"});
     this.gameoverLabel = gameoverLabel;
     this.waitLabel = waitLabel;
     this.addChild(gameoverLabel);
@@ -77,8 +77,8 @@ export class GameoverCover extends Actor {
     const [rank, pushedRanking] = calcPushedRanking(ranking, this.status);
     const topLabelString = (rank !== null) ? "Enter Your Name" : "Game Over";
     const buttonString = (rank !== null) ? "OK" : "Back";
-    const topLabel = new StringLabel({x: FIELD_PROPS.width / 2, y: 30, anchor: vec(0.5, 0.5), value: topLabelString});
-    const button = new Button({x: FIELD_PROPS.width / 2, y: 324, string: buttonString, length: 8, onPress: () => this.backTitle(engine)});
+    const topLabel = new StringLabel({x: FIELD_DIMENSION.width / 2, y: 30, anchor: vec(0.5, 0.5), value: topLabelString});
+    const button = new Button({x: FIELD_DIMENSION.width / 2, y: 324, string: buttonString, length: 8, onPress: () => this.backTitle(engine)});
     const rankingPane = new RankingPane({x: (rank !== null) ? 35 : 126, y: 59, ranking: pushedRanking, simple: true, blinkIndex: rank ?? undefined});
     this.ranking = pushedRanking;
     this.rank = rank;

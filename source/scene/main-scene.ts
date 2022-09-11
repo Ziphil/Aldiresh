@@ -12,7 +12,7 @@ import {
   TimerSystem
 } from "/source/component";
 import {
-  FIELD_PROPS
+  FIELD_DIMENSION
 } from "/source/core/constant";
 import {
   EnemySpawner
@@ -57,9 +57,9 @@ export class MainScene extends Scene {
   }
 
   private addEntities(): void {
-    const player = new Player({x: FIELD_PROPS.width / 2, y: FIELD_PROPS.height / 2});
+    const player = new Player({x: FIELD_DIMENSION.width / 2, y: FIELD_DIMENSION.height / 2});
     const enemySpawner = new EnemySpawner({range: "field"});
-    const target = new Target({x: FIELD_PROPS.width / 2, y: FIELD_PROPS.height / 2, range: "field"});
+    const target = new Target({x: FIELD_DIMENSION.width / 2, y: FIELD_DIMENSION.height / 2, range: "field"});
     const statusPane = new StatusPane();
     const status = new Status();
     player.target = target;
