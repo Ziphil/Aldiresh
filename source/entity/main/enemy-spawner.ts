@@ -46,9 +46,9 @@ export class EnemySpawner extends Entity {
   }
 
   private initializeComponents(engine: Engine): void {
-    const timerComponent = new TimerComponent();
-    timerComponent.setOperation("spawn", () => this.spawn(engine), 0);
-    this.addComponent(timerComponent);
+    const timer = new TimerComponent();
+    timer.setOperation("spawn", () => this.spawn(engine), 0);
+    this.addComponent(timer);
   }
 
   private spawn(engine: Engine): number {

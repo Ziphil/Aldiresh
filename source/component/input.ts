@@ -12,13 +12,13 @@ import {
 } from "excalibur";
 
 
-const INPUT_MANAGER_COMPONENT_TYPE = "zp.inputManager" as const;
-const INPUT_MANAGER_SYSTEM_TYPES = ["zp.inputManager", "ex.transform"] as const;
+const INPUT_COMPONENT_TYPE = "zp.input" as const;
+const INPUT_SYSTEM_TYPES = ["zp.input", "ex.transform"] as const;
 
 
-export class InputManagerComponent extends Component<typeof INPUT_MANAGER_COMPONENT_TYPE> {
+export class InputComponent extends Component<typeof INPUT_COMPONENT_TYPE> {
 
-  public readonly type: any = INPUT_MANAGER_COMPONENT_TYPE;
+  public readonly type: any = INPUT_COMPONENT_TYPE;
   public keyboardPrimaryX: number;
   public keyboardPrimaryY: number;
   public gamepadPrimaryX: number;
@@ -61,9 +61,9 @@ export class InputManagerComponent extends Component<typeof INPUT_MANAGER_COMPON
 }
 
 
-export class InputManagerSystem extends System<InputManagerComponent | TransformComponent> {
+export class InputSystem extends System<InputComponent | TransformComponent> {
 
-  public readonly types: any = INPUT_MANAGER_SYSTEM_TYPES;
+  public readonly types: any = INPUT_SYSTEM_TYPES;
   public readonly systemType: SystemType = SystemType["Update"];
   private buttonPressed!: boolean;
   private engine!: Engine;
@@ -91,26 +91,26 @@ export class InputManagerSystem extends System<InputManagerComponent | Transform
   }
 
   private updateKeyboard(entity: Entity, delta: number): void {
-    const component = entity.get(InputManagerComponent)!;
+    const input = entity.get(InputComponent)!;
     const keyboard = this.engine.input.keyboard;
-    component.keyboardPrimaryX = +(keyboard.isHeld(Input["Keys"]["ArrowRight"]) || keyboard.isHeld(Input["Keys"]["D"])) - +(keyboard.isHeld(Input["Keys"]["ArrowLeft"]) || keyboard.isHeld(Input["Keys"]["A"]));
-    component.keyboardPrimaryY = +(keyboard.isHeld(Input["Keys"]["ArrowDown"]) || keyboard.isHeld(Input["Keys"]["S"])) - +(keyboard.isHeld(Input["Keys"]["ArrowUp"]) || keyboard.isHeld(Input["Keys"]["W"]));
-    component.keyboardSecondaryX = +keyboard.isHeld(Input["Keys"]["L"]) - +keyboard.isHeld(Input["Keys"]["J"]);
-    component.keyboardSecondaryY = +keyboard.isHeld(Input["Keys"]["K"]) - +keyboard.isHeld(Input["Keys"]["I"]);
+    input.keyboardPrimaryX = +(keyboard.isHeld(Input["Keys"]["ArrowRight"]) || keyboard.isHeld(Input["Keys"]["D"])) - +(keyboard.isHeld(Input["Keys"]["ArrowLeft"]) || keyboard.isHeld(Input["Keys"]["A"]));
+    input.keyboardPrimaryY = +(keyboard.isHeld(Input["Keys"]["ArrowDown"]) || keyboard.isHeld(Input["Keys"]["S"])) - +(keyboard.isHeld(Input["Keys"]["ArrowUp"]) || keyboard.isHeld(Input["Keys"]["W"]));
+    input.keyboardSecondaryX = +keyboard.isHeld(Input["Keys"]["L"]) - +keyboard.isHeld(Input["Keys"]["J"]);
+    input.keyboardSecondaryY = +keyboard.isHeld(Input["Keys"]["K"]) - +keyboard.isHeld(Input["Keys"]["I"]);
   }
 
   private updateGamepad(entity: Entity, delta: number): void {
-    const component = entity.get(InputManagerComponent)!;
+    const input = entity.get(InputComponent)!;
     const gamepad = this.engine.input.gamepads.at(0);
-    component.gamepadPrimaryX = gamepad.getAxes(Input["Axes"]["LeftStickX"]);
-    component.gamepadPrimaryY = gamepad.getAxes(Input["Axes"]["LeftStickY"]);
-    component.gamepadSecondaryX = gamepad.getAxes(Input["Axes"]["RightStickX"]);
-    component.gamepadSecondaryY = gamepad.getAxes(Input["Axes"]["RightStickY"]);
+    input.gamepadPrimaryX = gamepad.getAxes(Input["Axes"]["LeftStickX"]);
+    input.gamepadPrimaryY = gamepad.getAxes(Input["Axes"]["LeftStickY"]);
+    input.gamepadSecondaryX = gamepad.getAxes(Input["Axes"]["RightStickX"]);
+    input.gamepadSecondaryY = gamepad.getAxes(Input["Axes"]["RightStickY"]);
   }
 
   private updateButton(entity: Entity): void {
-    const component = entity.get(InputManagerComponent)!;
-    component.buttonPressed = this.buttonPressed;
+    const input = entity.get(InputComponent)!;
+    input.buttonPressed = this.buttonPressed;
   }
 
   private resetButton(): void {

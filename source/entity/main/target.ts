@@ -9,7 +9,7 @@ import {
   vec
 } from "excalibur";
 import {
-  InputManagerComponent,
+  InputComponent,
   RotatingSquareComponent
 } from "/source/component";
 import {
@@ -64,15 +64,15 @@ export class Target extends Actor {
 
   private initializeComponents(): void {
     const squareComponent = new RotatingSquareComponent({...TARGET_PROPS.square, framed: true});
-    const inputComponent = new InputManagerComponent();
+    const inputComponent = new InputComponent();
     this.addComponent(squareComponent);
     this.addComponent(inputComponent);
   }
 
   private move(): void {
-    const inputManager = this.get(InputManagerComponent)!;
-    this.vel.x = inputManager.secondaryX * TARGET_PROPS.vel;
-    this.vel.y = inputManager.secondaryY * TARGET_PROPS.vel;
+    const input = this.get(InputComponent)!;
+    this.vel.x = input.secondaryX * TARGET_PROPS.vel;
+    this.vel.y = input.secondaryY * TARGET_PROPS.vel;
   }
 
   private followPointer(engine: Engine): void {

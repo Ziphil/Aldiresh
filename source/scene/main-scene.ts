@@ -7,7 +7,7 @@ import {
 } from "excalibur";
 import {
   AutoKillSystem,
-  InputManagerSystem,
+  InputSystem,
   RotatingSquareSystem,
   TimerSystem
 } from "/source/component";
@@ -51,7 +51,7 @@ export class MainScene extends Scene {
 
   private initializeSystems(): void {
     this.world.add(new RotatingSquareSystem());
-    this.world.add(new InputManagerSystem());
+    this.world.add(new InputSystem());
     this.world.add(new TimerSystem());
     this.world.add(new AutoKillSystem("field"));
   }

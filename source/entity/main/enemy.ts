@@ -109,12 +109,12 @@ export class Enemy extends Actor {
       this.activationTimer += delta;
       this.graphics.opacity = this.activationTimer / ENEMY_PROPS.activationDuration;
       if (this.activationTimer >= ENEMY_PROPS.activationDuration) {
-        const component = this.get(TimerComponent)!;
+        const timer = this.get(TimerComponent)!;
         this.graphics.opacity = 1;
         this.state = "move";
         this.changeDirection();
-        component.activate("shoot");
-        component.activate("changeDirection");
+        timer.activate("shoot");
+        timer.activate("changeDirection");
       }
     }
   }

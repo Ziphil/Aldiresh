@@ -8,7 +8,7 @@ import {
   vec
 } from "excalibur";
 import {
-  InputManagerComponent
+  InputComponent
 } from "/source/component";
 import {
   SPRITE_FONTS,
@@ -83,7 +83,7 @@ export class Button extends Actor {
   }
 
   private initializeComponents(engine: Engine): void {
-    const inputComponent = new InputManagerComponent();
+    const inputComponent = new InputComponent();
     this.addComponent(inputComponent);
   }
 
@@ -99,8 +99,8 @@ export class Button extends Actor {
   }
 
   private press(): void {
-    const inputManager = this.get(InputManagerComponent)!;
-    if (this.hovered && inputManager.buttonPressed) {
+    const input = this.get(InputComponent)!;
+    if (this.hovered && input.buttonPressed) {
       this.onPress();
     }
   }

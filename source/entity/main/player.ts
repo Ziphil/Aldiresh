@@ -10,7 +10,7 @@ import {
   vec
 } from "excalibur";
 import {
-  InputManagerComponent,
+  InputComponent,
   RotatingSquareComponent
 } from "/source/component";
 import {
@@ -87,15 +87,15 @@ export class Player extends Actor {
 
   private initializeComponents(engine: Engine): void {
     const squareComponent = new RotatingSquareComponent(PLAYER_PROPS.square);
-    const inputComponent = new InputManagerComponent();
+    const inputComponent = new InputComponent();
     this.addComponent(squareComponent);
     this.addComponent(inputComponent);
   }
 
   private move(delta: number): void {
-    const inputManager = this.get(InputManagerComponent)!;
-    this.vel.x += inputManager.primaryX * PLAYER_PROPS.acc * delta;
-    this.vel.y += inputManager.primaryY * PLAYER_PROPS.acc * delta;
+    const input = this.get(InputComponent)!;
+    this.vel.x += input.primaryX * PLAYER_PROPS.acc * delta;
+    this.vel.y += input.primaryY * PLAYER_PROPS.acc * delta;
     this.vel.x = Math.max(Math.min(this.vel.x, PLAYER_PROPS.maxVel), -PLAYER_PROPS.maxVel);
     this.vel.y = Math.max(Math.min(this.vel.y, PLAYER_PROPS.maxVel), -PLAYER_PROPS.maxVel);
     this.vel.x -= Math.min(Math.abs(this.vel.x), PLAYER_PROPS.friction * delta) * Math.sign(this.vel.x);
@@ -103,8 +103,8 @@ export class Player extends Actor {
   }
 
   private shoot(engine: Engine): void {
-    const inputManager = this.get(InputManagerComponent)!;
-    if (this.status.life > 0 && inputManager.buttonPressed) {
+    const input = this.get(InputComponent)!;
+    if (this.status.life > 0 && input.buttonPressed) {
       const target = this.target;
       const direction = target.pos.sub(this.pos).toAngle();
       const bullet = new Bullet({x: this.pos.x, y: this.pos.y, direction, owner: "player"});
